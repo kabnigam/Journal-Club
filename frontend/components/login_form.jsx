@@ -68,7 +68,7 @@ const LoginForm = React.createClass({
                     <input type='submit' value='LOG IN' />
 
                   </form>
-                  <div id='login-signup-guest'>Not a member? <button onClick={this._handleSignInRedirect}>Sign up</button> or <button onClick={this._handleGuestLogIn}>log in as guest!</button></div>
+                  <div id='login-signup-guest'>Not a member? <br/><button onClick={this._handleSignInRedirect}>Sign up</button> or <button onClick={this._handleGuestLogIn}>log in as guest!</button></div>
                 </div>
 
           </div>
