@@ -47,6 +47,7 @@ input[type=submit] {
   width: 100%;
   font-size: 35px;
   margin: 0 auto;
+  margin-top: 20px;
   color: white;
   font-family: inherit;
   font-weight: 700;

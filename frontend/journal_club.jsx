@@ -19,7 +19,7 @@ const App = React.createClass({
   },
   componentDidMount: function() {
     SessionStore.addListener(this._isLoggedIn);
-    if (!SessionStore.isUserLoggedIn()) {
+    if (!SessionStore.isUserLoggedIn() && this.props.location.pathname != "/signup") {
       hashHistory.push('/login');
     }
   },
