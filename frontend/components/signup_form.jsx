@@ -44,7 +44,7 @@ const SignupForm = React.createClass({
   },
 
   _handleGuestLogIn: function() {
-
+    SessionActions.login({username: 'Guest', password: 'password'});
   },
   render: function() {
 
