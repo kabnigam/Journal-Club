@@ -13,3 +13,89 @@
  *= require_tree .
  *= require_self
  */
+ body {
+   font-family: 'Dosis', sans-serif;
+   color: white;
+ }
+
+
+ .login-form {
+   margin: 0 auto;
+   width: 70%;
+   padding: 110px;
+   font-size: 40px;
+ }
+
+input[type=text] {
+    width: 65%;
+    font-size: 35px;
+    margin-bottom: 20px;
+    color: white;
+    font-family: inherit;
+    font-weight: inherit;
+}
+input[type=password] {
+    width: 65%;
+    font-size: 35px;
+    margin-bottom: 20px;
+    color: white;
+    font-family: inherit;
+    font-weight: inherit;
+}
+
+input[type=submit] {
+  width: 100%;
+  font-size: 35px;
+  margin: 0 auto;
+  color: white;
+  font-family: inherit;
+  font-weight: 700;
+  text-align: center;
+  border: 5px solid white;
+  border-radius: 10px;
+}
+
+input[type=submit]:hover {
+  background-color: black;
+  color: #66ffff;;
+}
+
+label {
+  font-weight: 600;
+}
+
+div#login-signup-guest {
+    margin: 0 auto;
+    width: 82%;
+    text-align: center;
+}
+
+div.errors {
+    padding-bottom: 20px;
+    font-size: 30px;
+}
+
+div#login-signup-guest > button {
+    font-size: inherit;
+    color: inherit;
+    font-family: inherit;
+    font-weight: 600;
+}
+div#login-signup-guest > button:hover {
+  color: #66ffff;;
+}
+
+ h1 {
+   font-size: 120px;
+   text-shadow: 2px 2px;
+   font-weight: 300;
+   margin: 0 auto;
+   width: 93%;
+ }
+ .splash {
+    background-image: url(https://pixabay.com/static/uploads/photo/2015/05/20/06/00/book-774837_960_720.jpg);
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+
+}
