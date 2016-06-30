@@ -17,7 +17,7 @@ div#side-panel {
 
 li {
     padding-bottom: 10px;
-    border: 1px solid lightgrey;
+    border-bottom: 1px solid lightgrey;
     margin: 10px;
     padding: 10px 20px;
     border-radius: 5px;

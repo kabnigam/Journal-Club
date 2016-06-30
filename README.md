@@ -1,7 +1,7 @@
 # Journal Club
 [Heroku link][heroku]
 
-[heroku]: http://www.herokuapp.com
+[heroku]: http://www.myjournal.club
 ## Minimum Viable Product
 Journal Club is a web application inspired by RapGenius that will be built using Ruby on Rails and React.js. By the end of week 9, this app will, at minimum, satisfy the following criteria:
 
