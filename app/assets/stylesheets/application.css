@@ -10,7 +10,9 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_tree .
+ *= require reset
+ *= require articleIndex
+ *= require navbar
  *= require_self
  */
  body {
@@ -19,9 +21,10 @@
  }
 
 
+
  .login-form {
    margin: 0 auto;
-   width: 70%;
+   width: 730px;
    padding: 110px;
    font-size: 40px;
  }
@@ -54,11 +57,13 @@ input[type=submit] {
   text-align: center;
   border: 5px solid white;
   border-radius: 10px;
+  box-sizing: border-box;
 }
 
 input[type=submit]:hover {
   background-color: black;
-  color: #66ffff;;
+  color: #66ffff;
+  box-sizing: border-box;
 }
 
 label {
@@ -91,12 +96,23 @@ div#login-signup-guest > button:hover {
    text-shadow: 2px 2px;
    font-weight: 300;
    margin: 0 auto;
-   width: 93%;
+   width: 100%;
  }
  .splash {
     background-image: url(https://pixabay.com/static/uploads/photo/2015/05/20/06/00/book-774837_960_720.jpg);
     background-size: cover;
     height: 100%;
     width: 100%;
+}
+.overlay {
+  height: 100%;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.2);
+}
 
+header {
+  color: black;
+}
+body {
+    background-color: #f2f2f2;
 }

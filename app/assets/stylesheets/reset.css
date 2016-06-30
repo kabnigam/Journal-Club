@@ -1,8 +1,8 @@
 /* PHASE 0: Reset */
 
 html, body, header, nav, h1, a,
-ul, li, strong, main, button, i,
-section, img, div, h2, p, form,
+ul, strong, main, button, i,
+section, img, div, p, form,
 fieldset, label, input, textarea,
 span, article, footer, time, small {
   margin: 0;
@@ -52,4 +52,8 @@ input[type="submit"] {
   content: "";
   display: block;
   clear: both;
+}
+
+body, html {
+  height: 100%;
 }

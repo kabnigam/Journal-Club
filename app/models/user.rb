@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id              :integer          not null, primary key
+#  email           :string           not null
+#  username        :string           not null
+#  password_digest :string           not null
+#  session_token   :string           not null
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
+
 class User < ActiveRecord::Base
   after_initialize :ensure_session_token
   attr_reader :password
@@ -6,6 +19,11 @@ class User < ActiveRecord::Base
   validates :password_digest, presence: true
   validates :password, length: {minimum: 6, allow_nil: true}
   validates :email, presence: true
+
+  has_many :articles,
+  primary_key: :id,
+  foreign_key: :user_id,
+  class_name: "Author"
 
   def password=(password)
     @password = password

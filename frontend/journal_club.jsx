@@ -9,13 +9,17 @@ const hashHistory = ReactRouter.hashHistory;
 //Components
 const LoginForm = require('./components/login_form');
 const SignupForm = require('./components/signup_form');
+const ArticlesIndex = require('./components/articles_index');
+const NavBar = require('./components/nav_bar');
 
 const SessionActions = window.SessionActions = require('./actions/session_actions');
 const SessionStore = window.SessionStore = require('./stores/session_store');
+const ArticlesActions = window.ArticlesActions = require('./actions/articles_actions');
+const ArticlesStore = window.ArticlesStore = require('./stores/articles_store');
 
 const App = React.createClass({
   getInitialState: function() {
-    return {logout: ''};
+    return {currentUser: SessionStore.currentUser()};
   },
   componentDidMount: function() {
     SessionStore.addListener(this._isLoggedIn);
@@ -25,24 +29,27 @@ const App = React.createClass({
   },
   _isLoggedIn() {
     if (SessionStore.isUserLoggedIn()) {
-      this.setState({logout: <button onClick={this._handleLogout}>Logout</button>});
-    } else {
-
-      this.setState({logout: ''});
+      this.setState({currentUser: SessionStore.currentUser()});
     }
   },
   _handleLogout(e) {
     e.preventDefault();
     SessionActions.logout();
   },
+
+
   render() {
+    let navbar = '';
+    if (SessionStore.isUserLoggedIn()) {
+      navbar = <NavBar />;
+    }
     return (
       <div>
         <header>
-          {SessionStore.currentUser().username}
-          {this.state.logout}
+          {navbar}
         </header>
         {this.props.children}
+
       </div>
     );
   }
@@ -51,6 +58,7 @@ const App = React.createClass({
 const routes = (
   <Router history={hashHistory}>
     <Route path='/' component={App}>
+      <IndexRoute component={ArticlesIndex} />
       <Route path='/login' component={LoginForm} />
       <Route path='/signup' component={SignupForm} />
 
@@ -59,5 +67,8 @@ const routes = (
 );
 
 document.addEventListener('DOMContentLoaded', function(){
+  if (window.currentUser) {
+    SessionActions.receiveCurrentUser(window.currentUser);
+  }
   ReactDOM.render(routes, document.getElementById('content'));
 });

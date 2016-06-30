@@ -45,10 +45,15 @@ const LoginForm = React.createClass({
     SessionActions.login({username: 'Guest', password: 'password'});
   },
 
+  _deezNuts: function() {
+    SessionActions.login();
+  },
+
   render: function() {
 
       return (
         <div className='splash'>
+          <div className='overlay'>
           <div className='login-form' >
             <h1>JOURNAL CLUB</h1>
             <div className='errors'>
@@ -71,6 +76,7 @@ const LoginForm = React.createClass({
                   <div id='login-signup-guest'>Not a member? <br/><button onClick={this._handleSignInRedirect}>Sign up</button> or <button onClick={this._handleGuestLogIn}>log in as guest!</button></div>
                 </div>
 
+          </div>
           </div>
         </div>
       );
