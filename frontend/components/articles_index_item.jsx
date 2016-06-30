@@ -7,6 +7,9 @@ const ArticlesIndexItem = React.createClass({
   render: function() {
     return (
       <li key={`article${this.props.article.id}`}>
+        <div id='posted-text'>
+          Posted by&nbsp;
+        </div>
         <div id="article-author">
           {this.props.article.username}
         </div>

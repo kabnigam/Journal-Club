@@ -41,7 +41,7 @@ header {
     display: none;
     position: absolute;
     right: 0%;
-    background-color: #f9f9f9;
+    background-color: white;
     min-width: 150px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 }
@@ -73,5 +73,16 @@ header {
 
 a {
   cursor: pointer;
+}
+
+div#site-name > img {
+  width: 60px;
+  height: 40px;
+}
+
+div#site-name {
+    display: flex;
+    align-items: center;
+    font-family: 'Dosis', sans-serif;
 }
 /* Change the background color of the dropdown button when the dropdown content is shown */

@@ -11,8 +11,12 @@ const NavBar = React.createClass({
     return (
       <div>
         <nav id='navbar'>
+
+
           <div id='site-name'>
+            
             JOURNAL CLUB
+            <img src="http://i.imgur.com/ixBgo1y.png"></img>
           </div>
           <div id='left'>
 

@@ -45,9 +45,6 @@ const LoginForm = React.createClass({
     SessionActions.login({username: 'Guest', password: 'password'});
   },
 
-  _deezNuts: function() {
-    SessionActions.login();
-  },
 
   render: function() {
 

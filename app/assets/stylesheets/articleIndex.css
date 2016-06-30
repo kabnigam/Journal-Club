@@ -5,33 +5,50 @@ div#index {
   display: flex;
   flex-direction: column;
   font-size: 17px;
-  background-color: #f2f2f2;
+  background-color: white;
 }
 
 div#side-panel {
     height: 100%;
-    width: 700px;
+    width: 900px;
     box-sizing: border-box;
     margin-top: 10px;
 }
 
 li {
     padding-bottom: 10px;
-    border: 2px solid lightgrey;
+    border: 1px solid lightgrey;
     margin: 10px;
-    padding: 10px;
+    padding: 10px 20px;
     border-radius: 5px;
     background-color: white;
+
 }
 
-h2 {
-  padding-bottom: 5px;
+li:hover {
+  box-shadow: 1px 1px 1px 1px;
+}
+
+li > h2 {
+  margin: 10px 0;
+  font-weight: bold;
 }
 
 div#article-author {
   font-size: 14px;
-
+  display: inline;
   color: #00BCD4;
+}
+
+
+
+span#together{
+  color: #66ffff;
+}
+
+div#posted-text {
+  font-size: 14px;
+  display: inline;
 }
 
 div#articles {
@@ -43,18 +60,22 @@ div#index-splash {
   background-size: cover;
   height: 300px;
   padding-top: 8px;
-  padding-left: 8px;
+  padding-left: 20px;
+
 }
 
 div#index-splash > h2 {
   font-size: 55px;
   margin-bottom: 5px;
   padding-bottom: 0px;
+  font-family: 'Dosis', sans-serif;
 }
+
+
 
 div#index-splash > h3 {
   font-size: 30px;
   width: 600px;
-  padding-left: 30px;
+  padding-left: 0px;
   margin-top: 10px;
 }
