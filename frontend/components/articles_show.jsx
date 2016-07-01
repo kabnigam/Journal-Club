@@ -1,13 +1,14 @@
 const React = require('react');
 const ArticlesActions = require('../actions/articles_actions');
 const ArticlesStore = require('../stores/articles_store');
+const ArticleAndHighlights = require('./articles_show_and_highlights');
 const ToolSidebar = require('./scroll_toolbar');
 
 const ArticlesShow = React.createClass({
   getInitialState: function() {
     this.articleId = parseInt(this.props.params.articleId);
     this.article = ArticlesStore.find(this.articleId);
-    return {title: '', body: '', edit: false};
+    return {title: '', body: '', edit: false, highlight: false};
   },
   componentDidMount: function() {
     this.listener = ArticlesStore.addListener(this._onChange);
@@ -30,6 +31,19 @@ const ArticlesShow = React.createClass({
       id: this.articleId
     });
     this.setState({edit: false});
+  },
+  _highlightMode: function() {
+    this.setState({highlight: !this.state.highlight});
+    if (this.state.highlight === true) {
+      document.getElementById('article-show-body').addEventListener("mouseup", function (e) {
+        console.log(window.getSelection());
+        let target = window.getSelection();
+        let start = target.anchorOffset;
+        let end = target.focusOffset;
+
+        $('pre').html($('pre').html().slice(0,start) + '<span style="background-color: yellow">' + $('pre').html().slice(start,end) + '</span>' + $('pre').html().slice(end));
+      });
+    }
   },
   _editTitle: function(e) {
     this.setState({title: e.target.value});
@@ -91,7 +105,7 @@ const ArticlesShow = React.createClass({
                 {this.article.body}
               </pre>
             </div>
-            <ToolSidebar user={this.article.username} articleId={this.articleId} editMode={this._editMode}/>
+            <ToolSidebar user={this.article.username} articleId={this.articleId} editMode={this._editMode} highlightMode={this._highlightMode}/>
           </div>
       </div>
     );

@@ -27,6 +27,10 @@ const ToolSidebar = React.createClass({
     this.props.saveMode();
     this.setState({edit: false});
   },
+  _handleHighlight: function() {
+    this.props.highlightMode();
+  },
+
   componentWillUnmount: function() {
     window.removeEventListener('scroll', this._scrollHeight);
   },
@@ -43,6 +47,7 @@ const ToolSidebar = React.createClass({
     return (
       <div className={`tools-sidebar ${this.state.klass}`}>
         {edit_delete}
+        <button onClick={this._handleHighlight} className='highlight edit-delete'>HIGHLIGHT</button>
       </div>
     );
   }

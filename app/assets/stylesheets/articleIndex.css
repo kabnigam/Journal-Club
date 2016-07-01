@@ -87,4 +87,6 @@ div#index-splash > h3 {
   width: 550px;
   padding-left: 0px;
   margin-top: 10px;
+  font-weight: 300;
+  font-family: 'Dosis', sans-serif;
 }

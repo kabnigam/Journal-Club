@@ -139,6 +139,9 @@ div#article-and-sidebar {
     border-bottom: 1px solid grey;
 }
 
+.edit-delete:hover {
+  font-weight: bold;
+}
 
 
 div#article-edit-title {

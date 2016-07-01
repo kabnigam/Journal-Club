@@ -25,6 +25,11 @@ class User < ActiveRecord::Base
   foreign_key: :user_id,
   class_name: "Author"
 
+  has_many :highlights,
+  primary_key: :id,
+  foreign_key: :user_id,
+  class_name: 'Highlight'
+
   def password=(password)
     @password = password
     self.password_digest = BCrypt::Password.create(password)
