@@ -104,7 +104,7 @@ div#login-signup-guest > button:hover {
  .splash {
     background-image: url(https://pixabay.com/static/uploads/photo/2015/05/20/06/00/book-774837_960_720.jpg);
     background-size: cover;
-    height: 100vh;
+    height: 100%;
     width: 100%;
 }
 .overlay {

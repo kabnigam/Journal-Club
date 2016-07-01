@@ -4,13 +4,13 @@ const ArticlesActions = require('../actions/articles_actions');
 
 const ToolSidebar = React.createClass({
   getInitialState: function() {
-    return {klass: 'absolute'};
+    return {klass: 'absolute', edit: false};
   },
   componentDidMount: function() {
     window.addEventListener('scroll', this._scrollHeight);
   },
-  _scrollHeight: function(event) {
-    if (window.scrollY > 508) {
+  _scrollHeight: function() {
+    if (window.scrollY > $("div#article-and-sidebar").offset().top) {
       this.setState({klass: 'fixed'});
     } else {
       this.setState({klass: 'absolute'});
@@ -19,14 +19,26 @@ const ToolSidebar = React.createClass({
   _handleDelete: function() {
     ArticlesActions.deleteArticle(this.props.articleId);
   },
+  _handleEdit: function() {
+    this.props.editMode();
+    this.setState({edit: true});
+  },
+  _handleSave: function() {
+    this.props.saveMode();
+    this.setState({edit: false});
+  },
   componentWillUnmount: function() {
     window.removeEventListener('scroll', this._scrollHeight);
   },
   render: function() {
     let edit_delete = [];
     if (SessionStore.currentUser().username === this.props.user) {
-      edit_delete.push(<button className='edit-delete'>EDIT</button>);
-      edit_delete.push(<button onClick={this._handleDelete}className='edit-delete'>DELETE</button>);
+      if (this.state.edit) {
+        edit_delete.push(<button onClick={this._handleSave} className='edit-delete'>SAVE</button>);
+      } else {
+        edit_delete.push(<button onClick={this._handleEdit} className='edit-delete'>EDIT</button>);
+      }
+      edit_delete.push(<button onClick={this._handleDelete} className='edit-delete'>DELETE</button>);
     }
     return (
       <div className={`tools-sidebar ${this.state.klass}`}>

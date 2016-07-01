@@ -73,13 +73,18 @@ div#index-splash > h2 {
   margin-bottom: 5px;
   padding-bottom: 0px;
   font-family: 'Dosis', sans-serif;
+  font-weight: 300;
+  text-shadow: 2px 2px;
 }
 
-
+pre#article-body {
+  font-family: 'Pontano Sans', sans-serif;
+  white-space: pre-wrap;
+}
 
 div#index-splash > h3 {
-  font-size: 30px;
-  width: 600px;
+  font-size: 27px;
+  width: 550px;
   padding-left: 0px;
   margin-top: 10px;
 }

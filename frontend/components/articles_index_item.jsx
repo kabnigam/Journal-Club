@@ -25,9 +25,9 @@ const ArticlesIndexItem = React.createClass({
           {this.props.article.title}
         </h2>
 
-        <div id='article-body'>
+        <pre id='article-body'>
           {this.props.article.body.slice(0,300)+'...'}
-        </div>
+        </pre>
       </li>
     );
   }
