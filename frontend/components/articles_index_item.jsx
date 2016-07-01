@@ -4,9 +4,12 @@ const ArticlesStore = require('../stores/articles_store');
 const hashHistory = require('react-router').hashHistory;
 
 const ArticlesIndexItem = React.createClass({
+  _showRedirect: function() {
+    hashHistory.push(`/articles/${this.props.article.id}`);
+  },
   render: function() {
     return (
-      <li key={`article${this.props.article.id}`}>
+      <li key={`article${this.props.article.id}`} onClick={this._showRedirect}>
         <div id='posted-text'>
           Posted by&nbsp;
         </div>

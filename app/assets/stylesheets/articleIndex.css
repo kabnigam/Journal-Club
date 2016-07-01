@@ -27,11 +27,13 @@ li {
 
 li:hover {
   box-shadow: 1px 1px 1px 1px;
+  cursor: pointer;
 }
 
 li > h2 {
   margin: 10px 0;
-  font-weight: bold;
+  font-weight: normal;
+  font-family: 'Dosis', sans-serif;
 }
 
 div#article-author {
@@ -54,6 +56,8 @@ div#posted-text {
 div#articles {
   display: flex;
 }
+
+
 
 div#index-splash {
   background-image: url(http://wallzoa.com/wp-content/uploads/2013/06/earth-space-background.jpg);

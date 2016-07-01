@@ -1,0 +1,139 @@
+div#article-show-container {
+  color: black;
+}
+
+div#article-show-image > img {
+  position: absolute;
+  
+  z-index: -1;
+  opacity: 0.7;
+}
+
+div#article-show-title > h1 {
+  font-size: 70px;
+  font-family: 'Dosis', sans-serif;
+  font-weight: 700px;
+  margin: 0 auto;
+  width: 70%;
+  text-align: center;
+  position: relative;
+  top: 100px;
+}
+
+div#article-content-container {
+    position: relative;
+    top: 200px;
+    background-color: white;
+
+}
+
+div#article-show-user > img {
+  width: 100px;
+  height: auto;
+  border-radius: 50%;
+  margin: 0 auto;
+  border: 3px solid black;
+  position: relative;
+  top: -60px;
+  -webkit-filter: grayscale(1);
+  filter: grayscale(1);
+}
+
+div#article-show-user {
+  text-align: center;
+  color: #33cc33;
+}
+
+div#article-show-user > h3 {
+  text-align: center;
+  position: relative;
+  top: -80px;
+}
+div#article-show-user > span {
+  color: black;
+}
+
+button#edit-article {
+  color: #66ffff;
+  border: 2px solid #66ffff;
+  font-size: 17px;
+  font-family: 'Pontano Sans', sans-serif;
+  padding: 10px 20px;
+  margin: 20px 20px;
+  border-radius: 20px;
+  width: 50px;
+  text-align: center;
+
+}
+
+button#delete-article {
+  color: red;
+  border: 2px solid red;
+  font-size: 17px;
+  font-family: 'Pontano Sans', sans-serif;
+  padding: 10px 20px;
+  margin: 20px 0;
+  border-radius: 20px;
+  width: 50px;
+  text-align: center;
+}
+
+
+#article-buttons{
+  margin: 0 auto;
+  width: 230px;
+  position: relative;
+  margin-bottom: 10px;
+  top: -80px;
+}
+
+
+div#article-and-sidebar {
+    width: 100%;
+}
+
+#tools-sidebar {
+    border-left: 1px solid gray;
+    width: 298px;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    background-color: blue;
+    right: 0;
+}
+
+.tools-sidebar {
+    border-left: 1px solid gray;
+    width: 250px;
+    height: 100vh;
+    top: 0;
+    right: 0;
+    margin-left: 10px;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.fixed {
+  position: fixed;
+}
+
+#article-show-body {
+  position:relative;
+  top: -80px;
+  margin: 0 5% 0 10%;
+  width: 65%;
+  display: inline-block;
+  font-family: 'Pontano Sans', sans-serif;
+  white-space: pre-wrap;
+}
+
+.edit-delete {
+    margin: 20px 20px;
+    padding-bottom: 20px;
+    font-size: 14px;
+    display: block;
+    width: 80%;
+    border-bottom: 1px solid grey;
+}

@@ -11,6 +11,7 @@ const LoginForm = require('./components/login_form');
 const SignupForm = require('./components/signup_form');
 const ArticlesIndex = require('./components/articles_index');
 const NavBar = require('./components/nav_bar');
+const ArticlesShow = require('./components/articles_show');
 
 const SessionActions = window.SessionActions = require('./actions/session_actions');
 const SessionStore = window.SessionStore = require('./stores/session_store');
@@ -61,6 +62,7 @@ const routes = (
       <IndexRoute component={ArticlesIndex} />
       <Route path='/login' component={LoginForm} />
       <Route path='/signup' component={SignupForm} />
+      <Route path='/articles/:articleId' component={ArticlesShow} />
 
     </Route>
   </Router>

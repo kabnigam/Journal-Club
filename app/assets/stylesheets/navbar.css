@@ -78,11 +78,16 @@ a {
 div#site-name > img {
   width: 60px;
   height: 40px;
+
 }
 
 div#site-name {
     display: flex;
     align-items: center;
     font-family: 'Dosis', sans-serif;
+}
+
+div#site-name:hover {
+  cursor: pointer;
 }
 /* Change the background color of the dropdown button when the dropdown content is shown */

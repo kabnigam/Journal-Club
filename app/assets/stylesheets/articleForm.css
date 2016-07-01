@@ -1,0 +1,69 @@
+div#add-article-click {
+  color: grey;
+  height: 50px;
+}
+
+div#add-article-click:hover {
+  cursor: auto;
+}
+
+input#create-article-title {
+  font-size: 25px;
+  padding-bottom: 10px;
+  font-family: 'Pontano Sans', sans-serif;
+  border-bottom: 1px solid lightgrey;
+  width: 100%;
+}
+
+input#create-article-source {
+  font-family: 'Pontano Sans', sans-serif;
+  font-size: 14px;
+}
+
+
+textarea {
+  padding: 10px 0;
+  width: 100%;
+  height: 200px;
+  font-size: 17px;
+  font-family: 'Pontano Sans', sans-serif;
+}
+
+input#create-article-submit {
+  border: 2px solid #33cc33;
+  color: #33cc33;
+  border-radius: 20px;
+}
+
+img#close-button {
+  height: auto;
+  width: 20px;
+  float: right;
+}
+
+img#create-article-button {
+  height: auto;
+  width: 20px;
+  display: inline;
+  position: relative;
+  top: 3px;
+  margin-right: 5px;
+  margin-top: 10px;
+}
+img#create-article-button:hover {
+  cursor: pointer;
+}
+
+button#create-article-submit {
+  color: #33cc33;
+  border: 2px solid #33cc33;
+  font-size: 17px;
+  font-family: 'Pontano Sans', sans-serif;
+  padding: 10px 20px;
+  margin: 20px 0;
+  border-radius: 20px;
+}
+button#create-article-submit:hover {
+  color: white;
+  background-color: #33cc33;
+}

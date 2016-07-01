@@ -3,18 +3,23 @@ const ArticlesActions = require('../actions/articles_actions');
 const ArticlesStore = require('../stores/articles_store');
 const ArticlesIndexItem = require('./articles_index_item');
 const hashHistory = require('react-router').hashHistory;
+const ArticleForm = require('./article_form');
 
 const ArticlesIndex = React.createClass({
   getInitialState: function() {
     return {articles: ArticlesStore.all()};
   },
   componentDidMount: function() {
-    ArticlesStore.addListener(this._onChange);
+    this.listener = ArticlesStore.addListener(this._onChange);
     ArticlesActions.fetchArticles();
   },
   _onChange: function() {
     this.setState({articles: ArticlesStore.all()});
   },
+  componentWillUnmount: function() {
+    this.listener.remove();
+  },
+
   render: function() {
     let articles = [];
     articles = this.state.articles.map(article => {
@@ -31,6 +36,7 @@ const ArticlesIndex = React.createClass({
 
           <div id='articles'>
             <ul id='articles-list'>
+              <li><ArticleForm /></li>
               {articles}
             </ul>
 

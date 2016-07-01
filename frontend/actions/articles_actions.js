@@ -1,6 +1,7 @@
 const AppDispatcher = require('../dispatcher/dispatcher');
 const ArticlesApiUtil = require('../util/articles_api_util');
 const ArticlesConstants = require('../constants/articles_constants');
+const hashHistory = require('react-router').hashHistory;
 
 const ArticlesActions = {
   createArticle(article) {
@@ -20,12 +21,14 @@ const ArticlesActions = {
       actionType: ArticlesConstants.RECEIVED_ARTICLE,
       article: article
     });
+    hashHistory.push(`/articles/${article.id}`);
   },
   receiveArticles(articles) {
     AppDispatcher.dispatch({
       actionType: ArticlesConstants.RECEIVED_ARTICLES,
       articles: articles
     });
+
   }
 };
 

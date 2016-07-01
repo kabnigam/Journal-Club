@@ -1,8 +1,12 @@
 const React = require('react');
 const SessionStore = require('../stores/session_store');
 const SessionActions = require('../actions/session_actions');
+const hashHistory = require('react-router').hashHistory;
 
 const NavBar = React.createClass({
+  _backHome() {
+    hashHistory.push('/');
+  },
   _handleLogout() {
     SessionActions.logout();
   },
@@ -13,8 +17,8 @@ const NavBar = React.createClass({
         <nav id='navbar'>
 
 
-          <div id='site-name'>
-            
+          <div id='site-name' onClick={this._backHome}>
+
             JOURNAL CLUB
             <img src="http://i.imgur.com/ixBgo1y.png"></img>
           </div>
