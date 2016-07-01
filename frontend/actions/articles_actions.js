@@ -16,6 +16,9 @@ const ArticlesActions = {
   fetchArticles() {
     ArticlesApiUtil.index(this.receiveArticles, error);
   },
+  deleteArticle(id) {
+    ArticlesApiUtil.destroy(id, this.removeArticle, error);
+  },
   receiveArticle(article) {
     AppDispatcher.dispatch({
       actionType: ArticlesConstants.RECEIVED_ARTICLE,
@@ -28,7 +31,13 @@ const ArticlesActions = {
       actionType: ArticlesConstants.RECEIVED_ARTICLES,
       articles: articles
     });
-
+  },
+  removeArticle(article) {
+    AppDispatcher.dispatch({
+      actionType: ArticlesConstants.REMOVE_ARTICLE,
+      article: article
+    });
+    hashHistory.push('/');
   }
 };
 

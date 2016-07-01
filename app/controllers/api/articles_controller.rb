@@ -30,6 +30,7 @@ class Api::ArticlesController < ApplicationController
   def destroy
     @article = Article.find(params[:id])
     @article.destroy
+    render :show
   end
 
   private

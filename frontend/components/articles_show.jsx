@@ -45,7 +45,7 @@ const ArticlesShow = React.createClass({
                 {this.state.article.body}
               </pre>
             </div>
-            <ToolSidebar user={this.state.article.username}/>
+            <ToolSidebar user={this.state.article.username} articleId={this.articleId}/>
           </div>
       </div>
     );

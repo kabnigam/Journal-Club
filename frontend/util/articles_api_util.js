@@ -48,7 +48,13 @@ const ArticlesApiUtil = {
     });
   },
   destroy(id, successCB) {
-
+    $.ajax({
+      url: `api/articles/${id}`,
+      method: 'DELETE',
+      success(response) {
+        successCB(response);
+      }
+    });
   }
 };
 

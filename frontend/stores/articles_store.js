@@ -19,6 +19,10 @@ function _addArticles(articles) {
   ArticlesStore.__emitChange();
 }
 
+function _removeArticle(article) {
+  delete _articles[article.id];
+}
+
 ArticlesStore.all = function() {
   let articles = [];
   Object.keys(_articles).forEach(id => {
@@ -34,6 +38,9 @@ ArticlesStore.__onDispatch = function(payload) {
       break;
     case ArticlesConstants.RECEIVED_ARTICLES:
       _addArticles(payload.articles);
+      break;
+    case ArticlesConstants.REMOVE_ARTICLE:
+      _removeArticle(payload.article);
       break;
   }
 };
