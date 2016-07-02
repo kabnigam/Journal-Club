@@ -24,7 +24,7 @@ class Api::HighlightsController < ApplicationController
   end
 
   private
-  def article_params
+  def highlight_params
     params.require(:highlight).permit(:start_index, :end_index, :article_id)
   end
 end

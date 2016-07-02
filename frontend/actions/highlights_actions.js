@@ -5,25 +5,25 @@ const hashHistory = require('react-router').hashHistory;
 
 const HighlightsActions = {
   createHighlight(highlight) {
-    HighlightsApiUtil.create(highlight, this.receiveArticle, error);
+    HighlightsApiUtil.create(highlight, HighlightsActions.receiveHighlight, error);
   },
   fetchHighlight(id) {
-    HighlightsApiUtil.show(id, this.receiveArticle, error);
+    HighlightsApiUtil.show(id, HighlightsActions.receiveHighlight, error);
   },
-  fetchHighlights() {
-    HighlightsApiUtil.index(this.receiveHighlights, error);
+  fetchHighlights(article_id) {
+    HighlightsApiUtil.index(parseInt(article_id), HighlightsActions.receiveHighlights, error);
   },
   deleteHighlight(id) {
-    HighlightsApiUtil.destroy(id, this.removeArticle, error);
+    HighlightsApiUtil.destroy(id, HighlightsActions.removeHighlight, error);
   },
   receiveHighlight(highlight) {
     AppDispatcher.dispatch({
       actionType: HighlightsConstants.RECEIVED_HIGHLIGHT,
       highlight: highlight
     });
-    hashHistory.push(`/highlights/${highlight.id}`);
   },
   receiveHighlights(highlights) {
+    
     AppDispatcher.dispatch({
       actionType: HighlightsConstants.RECEIVED_HIGHLIGHTS,
       highlights: highlights

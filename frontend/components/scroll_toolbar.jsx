@@ -28,6 +28,7 @@ const ToolSidebar = React.createClass({
     this.setState({edit: false});
   },
   _handleHighlight: function() {
+    
     this.props.highlightMode();
   },
 

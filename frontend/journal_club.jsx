@@ -17,6 +17,8 @@ const SessionActions = window.SessionActions = require('./actions/session_action
 const SessionStore = window.SessionStore = require('./stores/session_store');
 const ArticlesActions = window.ArticlesActions = require('./actions/articles_actions');
 const ArticlesStore = window.ArticlesStore = require('./stores/articles_store');
+const HighlightsStore = window.HighlightsStore = require('./stores/highlights_store');
+const HighlightsActions = window.HighlightsActions = require('./actions/highlights_actions');
 
 const App = React.createClass({
   getInitialState: function() {

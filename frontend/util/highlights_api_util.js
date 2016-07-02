@@ -1,5 +1,6 @@
 const HighlightsApiUtil = {
   create(data, successCB, errorsCB) {
+
     $.ajax({
       url: 'api/highlights',
       method: 'POST',
@@ -23,9 +24,10 @@ const HighlightsApiUtil = {
       }
     });
   },
-  index(successCB, errorsCB) {
+  index(article_id, successCB, errorsCB) {
     $.ajax({
       url: 'api/highlights',
+      data: {highlight: {article_id: article_id}},
       success(response) {
         successCB(response);
       },

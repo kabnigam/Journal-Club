@@ -120,7 +120,23 @@ div#article-and-sidebar {
   position: fixed;
 }
 
-#article-show-body {
+pre#article {
+  position: relative;
+  display: inline-block;
+  font-family: 'Pontano Sans', sans-serif;
+  white-space: pre-wrap;
+}
+
+pre#ghost-article {
+  position: absolute;
+  z-index: 1;
+  color: transparent;
+  display: inline-block;
+  font-family: 'Pontano Sans', sans-serif;
+  white-space: pre-wrap;
+}
+
+div.show-body {
   position:relative;
   top: -80px;
   margin: 0 5% 0 10%;
@@ -179,4 +195,9 @@ textarea#edit-body {
 div#article-edit-body{
   margin: 0 auto;
   width: 80%;
+}
+
+.highlighted-text {
+  background-color: yellow;
+  
 }

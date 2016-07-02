@@ -32,24 +32,17 @@ const ArticlesShow = React.createClass({
     });
     this.setState({edit: false});
   },
-  _highlightMode: function() {
-    this.setState({highlight: !this.state.highlight});
-    if (this.state.highlight === true) {
-      document.getElementById('article-show-body').addEventListener("mouseup", function (e) {
-        console.log(window.getSelection());
-        let target = window.getSelection();
-        let start = target.anchorOffset;
-        let end = target.focusOffset;
 
-        $('pre').html($('pre').html().slice(0,start) + '<span style="background-color: yellow">' + $('pre').html().slice(start,end) + '</span>' + $('pre').html().slice(end));
-      });
-    }
-  },
   _editTitle: function(e) {
     this.setState({title: e.target.value});
   },
   _editBody: function(e) {
     this.setState({body: e.target.value});
+  },
+  _triggerHighlightMode: function() {
+    
+    this.setState({highlight: true});
+
   },
 
   render: function() {
@@ -84,6 +77,7 @@ const ArticlesShow = React.createClass({
         </div>
       );
     }
+
     return (
       <div id='article-show-container'>
         <div id='article-show-image'>
@@ -101,11 +95,9 @@ const ArticlesShow = React.createClass({
                 <img src='http://errantscience.com/wp-content/uploads/Duck-face.jpg' />
                 <h3>Posted by <span id='username'>{this.article.username}</span></h3>
               </div>
-              <pre id='article-show-body'>
-                {this.article.body}
-              </pre>
+              <ArticleAndHighlights article={this.article} highlightState={this.state.highlight}/>
             </div>
-            <ToolSidebar user={this.article.username} articleId={this.articleId} editMode={this._editMode} highlightMode={this._highlightMode}/>
+            <ToolSidebar user={this.article.username} articleId={this.articleId} editMode={this._editMode} highlightMode={this._triggerHighlightMode}/>
           </div>
       </div>
     );

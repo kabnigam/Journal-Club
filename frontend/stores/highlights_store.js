@@ -16,29 +16,35 @@ function _addHighlights(highlights) {
   highlights.forEach(highlight => {
     _highlights[highlight.start_index] = highlight;
   });
+  HighlightsStore.__emitChange();
 }
 
 function _removeHighlight(highlight) {
   delete _highlights[highlight.start_index];
+  HighlightsStore.__emitChange();
 }
 
 HighlightsStore.all = function() {
   let highlights = [];
-  Object.keys(_highlights).reverse().forEach(idx => {
+  Object.keys(_highlights).forEach(idx => {
     highlights.push(_highlights[idx]);
   });
   return highlights;
 };
 
+HighlightsStore.reset = function() {
+  _highlights = {};
+};
+
 HighlightsStore.__onDispatch = function(payload) {
   switch (payload.actionType) {
-    case HighlightsConstants.RECEIVED_ARTICLE:
+    case HighlightsConstants.RECEIVED_HIGHLIGHT:
       _addHighlight(payload.highlight);
       break;
-    case HighlightsConstants.RECEIVED_ARTICLES:
+    case HighlightsConstants.RECEIVED_HIGHLIGHTS:
       _addHighlights(payload.highlights);
       break;
-    case HighlightsConstants.REMOVE_ARTICLE:
+    case HighlightsConstants.REMOVE_HIGHLIGHT:
       _removeHighlight(payload.highlight);
       break;
   }
