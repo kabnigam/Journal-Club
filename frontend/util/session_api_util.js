@@ -35,6 +35,16 @@ const SessionApiUtil = {
         successCB(response);
       }
     });
+  },
+
+  index(params, successCB) {
+    $.ajax({
+      url: 'api/users',
+      data: {query: {search: params}},
+      success(response) {
+        successCB(response);
+      }
+    });
   }
 };
 

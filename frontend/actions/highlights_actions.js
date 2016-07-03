@@ -14,7 +14,7 @@ const HighlightsActions = {
     HighlightsApiUtil.index(parseInt(article_id), HighlightsActions.receiveHighlights, error);
   },
   deleteHighlight(id) {
-    HighlightsApiUtil.destroy(id, HighlightsActions.removeHighlight, error);
+    HighlightsApiUtil.destroy(id, HighlightsActions.removeHighlight);
   },
   receiveHighlight(highlight) {
     AppDispatcher.dispatch({
@@ -23,7 +23,7 @@ const HighlightsActions = {
     });
   },
   receiveHighlights(highlights) {
-    
+
     AppDispatcher.dispatch({
       actionType: HighlightsConstants.RECEIVED_HIGHLIGHTS,
       highlights: highlights

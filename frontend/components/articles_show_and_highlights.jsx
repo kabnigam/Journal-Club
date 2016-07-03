@@ -4,7 +4,7 @@ const HighlightsStore = require('../stores/highlights_store');
 
 const ArticleAndHighlights = React.createClass({
   getInitialState: function() {
-    return {highlights: HighlightsStore.all(), highlight_state: this.props.highlightState};
+    return {highlights: [], highlight_state: this.props.highlightState};
   },
   componentDidMount: function() {
     this.listener = HighlightsStore.addListener(this._onChange);
@@ -28,10 +28,51 @@ const ArticleAndHighlights = React.createClass({
         let target = window.getSelection();
         let start = target.anchorOffset;
         let end = target.focusOffset;
-        if (start !== end) {
-          HighlightsActions.createHighlight({start_index: start, end_index: end, article_id: this.props.article.id});
-        }
+
+        this._handleOverlap(start, end);
       });
+    }
+  },
+  _handleOverlap: function(start, end) {
+    let iterator = this.state.highlights.slice();
+    
+    let found = false;
+    if (this.state.highlights.length === 0) {
+      HighlightsActions.createHighlight({start_index: start, end_index: end, article_id: this.props.article.id});
+    }
+    iterator.forEach(highlight => {
+      let hlStart = highlight.start_index;
+      let hlEnd = highlight.end_index;
+      if (start >= hlStart && start < hlEnd) {
+        found = true;
+
+        HighlightsActions.deleteHighlight(highlight.id);
+        if (start !== hlStart){
+
+          HighlightsActions.createHighlight({start_index: hlStart, end_index: start, article_id: this.props.article.id});
+        }
+        if (end > hlEnd){
+
+          HighlightsActions.createHighlight({start_index: hlEnd, end_index: end, article_id: this.props.article.id});
+        } else if (end !== hlEnd) {
+
+          HighlightsActions.createHighlight({start_index: end, end_index: hlEnd, article_id: this.props.article.id});
+        }
+      }
+      else if (end > hlStart && end <= hlEnd) {
+        found = true;
+
+        HighlightsActions.deleteHighlight(highlight.id);
+        if (end !== hlEnd){
+
+          HighlightsActions.createHighlight({start_index: end, end_index: hlEnd, article_id: this.props.article.id});
+        }
+
+        HighlightsActions.createHighlight({start_index: start, end_index: hlStart, article_id: this.props.article.id});
+      }
+    });
+    if (!found) {
+      HighlightsActions.createHighlight({start_index: start, end_index: end, article_id: this.props.article.id});
     }
   },
   _createBody: function() {

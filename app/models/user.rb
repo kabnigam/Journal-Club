@@ -10,7 +10,7 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #
-
+require 'byebug'
 class User < ActiveRecord::Base
   after_initialize :ensure_session_token
   attr_reader :password
@@ -47,6 +47,11 @@ class User < ActiveRecord::Base
 
   def ensure_session_token
     self.session_token ||= self.class.generate_session_token
+  end
+
+  def self.search_for(params)
+    query = params[:search] + '%'
+    self.where("UPPER(username) LIKE UPPER(?)", query)
   end
 
   def self.generate_session_token

@@ -90,4 +90,20 @@ div#site-name {
 div#site-name:hover {
   cursor: pointer;
 }
+
+.search-bar {
+  border: 1px solid black;
+  padding: 5px;
+  padding-left: 10px;
+  border-radius: 20px;
+  margin: 10px;
+  height: 20px;
+  font-size: 14px;
+}
+
+.search-content {
+    display: block;
+    right: 523px;
+    top: 46px;
+}
 /* Change the background color of the dropdown button when the dropdown content is shown */

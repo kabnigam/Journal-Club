@@ -15,6 +15,9 @@ const SessionActions = {
   logout() {
     SessionApiUtil.logout(this.removeCurrentUser);
   },
+  searchUsers(params) {
+    SessionApiUtil.index(params, this.receiveSearchResults);
+  },
   receiveCurrentUser(user) {
     AppDispatcher.dispatch({
       actionType: SessionConstants.LOGIN,
@@ -26,6 +29,13 @@ const SessionActions = {
       actionType: SessionConstants.LOGOUT
     });
     hashHistory.push("/login");
+  },
+  receiveSearchResults(users) {
+    
+    AppDispatcher.dispatch({
+      actionType: SessionConstants.RECEIVE_USER_RESULTS,
+      users: users
+    });
   }
 };
 

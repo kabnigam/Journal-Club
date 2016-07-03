@@ -51,29 +51,28 @@ const LoginForm = React.createClass({
       return (
         <div className='splash'>
           <div className='overlay'>
-          <div className='login-form' >
-            <h1>JOURNAL CLUB</h1>
-            <div className='errors'>
-              {this.state.errors.map(error => {
-                return <li>{error}</li>;})}
-            </div>
-                <div className='login-input'>
-                  <form onSubmit={this._handleSubmit}>
-                    <label>USERNAME:&nbsp;
-                      <input type='text' value={this.state.username} onChange={this._handleUsername} />
-                    </label>
-                    <br/>
-                    <label>PASSWORD:&nbsp;
-                      <input type='password' value={this.state.password} onChange={this._handlePassword} />
-                    </label>
-                    <br/>
-                    <input type='submit' value='LOG IN' />
+            <div className='login-form' >
+              <h1>JOURNAL CLUB</h1>
+              <div className='errors'>
+                {this.state.errors.map(error => {
+                  return <li>{error}</li>;})}
+              </div>
+                  <div className='login-input'>
+                    <form onSubmit={this._handleSubmit}>
+                      <label>USERNAME:&nbsp;
+                        <input type='text' value={this.state.username} onChange={this._handleUsername} />
+                      </label>
+                      <br/>
+                      <label>PASSWORD:&nbsp;
+                        <input type='password' value={this.state.password} onChange={this._handlePassword} />
+                      </label>
+                      <br/>
+                      <input type='submit' value='LOG IN' />
 
-                  </form>
-                  <div id='login-signup-guest'>Not a member? <br/><button onClick={this._handleSignInRedirect}>Sign up</button> or <button onClick={this._handleGuestLogIn}>log in as guest!</button></div>
+                    </form>
+                    <div id='login-signup-guest'>Not a member? <br/><button onClick={this._handleSignInRedirect}>Sign up</button> or <button onClick={this._handleGuestLogIn}>log in as guest!</button></div>
                 </div>
-
-          </div>
+            </div>
           </div>
         </div>
       );

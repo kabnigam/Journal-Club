@@ -50,30 +50,33 @@ const SignupForm = React.createClass({
 
       return (
         <div className='splash'>
-          <div className='login-form' >
-            <h1>JOURNAL CLUB</h1>
-            <div className='errors'>
-              {this.state.errors.map(error => {
-                return <li>{error}</li>;})}
-            </div>
-                <div className='login-input'>
-                  <form onSubmit={this._handleSubmit}>
-                    <label>EMAIL:&nbsp;
-                      <input type='text' value={this.state.email} onChange={this._handleEmail} />
-                    </label>
-                    <label>USERNAME:&nbsp;
-                      <input type='text' value={this.state.username} onChange={this._handleUsername} />
-                    </label>
-                    <br/>
-                    <label>PASSWORD:&nbsp;
-                      <input type='password' value={this.state.password} onChange={this._handlePassword} />
-                    </label>
-                    <br/>
-                    <input type='submit' value='SIGN UP' />
+          <div className='overlay'>
 
-                  </form>
-                  <div id='login-signup-guest'>Already a member? <br/><button onClick={this._handleLogInRedirect}>Log in</button> or <button onClick={this._handleGuestLogIn}>log in as guest!</button></div>
-                </div>
+            <div className='login-form' >
+              <h1>JOURNAL CLUB</h1>
+              <div className='errors'>
+                {this.state.errors.map(error => {
+                  return <li>{error}</li>;})}
+                  </div>
+                  <div className='login-input'>
+                    <form onSubmit={this._handleSubmit}>
+                      <label>EMAIL:&nbsp;
+                        <input type='text' value={this.state.email} onChange={this._handleEmail} />
+                      </label>
+                      <label>USERNAME:&nbsp;
+                        <input type='text' value={this.state.username} onChange={this._handleUsername} />
+                      </label>
+                      <br/>
+                      <label>PASSWORD:&nbsp;
+                        <input type='password' value={this.state.password} onChange={this._handlePassword} />
+                      </label>
+                      <br/>
+                      <input type='submit' value='SIGN UP' />
+
+                    </form>
+                    <div id='login-signup-guest'>Already a member? <br/><button onClick={this._handleLogInRedirect}>Log in</button> or <button onClick={this._handleGuestLogIn}>log in as guest!</button></div>
+                  </div>
+          </div>
 
           </div>
         </div>

@@ -1,3 +1,4 @@
+
 class Api::UsersController < ApplicationController
   def create
     @user = User.new(user_params)
@@ -9,9 +10,20 @@ class Api::UsersController < ApplicationController
     end
   end
 
+  def index
+    @users = search_params[:search].strip.length == 0 ? [] : User.search_for(search_params)
+    render :index
+  end
+
+
+
   private
 
   def user_params
     params.require(:user).permit(:username, :password, :email)
+  end
+
+  def search_params
+    params.require(:query).permit(:search)
   end
 end

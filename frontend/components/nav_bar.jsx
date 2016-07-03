@@ -2,6 +2,7 @@ const React = require('react');
 const SessionStore = require('../stores/session_store');
 const SessionActions = require('../actions/session_actions');
 const hashHistory = require('react-router').hashHistory;
+const SearchBar = require('./search_bar');
 
 const NavBar = React.createClass({
   _backHome() {
@@ -22,6 +23,7 @@ const NavBar = React.createClass({
             JOURNAL CLUB
             <img src="http://i.imgur.com/ixBgo1y.png"></img>
           </div>
+          <SearchBar />
           <div id='left'>
 
             <div id='username'>
