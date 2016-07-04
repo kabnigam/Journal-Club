@@ -23,8 +23,8 @@ const NavBar = React.createClass({
             JOURNAL CLUB
             <img src="http://i.imgur.com/ixBgo1y.png"></img>
           </div>
-          <SearchBar />
           <div id='left'>
+            <SearchBar />
 
             <div id='username'>
               {SessionStore.currentUser().username}

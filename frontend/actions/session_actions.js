@@ -18,9 +18,18 @@ const SessionActions = {
   searchUsers(params) {
     SessionApiUtil.index(params, this.receiveSearchResults);
   },
+  findUser(id) {
+    SessionApiUtil.find(id, this.receiveUser);
+  },
   receiveCurrentUser(user) {
     AppDispatcher.dispatch({
       actionType: SessionConstants.LOGIN,
+      user: user
+    });
+  },
+  receiveUser(user) {
+    AppDispatcher.dispatch({
+      actionType: SessionConstants.RECEIVE_USER,
       user: user
     });
   },
@@ -31,7 +40,7 @@ const SessionActions = {
     hashHistory.push("/login");
   },
   receiveSearchResults(users) {
-    
+
     AppDispatcher.dispatch({
       actionType: SessionConstants.RECEIVE_USER_RESULTS,
       users: users

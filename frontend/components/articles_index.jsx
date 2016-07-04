@@ -27,10 +27,12 @@ const ArticlesIndex = React.createClass({
     });
     return (
       <div>
+        <div className='overlay-index'>
 
-        <div id='index-splash'>
-          <h2>Explore the world <span id="together">together</span></h2>
-          <h3>Journal Club is a place for people to share and annotate articles with their peers so that everyone is on the same page.</h3>
+          <div id='index-splash'>
+            <h2>Explore the world <span id="together">together</span></h2>
+            <h3>Journal Club is a place for people to share and annotate articles with their peers so that everyone is on the same page.</h3>
+          </div>
         </div>
         <div id='index'>
 

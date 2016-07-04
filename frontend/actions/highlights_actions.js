@@ -34,7 +34,6 @@ const HighlightsActions = {
       actionType: HighlightsConstants.REMOVE_HIGHLIGHT,
       highlight: highlight
     });
-    hashHistory.push('/');
   }
 };
 

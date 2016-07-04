@@ -1,3 +1,4 @@
+require 'byebug'
 class Api::ArticlesController < ApplicationController
   def show
     @article = Article.find(params[:id])
@@ -24,7 +25,11 @@ class Api::ArticlesController < ApplicationController
   end
 
   def index
-    @articles = Article.all
+    if (search_params[:search] != 'false')
+      @articles = search_params[:search].strip.length == 0 ? [] : Article.search_for(search_params)
+    else
+      @articles = Article.all
+    end
   end
 
   def destroy
@@ -37,5 +42,9 @@ class Api::ArticlesController < ApplicationController
 
   def article_params
     params.require(:article).permit(:title, :body, :source)
+  end
+
+  def search_params
+    params.require(:query).permit(:search)
   end
 end

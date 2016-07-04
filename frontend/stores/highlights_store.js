@@ -12,7 +12,8 @@ function _addHighlight(highlight) {
   HighlightsStore.__emitChange();
 }
 
-function _addHighlights(highlights) {
+function _setHighlights(highlights) {
+  _highlights = {};
   highlights.forEach(highlight => {
     _highlights[highlight.start_index] = highlight;
   });
@@ -20,6 +21,7 @@ function _addHighlights(highlights) {
 }
 
 function _removeHighlight(highlight) {
+  debugger
   delete _highlights[highlight.start_index];
   HighlightsStore.__emitChange();
 }
@@ -42,7 +44,7 @@ HighlightsStore.__onDispatch = function(payload) {
       _addHighlight(payload.highlight);
       break;
     case HighlightsConstants.RECEIVED_HIGHLIGHTS:
-      _addHighlights(payload.highlights);
+      _setHighlights(payload.highlights);
       break;
     case HighlightsConstants.REMOVE_HIGHLIGHT:
       _removeHighlight(payload.highlight);

@@ -16,6 +16,8 @@
  *= require articleshow
  *= require_self
  *= require articleForm
+ *= require userShow
+
  */
  body {
    /*font-family: 'Dosis', sans-serif;*/

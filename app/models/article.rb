@@ -11,6 +11,14 @@ class Article < ActiveRecord::Base
   foreign_key: :article_id,
   class_name: 'Highlight'
 
+  has_many :comments,
+  primary_key: :id,
+  foreign_key: :article_id,
+  class_name: 'Comment'
 
+  def self.search_for(params)
+    query = params[:search] + '%'
+    self.where("UPPER(title) LIKE UPPER(?)", query)
+  end
 
 end

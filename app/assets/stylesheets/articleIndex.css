@@ -62,7 +62,7 @@ div#articles {
 div#index-splash {
   background-image: url(http://wallzoa.com/wp-content/uploads/2013/06/earth-space-background.jpg);
   background-size: cover;
-  height: 300px;
+  height: 20%;
   padding-top: 8px;
   padding-left: 44px;
 
@@ -89,4 +89,11 @@ div#index-splash > h3 {
   margin-top: 10px;
   font-weight: 300;
   font-family: 'Dosis', sans-serif;
+}
+
+.overlay-index {
+  height: 100%;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.2);
+
 }

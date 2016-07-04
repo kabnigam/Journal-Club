@@ -37,13 +37,25 @@ const ArticlesApiUtil = {
     });
   },
   index(successCB, errorCB) {
+
     $.ajax({
       url: 'api/articles',
+      data: {query: {search: false}},
       success(response) {
         successCB(response);
       },
       error(response) {
         errorCB(response);
+      }
+    });
+  },
+  search(params, successCB) {
+
+    $.ajax({
+      url: 'api/articles',
+      data: {query: {search: params}},
+      success(response) {
+        successCB(response);
       }
     });
   },

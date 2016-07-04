@@ -28,8 +28,11 @@ const ToolSidebar = React.createClass({
     this.setState({edit: false});
   },
   _handleHighlight: function() {
-    
+
     this.props.highlightMode();
+  },
+  _handleComment: function() {
+    this.props.commentMode();
   },
 
   componentWillUnmount: function() {
@@ -49,6 +52,7 @@ const ToolSidebar = React.createClass({
       <div className={`tools-sidebar ${this.state.klass}`}>
         {edit_delete}
         <button onClick={this._handleHighlight} className='highlight edit-delete'>HIGHLIGHT</button>
+        <button onClick={this._handleComment} className= 'highlight edit-delete'>COMMENT</button>
       </div>
     );
   }

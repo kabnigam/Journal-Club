@@ -23,12 +23,17 @@ class User < ActiveRecord::Base
   has_many :articles,
   primary_key: :id,
   foreign_key: :user_id,
-  class_name: "Author"
+  class_name: "Article"
 
   has_many :highlights,
   primary_key: :id,
   foreign_key: :user_id,
   class_name: 'Highlight'
+
+  has_many :comments,
+  primary_key: :id,
+  foreign_key: :user_id,
+  class_name: 'Comment'
 
   def password=(password)
     @password = password

@@ -1,14 +1,14 @@
 const React = require('react');
 const ArticlesActions = require('../actions/articles_actions');
 const ArticlesStore = require('../stores/articles_store');
-const ArticleAndHighlights = require('./articles_show_and_highlights');
+const ArticleAndAnnotations = require('./articles_show_and_highlights');
 const ToolSidebar = require('./scroll_toolbar');
 
 const ArticlesShow = React.createClass({
   getInitialState: function() {
     this.articleId = parseInt(this.props.params.articleId);
     this.article = ArticlesStore.find(this.articleId);
-    return {title: '', body: '', edit: false, highlight: false};
+    return {title: '', body: '', edit: false, highlight: false, comment: false};
   },
   componentDidMount: function() {
     this.listener = ArticlesStore.addListener(this._onChange);
@@ -40,12 +40,17 @@ const ArticlesShow = React.createClass({
     this.setState({body: e.target.value});
   },
   _triggerHighlightMode: function() {
-    
+
     this.setState({highlight: true});
 
   },
 
+  _triggerCommentMode: function() {
+    this.setState({comment: true});
+  },
+
   render: function() {
+
     if (!this.state.body) {
       return <div>loading...</div>;
     } else if (this.state.edit) {
@@ -64,7 +69,7 @@ const ArticlesShow = React.createClass({
             <div id="article-and-sidebar">
               <div id='article-show-user'>
                 <img src='http://errantscience.com/wp-content/uploads/Duck-face.jpg' />
-                <h3>Posted by <span id='username'>{this.article.username}</span></h3>
+                <h3>Posted by <span id='username'>{this.article.user.username}</span></h3>
               </div>
               <div id='article-edit-body'>
 
@@ -93,11 +98,11 @@ const ArticlesShow = React.createClass({
             <div id="article-and-sidebar">
               <div id='article-show-user'>
                 <img src='http://errantscience.com/wp-content/uploads/Duck-face.jpg' />
-                <h3>Posted by <span id='username'>{this.article.username}</span></h3>
+                <h3>Posted by <span id='username'>{this.article.user.username}</span></h3>
               </div>
-              <ArticleAndHighlights article={this.article} highlightState={this.state.highlight}/>
+              <ArticleAndAnnotations article={this.article} highlightState={this.state.highlight} commentState={this.state.comment}/>
             </div>
-            <ToolSidebar user={this.article.username} articleId={this.articleId} editMode={this._editMode} highlightMode={this._triggerHighlightMode}/>
+            <ToolSidebar user={this.article.username} articleId={this.articleId} editMode={this._editMode} highlightMode={this._triggerHighlightMode} commentMode={this._triggerCommentMode}/>
           </div>
       </div>
     );

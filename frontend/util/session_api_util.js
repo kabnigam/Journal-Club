@@ -45,6 +45,15 @@ const SessionApiUtil = {
         successCB(response);
       }
     });
+  },
+
+  find(id, successCB) {
+    $.ajax({
+      url: `api/users/${id}`,
+      success(response) {
+        successCB(response);
+      }
+    });
   }
 };
 

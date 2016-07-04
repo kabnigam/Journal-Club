@@ -19,6 +19,9 @@ const ArticlesActions = {
   deleteArticle(id) {
     ArticlesApiUtil.destroy(id, this.removeArticle, error);
   },
+  searchArticles(params) {
+    ArticlesApiUtil.search(params, this.receiveArticlesSearch);
+  },
   receiveArticle(article) {
     AppDispatcher.dispatch({
       actionType: ArticlesConstants.RECEIVED_ARTICLE,
@@ -38,6 +41,12 @@ const ArticlesActions = {
       article: article
     });
     hashHistory.push('/');
+  },
+  receiveArticlesSearch(articles) {
+    AppDispatcher.dispatch({
+      actionType: ArticlesConstants.RECEIVED_ARTICLES_SEARCH,
+      articles: articles
+    });
   }
 };
 
