@@ -10,7 +10,7 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #
-require 'byebug'
+
 class User < ActiveRecord::Base
   after_initialize :ensure_session_token
   attr_reader :password

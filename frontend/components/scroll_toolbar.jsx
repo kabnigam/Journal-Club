@@ -62,8 +62,8 @@ const ToolSidebar = React.createClass({
 
     let edit_delete = [];
     if (SessionStore.currentUser().username === this.props.user) {
-      debugger
-      if (this.state.edit) {
+
+      if (this.props.edit) {
         edit_delete.push(<button onClick={this._handleSave} className='edit-delete'>SAVE</button>);
         edit_delete.push(<button onClick={this._handleUpload} className='edit-delete'>UPLOAD IMAGE</button>);
       } else {

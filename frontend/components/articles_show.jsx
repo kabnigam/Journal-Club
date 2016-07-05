@@ -105,7 +105,7 @@ const ArticlesShow = React.createClass({
               </div>
             </div>
             <ToolSidebar user={this.article.user.username} articleId={this.articleId}
-              editMode={this._editMode} saveMode={this._saveMode} uploadMode={this._upload}/>
+              editMode={this._editMode} editState={this.state.edit} saveMode={this._saveMode} uploadMode={this._upload}/>
           </div>
         </div>
       );

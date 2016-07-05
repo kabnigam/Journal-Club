@@ -1,4 +1,4 @@
-require 'byebug'
+
 class Api::ArticlesController < ApplicationController
   def show
     @article = Article.find(params[:id])
