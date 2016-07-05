@@ -14,7 +14,7 @@ const ArticlesIndexItem = React.createClass({
           Posted by&nbsp;
         </div>
         <div id="article-author">
-          {this.props.article.username}
+          {this.props.article.user.username}
         </div>
 
         <div id="article-image">

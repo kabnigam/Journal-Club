@@ -36,7 +36,7 @@ const CommentsApiUtil = {
       }
     });
   },
-  
+
   destroy(id, successCB) {
     $.ajax({
       url: `api/comments/${id}`,
@@ -47,3 +47,5 @@ const CommentsApiUtil = {
     });
   }
 };
+
+module.exports = CommentsApiUtil;

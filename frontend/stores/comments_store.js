@@ -31,7 +31,11 @@ CommentsStore.all = function() {
   });
 };
 
-CommentsStore.onDispatch = function(payload) {
+CommentsStore.reset = function() {
+  _comments = {};
+};
+
+CommentsStore.__onDispatch = function(payload) {
   switch (payload.actionType) {
     case CommentsConstants.COMMENT_RECEIVED:
       _addComment(payload.comment);

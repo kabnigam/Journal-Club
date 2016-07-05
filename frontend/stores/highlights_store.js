@@ -21,7 +21,6 @@ function _setHighlights(highlights) {
 }
 
 function _removeHighlight(highlight) {
-  debugger
   delete _highlights[highlight.start_index];
   HighlightsStore.__emitChange();
 }

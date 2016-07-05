@@ -1,7 +1,7 @@
 const React = require('react');
 const ArticlesActions = require('../actions/articles_actions');
 const ArticlesStore = require('../stores/articles_store');
-const ArticleAndAnnotations = require('./articles_show_and_highlights');
+const ArticleAndAnnotations = require('./articles_and_annotations');
 const ToolSidebar = require('./scroll_toolbar');
 
 const ArticlesShow = React.createClass({
@@ -30,6 +30,7 @@ const ArticlesShow = React.createClass({
       body: this.state.body,
       id: this.articleId
     });
+
     this.setState({edit: false});
   },
 
@@ -37,17 +38,20 @@ const ArticlesShow = React.createClass({
     this.setState({title: e.target.value});
   },
   _editBody: function(e) {
+
     this.setState({body: e.target.value});
   },
   _triggerHighlightMode: function() {
 
-    this.setState({highlight: true});
+    this.setState({highlight: !this.state.highlight});
 
   },
-
   _triggerCommentMode: function() {
-    this.setState({comment: true});
+    debugger
+    this.setState({comment: !this.state.comment});
   },
+
+
 
   render: function() {
 
@@ -84,6 +88,7 @@ const ArticlesShow = React.createClass({
     }
 
     return (
+
       <div id='article-show-container'>
         <div id='article-show-image'>
 
@@ -100,9 +105,10 @@ const ArticlesShow = React.createClass({
                 <img src='http://errantscience.com/wp-content/uploads/Duck-face.jpg' />
                 <h3>Posted by <span id='username'>{this.article.user.username}</span></h3>
               </div>
-              <ArticleAndAnnotations article={this.article} highlightState={this.state.highlight} commentState={this.state.comment}/>
+
+              <ArticleAndAnnotations article={this.article} highlightState={this.state.highlight} commentState={this.state.comment} triggerCommentMode={this._triggerCommentMode}/>
             </div>
-            <ToolSidebar user={this.article.username} articleId={this.articleId} editMode={this._editMode} highlightMode={this._triggerHighlightMode} commentMode={this._triggerCommentMode}/>
+            <ToolSidebar user={this.article.username} articleId={this.articleId} editMode={this._editMode} highlightMode={this._triggerHighlightMode} commentMode={this._triggerCommentMode} commentState={this.state.comment}/>
           </div>
       </div>
     );

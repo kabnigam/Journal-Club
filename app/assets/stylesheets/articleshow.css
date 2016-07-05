@@ -201,3 +201,33 @@ div#article-edit-body{
   background-color: yellow;
 
 }
+
+.clicked {
+  font-weight: bold;
+}
+
+div.create-comment-form {
+    padding: 10px;
+    position: absolute;
+    z-index: 3;
+    background-color: white;
+    border: 1px solid grey;
+    border-radius: 20px;
+    box-shadow: 2px 2px 2px grey;
+}
+
+.create-comment-body {
+  height: 60px;
+  font-size: 14px;
+}
+
+.comment-icon {
+  height: 20px;
+  width: 20px;
+  position: absolute;
+  right: -5%;
+}
+
+.hidden-form {
+  display: none;
+}
