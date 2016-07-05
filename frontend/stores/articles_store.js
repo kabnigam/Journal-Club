@@ -1,7 +1,9 @@
 const AppDispatcher = require('../dispatcher/dispatcher.js');
 const Store = require('flux/utils').Store;
 const ArticlesConstants = require('../constants/articles_constants');
+const CommentsConstants = require('../constants/comments_constants');
 const hashHistory = require('react-router').hashHistory;
+
 
 const ArticlesStore = new Store(AppDispatcher);
 
@@ -23,6 +25,11 @@ function _removeArticle(article) {
   delete _articles[article.id];
 }
 
+function _addComment(comment) {
+  _articles[comment.article_id].comments.push(comment);
+  ArticlesStore.__emitChange();
+}
+
 ArticlesStore.all = function() {
   let articles = [];
   Object.keys(_articles).forEach(id => {
@@ -42,15 +49,14 @@ ArticlesStore.__onDispatch = function(payload) {
     case ArticlesConstants.REMOVE_ARTICLE:
       _removeArticle(payload.article);
       break;
+    case CommentsConstants.COMMENT_RECEIVED:
+      _addComment(payload.comment);
+      break;
   }
 };
 
 ArticlesStore.find = function(id) {
   return _articles[id];
 };
-
-module.exports = ArticlesStore;
-
-
 
 module.exports = ArticlesStore;

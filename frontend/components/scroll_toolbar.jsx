@@ -40,13 +40,10 @@ const ToolSidebar = React.createClass({
     this.props.highlightMode();
   },
   _handleComment: function(e) {
-    // if ($(e.target).hasClass('clicked')) {
-    //   $(e.target).removeClass('clicked');
-    // }
-    // else {
-    //   $(e.target).addClass('clicked');
-    // }
+    if (this.props.showForm) {
+      this.props.triggerShowForm();
 
+    }
     this.props.commentMode();
   },
 

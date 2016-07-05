@@ -139,7 +139,7 @@ pre#ghost-article {
 div.show-body {
   position:relative;
   top: -80px;
-  margin: 0 5% 0 10%;
+  padding: 0 5% 0 10%;
   width: 65%;
   display: inline-block;
   font-family: 'Pontano Sans', sans-serif;
@@ -225,9 +225,9 @@ div.create-comment-form {
   height: 20px;
   width: 20px;
   position: absolute;
-  right: -5%;
+  right: 2%;
 }
 
-.hidden-form {
+.create-comment-form.hidden {
   display: none;
 }
