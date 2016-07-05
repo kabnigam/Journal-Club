@@ -6,9 +6,16 @@
   <link href='https://fonts.googleapis.com/css?family=Dosis:400,600,700,800' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Pontano+Sans' rel='stylesheet' type='text/css'>
 
-
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
+  <%=ENV['CLOUD_NAME']%>
+  <script src="//widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    window.cloudinary_options = {
+      cloud_name: "dzpkgj9f0",
+      upload_preset: "ebaic4yt"
+    };
+  </script>
 </head>
 <body>
 

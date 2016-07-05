@@ -41,7 +41,7 @@ class Api::ArticlesController < ApplicationController
   private
 
   def article_params
-    params.require(:article).permit(:title, :body, :source)
+    params.require(:article).permit(:title, :body, :source, :picture_url)
   end
 
   def search_params

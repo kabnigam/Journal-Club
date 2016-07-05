@@ -11,15 +11,15 @@ const ArticlesIndexItem = React.createClass({
     return (
       <li key={`article${this.props.article.id}`} onClick={this._showRedirect}>
         <div id='posted-text'>
-          Posted by&nbsp;
+        </div>
+        <div id="article-image">
+          <img src={this.props.article.picture_url} />
         </div>
         <div id="article-author">
+          Posted by&nbsp;
           {this.props.article.user.username}
         </div>
 
-        <div id="article-image">
-
-        </div>
 
         <h2 id="article-title">
           {this.props.article.title}

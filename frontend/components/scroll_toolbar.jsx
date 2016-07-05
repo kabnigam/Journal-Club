@@ -23,12 +23,16 @@ const ToolSidebar = React.createClass({
     ArticlesActions.deleteArticle(this.props.articleId);
   },
   _handleEdit: function() {
-    this.props.editMode();
     this.setState({edit: true});
+    debugger
+    this.props.editMode();
   },
   _handleSave: function() {
     this.props.saveMode();
     this.setState({edit: false});
+  },
+  _handleUpload: function(e) {
+    this.props.uploadMode(e);
   },
   _handleHighlight: function(e) {
     if ($(e.target).hasClass('clicked')) {
@@ -58,8 +62,10 @@ const ToolSidebar = React.createClass({
 
     let edit_delete = [];
     if (SessionStore.currentUser().username === this.props.user) {
+      debugger
       if (this.state.edit) {
         edit_delete.push(<button onClick={this._handleSave} className='edit-delete'>SAVE</button>);
+        edit_delete.push(<button onClick={this._handleUpload} className='edit-delete'>UPLOAD IMAGE</button>);
       } else {
         edit_delete.push(<button onClick={this._handleEdit} className='edit-delete'>EDIT</button>);
       }

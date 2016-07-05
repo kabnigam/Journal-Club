@@ -33,7 +33,9 @@ input#create-article-submit {
   border: 2px solid #33cc33;
   color: #33cc33;
   border-radius: 20px;
+  margin: 10px;
 }
+
 
 img#close-button {
   height: auto;
@@ -60,7 +62,7 @@ button#create-article-submit {
   font-size: 17px;
   font-family: 'Pontano Sans', sans-serif;
   padding: 10px 20px;
-  margin: 20px 0;
+  margin: 20px 10px 20px 0;
   border-radius: 20px;
 }
 button#create-article-submit:hover {

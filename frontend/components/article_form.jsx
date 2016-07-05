@@ -3,7 +3,7 @@ const ArticlesActions = require('../actions/articles_actions');
 
 const ArticleForm = React.createClass({
   getInitialState: function() {
-    return {title: '', body: '', source: '', clicked: false};
+    return {title: '', body: '', source: '', picture_url: '', clicked: false};
   },
   _handleTitle: function(e) {
     this.setState({title: e.target.value});
@@ -20,11 +20,27 @@ const ArticleForm = React.createClass({
   _handleClose: function() {
     this.setState({clicked: false});
   },
+  postImage(url) {
+    this.setState({picture_url: url});
+  },
+  _upload(e) {
+    e.preventDefault();
+    let that = this;
+    window.cloudinary.openUploadWidget(
+      window.cloudinary_options,
+      function(error, images) {
+        if (error === null) {
+          that.postImage(images[0].url);
+        }
+      }
+    );
+  },
   _handleSubmit: function() {
     ArticlesActions.createArticle({
       title: this.state.title,
       body: this.state.body,
-      source: this.state.source
+      source: this.state.source,
+      picture_url: this.state.picture_url
     });
     this.setState({title: '', body: '', source: '', clicked: false});
   },
@@ -40,6 +56,7 @@ const ArticleForm = React.createClass({
           <input id='create-article-source' placeholder="Source (optional)" onChange={this._handleSource}></input>
           <br/>
           <button id='create-article-submit' onClick={this._handleSubmit}>Post</button>
+          <button id='upload-photo' onClick={this._upload}>Upload Photo</button>
         </div>
       );
     }

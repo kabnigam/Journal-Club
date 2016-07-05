@@ -27,6 +27,10 @@ const ArticleAndAnnotations = React.createClass({
 
   },
 
+  _showDeleteHighlight: function(e) {
+    document.querySelector('highlight-trash').className = 'show-trash';
+  },
+
   _highlightMode: function() {
     if (this.props.highlightState === true) {
 
@@ -47,7 +51,8 @@ const ArticleAndAnnotations = React.createClass({
 
   _getCommentCoords(e) {
     console.log(e);
-    if (this.state.yCoord === undefined) {
+
+    if (e.target.id === 'ghost-article') {
 
       this.setState({yCoord: e.offsetY});
     }
@@ -99,6 +104,7 @@ const ArticleAndAnnotations = React.createClass({
     this.state.highlights.forEach(highlight => {
       body_els.push(body_string.slice(i, highlight.start_index));
       body_els.push(<span className='highlighted-text'>{body_string.slice(highlight.start_index, highlight.end_index)}</span>);
+      body_els.push(<img className='highlight-trash' src="https://cdn3.iconfinder.com/data/icons/fillies-large/64/trashcan-512.png" />);
       i = highlight.end_index;
     });
     body_els.push(body_string.slice(i));

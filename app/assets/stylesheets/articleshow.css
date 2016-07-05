@@ -231,3 +231,20 @@ div.create-comment-form {
 .create-comment-form.hidden {
   display: none;
 }
+
+.highlight-trash {
+    height: 15px;
+    width: auto;
+    display: none;
+    position: relative;
+    top: -10px;
+    z-index: 3;
+}
+.show-trash {
+    height: 15px;
+    width: auto;
+    display: inline;
+    position: relative;
+    top: -10px;
+    z-index: 3;
+}
