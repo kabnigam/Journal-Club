@@ -8,11 +8,12 @@ const ArticlesShow = React.createClass({
   getInitialState: function() {
     this.articleId = parseInt(this.props.params.articleId);
     this.article = ArticlesStore.find(this.articleId);
-    return {title: '', body: '', picture_url: this.article.picture_url, edit: false, highlight: false, comment: false, showForm: false};
+    return {title: '', body: '', picture_url: '', edit: false, highlight: false, comment: false, showForm: false};
   },
   componentDidMount: function() {
     this.listener = ArticlesStore.addListener(this._onChange);
     ArticlesActions.fetchArticles();
+    this.setState({picture_url: this.article.picture_url});
   },
   _onChange: function() {
     this.article = ArticlesStore.find(this.articleId);
@@ -25,11 +26,15 @@ const ArticlesShow = React.createClass({
     this.setState({edit: true});
   },
   _saveMode: function() {
+    let url = this.state.picture_url;
+    if (url === '') {
+      url = this.article.picture_url;
+    }
     ArticlesActions.updateArticle({
       title: this.state.title,
       body: this.state.body,
       id: this.articleId,
-      picture_url: this.state.picture_url
+      picture_url: url
     });
 
     this.setState({edit: false});
@@ -80,7 +85,8 @@ const ArticlesShow = React.createClass({
 
     if (!this.state.body) {
       return <div>loading...</div>;
-    } else if (this.state.edit) {
+    }
+    else if (this.state.edit) {
       return (
         <div id='article-show-container'>
           <div id='article-show-image'>

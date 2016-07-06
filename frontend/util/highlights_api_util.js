@@ -41,6 +41,7 @@ const HighlightsApiUtil = {
       url: `api/highlights/${id}`,
       method: 'DELETE',
       success(response) {
+        
         successCB(response);
       }
     });

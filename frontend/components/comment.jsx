@@ -19,6 +19,7 @@ const CommentsForm = React.createClass({
 
   },
   _handleSubmit: function() {
+    let ratio = (this.props.yCoord)/($('.comment-icon').offsetParent().outerHeight());
     CommentsActions.createComment({body: this.state.body, article_id: this.props.articleId, y_index: this.props.yCoord});
     this.props.hide();
   },

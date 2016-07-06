@@ -144,6 +144,7 @@ div.show-body {
   display: inline-block;
   font-family: 'Pontano Sans', sans-serif;
   white-space: pre-wrap;
+
 }
 
 .edit-delete {
@@ -247,4 +248,5 @@ div.create-comment-form {
     position: relative;
     top: -10px;
     z-index: 3;
+    cursor: pointer;
 }

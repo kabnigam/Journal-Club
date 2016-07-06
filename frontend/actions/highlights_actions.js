@@ -30,6 +30,7 @@ const HighlightsActions = {
     });
   },
   removeHighlight(highlight) {
+    
     AppDispatcher.dispatch({
       actionType: HighlightsConstants.REMOVE_HIGHLIGHT,
       highlight: highlight

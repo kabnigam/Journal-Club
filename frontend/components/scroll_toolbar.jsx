@@ -24,7 +24,6 @@ const ToolSidebar = React.createClass({
   },
   _handleEdit: function() {
     this.setState({edit: true});
-    debugger
     this.props.editMode();
   },
   _handleSave: function() {
@@ -63,7 +62,7 @@ const ToolSidebar = React.createClass({
     let edit_delete = [];
     if (SessionStore.currentUser().username === this.props.user) {
 
-      if (this.props.edit) {
+      if (this.props.editState) {
         edit_delete.push(<button onClick={this._handleSave} className='edit-delete'>SAVE</button>);
         edit_delete.push(<button onClick={this._handleUpload} className='edit-delete'>UPLOAD IMAGE</button>);
       } else {

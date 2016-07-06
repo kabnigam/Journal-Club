@@ -1,23 +1,31 @@
 const React = require('react');
+const ReactDOM = require('react-dom');
 const HighlightsActions = require('../actions/highlights_actions');
 const HighlightsStore = require('../stores/highlights_store');
 const CommentsActions = require('../actions/comments_actions');
 const CommentsForm = require('./comment');
+
 
 const ArticleAndAnnotations = React.createClass({
   getInitialState: function() {
     return {highlights: [], highlight_state: this.props.highlightState, yCoord: undefined};
   },
   componentDidMount: function() {
+
     this.listenerH = HighlightsStore.addListener(this._onChange);
     HighlightsActions.fetchHighlights(this.props.article.id);
     document.querySelector('.show-body').addEventListener('click', this._getCommentCoords);
 
   },
 
-  _onChange: function() {
-    this.setState({highlights: HighlightsStore.all()});
+  _addMouseOver: function() {
+    // document.querySelector('.highlighted-text').addEventListener('mouseover', this._showDeleteHighlight);
+  },
 
+  _onChange: function() {
+    // this._addMouseOver();
+
+    this.setState({highlights: HighlightsStore.all()});
   },
   componentWillUnmount: function() {
 
@@ -27,7 +35,12 @@ const ArticleAndAnnotations = React.createClass({
 
   },
 
+  _deleteHighlight: function(id) {
+    HighlightsActions.deleteHighlight(id);
+  },
+
   _showDeleteHighlight: function(e) {
+
     document.querySelector('highlight-trash').className = 'show-trash';
   },
 
@@ -39,15 +52,7 @@ const ArticleAndAnnotations = React.createClass({
       document.getElementById('ghost-article').removeEventListener("mouseup", this._getHighlightCoords);
     }
   },
-  // _commentMode: function() {
-  //
-  //   if (this.props.commentState) {
-  //     //change event listener to react component
-  //     document.addEventListener("click", this._getCommentCoords);
-  //   } else if (document.getElementById('ghost-article')) {
-  //     document.removeEventListener("click", this._getCommentCoords);
-  //   }
-  // },
+
 
   _getCommentCoords(e) {
     console.log(e);
@@ -101,10 +106,11 @@ const ArticleAndAnnotations = React.createClass({
     let body_string = this.props.article.body;
     let body_els = [];
     let i = 0;
+
     this.state.highlights.forEach(highlight => {
       body_els.push(body_string.slice(i, highlight.start_index));
-      body_els.push(<span className='highlighted-text'>{body_string.slice(highlight.start_index, highlight.end_index)}</span>);
-      body_els.push(<img className='highlight-trash' src="https://cdn3.iconfinder.com/data/icons/fillies-large/64/trashcan-512.png" />);
+      body_els.push(<span className='highlighted-text'>{body_string.slice(highlight.start_index, highlight.end_index)}<img className='show-trash' onClick={this._deleteHighlight.bind(this, highlight.id)} src="https://cdn3.iconfinder.com/data/icons/fillies-large/64/trashcan-512.png" /></span>);
+
       i = highlight.end_index;
     });
     body_els.push(body_string.slice(i));
@@ -113,9 +119,11 @@ const ArticleAndAnnotations = React.createClass({
 
   _renderComments: function() {
 
+
     return this.props.article.comments.map(comment => {
       let y = comment.y_index;
       // - ($('.show-body').offset().top + $('.show-body').position().top);
+
       return <img className='comment-icon' style={{top: y}} src="https://cdn4.iconfinder.com/data/icons/eldorado-basic/40/comment_chat-512.png" />;
     });
   },
@@ -127,6 +135,7 @@ const ArticleAndAnnotations = React.createClass({
 
   render: function() {
     this._highlightMode();
+
 
 
     return (

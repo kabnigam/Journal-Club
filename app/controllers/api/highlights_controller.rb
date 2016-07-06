@@ -12,7 +12,7 @@ class Api::HighlightsController < ApplicationController
   def destroy
     @highlight = Highlight.find(params[:id])
     @highlight.destroy
-    render :index
+    render :show
   end
 
   def show
