@@ -11,7 +11,7 @@ const CommentsActions = {
     CommentsApiUtil.destroy(id, CommentsActions.removeComment);
   },
   updateComment(comment) {
-    CommentsApiUtil.update(comment. CommentsActions.receiveComment, error);
+    CommentsApiUtil.update(comment, CommentsActions.receiveComment, error);
   },
   receiveComment(comment) {
     AppDispatcher.dispatch({

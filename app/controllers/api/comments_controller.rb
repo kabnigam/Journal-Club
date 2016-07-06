@@ -36,7 +36,7 @@ class Api::CommentsController < ApplicationController
 
   private
   def comment_params
-    params.require(:comment).permit(:body, :article_id, :y_index)
+    params.require(:comment).permit(:body, :article_id, :ratio)
   end
 
   def search_params

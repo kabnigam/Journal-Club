@@ -4,11 +4,12 @@ const HighlightsActions = require('../actions/highlights_actions');
 const HighlightsStore = require('../stores/highlights_store');
 const CommentsActions = require('../actions/comments_actions');
 const CommentsForm = require('./comment');
+const ShowComment= require('./show_comment');
 
 
 const ArticleAndAnnotations = React.createClass({
   getInitialState: function() {
-    return {highlights: [], highlight_state: this.props.highlightState, yCoord: undefined};
+    return {highlights: [], highlight_state: this.props.highlightState, yCoord: undefined, show_comment: false};
   },
   componentDidMount: function() {
 
@@ -67,7 +68,11 @@ const ArticleAndAnnotations = React.createClass({
     }
   },
 
+  _showComment(comment) {
+    this.comment = <ShowComment comment={comment} />;
+    this.setState({show_comment: true});
 
+  },
 
   _getHighlightCoords() {
     let target = window.getSelection();
@@ -98,6 +103,9 @@ const ArticleAndAnnotations = React.createClass({
       }
     });
     if (!created) {
+      if (start > end) {
+        end = [start, start = end][0];
+      }
       HighlightsActions.createHighlight({start_index: start, end_index: end, article_id: this.props.article.id});
     }
   },
@@ -119,12 +127,11 @@ const ArticleAndAnnotations = React.createClass({
 
   _renderComments: function() {
 
-
     return this.props.article.comments.map(comment => {
-      let y = comment.y_index;
+      let y = comment.ratio * $('.show-body').outerHeight();
       // - ($('.show-body').offset().top + $('.show-body').position().top);
 
-      return <img className='comment-icon' style={{top: y}} src="https://cdn4.iconfinder.com/data/icons/eldorado-basic/40/comment_chat-512.png" />;
+      return <img className='comment-icon' style={{top: y}} onClick={this._showComment.bind(this, comment)} src="https://cdn4.iconfinder.com/data/icons/eldorado-basic/40/comment_chat-512.png" />;
     });
   },
 
@@ -135,7 +142,10 @@ const ArticleAndAnnotations = React.createClass({
 
   render: function() {
     this._highlightMode();
-
+    let comment = [];
+    if (this.comment) {
+      comment.push(this.comment);
+    }
 
 
     return (
@@ -148,6 +158,7 @@ const ArticleAndAnnotations = React.createClass({
         <pre id='article'>
           {this._createBody()}
         </pre>
+        {comment}
       </div>
     );
   }

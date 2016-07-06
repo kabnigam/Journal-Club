@@ -200,6 +200,7 @@ div#article-edit-body{
 
 .highlighted-text {
   background-color: yellow;
+  position: relative;
 
 }
 
@@ -227,6 +228,7 @@ div.create-comment-form {
   width: 20px;
   position: absolute;
   right: 2%;
+  z-index: 10;
 }
 
 .create-comment-form.hidden {
@@ -242,11 +244,36 @@ div.create-comment-form {
     z-index: 3;
 }
 .show-trash {
-    height: 15px;
+    height: 10px;
     width: auto;
     display: inline;
-    position: relative;
-    top: -10px;
+    position: absolute;
+    top: -5px;
     z-index: 3;
     cursor: pointer;
+}
+
+.show-comment {
+  position: fixed;
+    bottom: 4%;
+    right: 0;
+    border: 2px solid gray;
+    box-shadow: 2px 2px 2px gray;
+    padding: 1%;
+    margin: 1%;
+    width: 16%;
+    font-size: 14px;
+    z-index: 10;
+    background-color: white;
+}
+.show-comment > h3 {
+    display: inline;
+}
+
+.show-comment > p {
+    display: inline;
+}
+
+textarea.comment-reply {
+  font-size: 14px;
 }
