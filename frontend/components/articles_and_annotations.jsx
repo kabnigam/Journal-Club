@@ -157,12 +157,12 @@ const ArticleAndAnnotations = React.createClass({
       <div className='show-body'>
         {this._renderComments()}
         <CommentsForm commentState={this.props.commentState} showForm={this.props.showForm} yCoord={this.state.yCoord} articleId={this.props.article.id} hide={this._hide}/>
-        <pre id='ghost-article'>
+        <div id='ghost-article'>
           {this.props.article.body}
-        </pre>
-        <pre id='article'>
+        </div>
+        <div id='article'>
           {this._createBody()}
-        </pre>
+        </div>
         {comment}
       </div>
     );

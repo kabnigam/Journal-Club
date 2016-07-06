@@ -120,33 +120,35 @@ div#article-and-sidebar {
   position: fixed;
 }
 
-pre#article {
-  position: relative;
-  display: inline-block;
-  font-family: 'Pontano Sans', sans-serif;
-  white-space: pre-wrap;
-  width: 101%;
+#article {
+    display: inline-block;
+    font-family: 'Pontano Sans', sans-serif;
+    white-space: pre-wrap;
+    z-index: 1;
+    position: absolute;
+    width: 80%;
 }
 
-pre#ghost-article {
-  position: absolute;
-  z-index: 1;
-  color: blue;
-  display: inline-block;
-  font-family: 'Pontano Sans', sans-serif;
-  white-space: pre-wrap;
-  /*width: 81%;*/
+#ghost-article {
+    position: absolute;
+    z-index: 2;
+    color: transparent;
+    display: inline-block;
+    font-family: 'Pontano Sans', sans-serif;
+    white-space: pre-wrap;
+    width: 80%;
+    padding: 0 9% 0 0;
 }
 
 div.show-body {
-  position:relative;
-  top: -80px;
-  padding: 0 5% 0 10%;
-  width: 65%;
-  display: inline-block;
-  font-family: 'Pontano Sans', sans-serif;
-  white-space: pre-wrap;
-
+    position: relative;
+    top: -80px;
+    padding: 0 5% 0 10%;
+    width: 65%;
+    display: inline-block;
+    font-family: 'Pontano Sans', sans-serif;
+    white-space: pre-wrap;
+    height: 100vh;
 }
 
 .edit-delete {
