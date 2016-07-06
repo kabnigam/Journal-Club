@@ -8,6 +8,9 @@
 User.create({email: 'kabbnigam@gmail.com', username: 'kabnigam', password: 'password'})
 User.create({email: 'tonyhoyinliu@gmail.com', username: 'tliu', password: 'password'})
 User.create({email: 'guest@guest.com', username: 'Guest', password: 'password'})
+Group.create({name: 'The Brain and Beyond'})
+UserGroup.create({user_id: 1, group_id: 1})
+UserGroup.create({user_id: 2, group_id: 1})
 
 Article.create({
   title: "Hallucinatory 'voices' shaped by local culture, Stanford anthropologist says",

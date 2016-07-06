@@ -125,7 +125,7 @@ div#article-and-sidebar {
     font-family: 'Pontano Sans', sans-serif;
     white-space: pre-wrap;
     z-index: 1;
-  
+
 }
 
 
@@ -138,16 +138,13 @@ div#article-and-sidebar {
     display: inline-block;
     font-family: 'Pontano Sans', sans-serif;
     white-space: pre-wrap;
-    width: 80%;
-    padding: 0 9% 0 0;
 
 }
 
 div.show-body {
     position: relative;
     top: -80px;
-    padding: 0 5% 0 10%;
-    width: 65%;
+    width: 75%;
     display: inline-block;
     font-family: 'Pontano Sans', sans-serif;
     white-space: pre-wrap;
@@ -283,4 +280,8 @@ div.create-comment-form {
 
 textarea.comment-reply {
   font-size: 14px;
+}
+
+.ghost-article-wrap {
+  padding: 0 5% 0 10%;
 }

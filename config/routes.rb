@@ -6,5 +6,6 @@ Rails.application.routes.draw do
     resources :articles, only: [:create, :update, :show, :index, :destroy]
     resources :highlights, only: [:create, :show, :index, :destroy]
     resources :comments, only: [:create, :show, :index, :destroy, :update]
+    resources :groups, only: [:create, :show, :index, :destroy]
   end
 end

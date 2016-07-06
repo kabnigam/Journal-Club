@@ -16,6 +16,15 @@ class Article < ActiveRecord::Base
   foreign_key: :article_id,
   class_name: 'Comment'
 
+  has_many :ArticleGroupings,
+  primary_key: :id,
+  foreign_key: :article_id,
+  class_name: "ArticleGroup"
+
+  has_many :groups,
+  through: :ArticleGroupings,
+  source: :group
+
   def self.search_for(params)
     query = params[:search] + '%'
     self.where("UPPER(title) LIKE UPPER(?)", query)

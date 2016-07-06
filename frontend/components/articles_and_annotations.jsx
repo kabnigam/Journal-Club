@@ -89,6 +89,12 @@ const ArticleAndAnnotations = React.createClass({
     }
   },
 
+  _handleClickDelete(e) {
+    $('#ghost-article').hide();
+    document.elementFromPoint(e.clientX, e.clientY).click();
+    $('#ghost-article').show();
+  },
+
   _handleOverlap: function(start, end) {
     let iterator = this.state.highlights.slice();
     let created = false;
@@ -154,16 +160,19 @@ const ArticleAndAnnotations = React.createClass({
 
 
     return (
-      <div className='show-body'>
-        {this._renderComments()}
-        <CommentsForm commentState={this.props.commentState} showForm={this.props.showForm} yCoord={this.state.yCoord} articleId={this.props.article.id} hide={this._hide}/>
-        <div id='ghost-article'>
-          {this.props.article.body}
+      <div className='ghost-article-wrap'>
+
+        <div className='show-body'>
+          {this._renderComments()}
+          <CommentsForm commentState={this.props.commentState} showForm={this.props.showForm} yCoord={this.state.yCoord} articleId={this.props.article.id} hide={this._hide}/>
+          <div id='ghost-article' onClick={this._handleClickDelete}>
+            {this.props.article.body}
+          </div>
+          <div id='article'>
+            {this._createBody()}
+          </div>
+          {comment}
         </div>
-        <div id='article'>
-          {this._createBody()}
-        </div>
-        {comment}
       </div>
     );
   }
