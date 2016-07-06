@@ -131,7 +131,7 @@ pre#article {
 pre#ghost-article {
   position: absolute;
   z-index: 1;
-  color: blue;
+  color: transparent;;
   display: inline-block;
   font-family: 'Pontano Sans', sans-serif;
   white-space: pre-wrap;
