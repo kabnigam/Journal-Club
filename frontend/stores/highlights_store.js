@@ -7,6 +7,7 @@ const HighlightsStore = new Store(AppDispatcher);
 
 let _highlights = {};
 
+
 function _addHighlight(highlight) {
   _highlights[highlight.start_index] = highlight;
   HighlightsStore.__emitChange();
@@ -24,6 +25,30 @@ function _removeHighlight(highlight) {
   delete _highlights[highlight.start_index];
   HighlightsStore.__emitChange();
 }
+
+HighlightsStore.highlightsByUser = function() {
+  let highlightsByUser = {};
+  let ids = Object.keys(_highlights).map(idx => {return _highlights[idx].user_id;});
+  ids.forEach(user_id => {
+    if (!Object.keys(highlightsByUser).includes(user_id)) {
+      highlightsByUser[user_id] = [];
+    }
+  });
+  Object.keys(_highlights).forEach(idx => {
+    highlightsByUser[_highlights.user_id].push(_highlights[idx]);
+  });
+  return highlightsByUser;
+};
+
+HighlightsStore.find = function(user_id) {
+  let myHighlights = [];
+  Object.keys(_highlights).forEach(idx => {
+    if (_highlights[idx].user_id === user_id) {
+      myHighlights.push(_highlights[idx]);
+    }
+  });
+  return myHighlights;
+};
 
 HighlightsStore.all = function() {
   let highlights = [];

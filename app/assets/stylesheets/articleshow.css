@@ -141,6 +141,16 @@ div#article-and-sidebar {
     padding-right: 5%;
 
 }
+#ghost-all-highlights {
+    position: absolute;
+    z-index: 2;
+    color: transparent;
+    display: inline-block;
+    font-family: 'Pontano Sans', sans-serif;
+    white-space: pre-wrap;
+    padding-right: 5%;
+
+}
 
 div.show-body {
     position: relative;
@@ -205,6 +215,11 @@ div#article-edit-body{
 
 .highlighted-text {
   background-color: yellow;
+  position: relative;
+
+}
+.all-highlights-text {
+  background-color: rgba(0, 255, 0, 0.4);
   position: relative;
 
 }

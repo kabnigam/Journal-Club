@@ -8,7 +8,8 @@ const ArticlesShow = React.createClass({
   getInitialState: function() {
     this.articleId = parseInt(this.props.params.articleId);
     this.article = ArticlesStore.find(this.articleId);
-    return {title: '', body: '', picture_url: '', edit: false, highlight: false, comment: false, showForm: false};
+    return {title: '', body: '', picture_url: '', edit: false, highlight: false, comment: false, showForm: false,
+    all_highlights: false};
   },
   componentDidMount: function() {
     this.listener = ArticlesStore.addListener(this._onChange);
@@ -51,6 +52,10 @@ const ArticlesShow = React.createClass({
 
     this.setState({highlight: !this.state.highlight});
 
+  },
+
+  _triggerAllHighlights: function() {
+    this.setState({all_highlights: !this.state.all_highlights});
   },
   _triggerCommentMode: function() {
 
@@ -110,7 +115,7 @@ const ArticlesShow = React.createClass({
                 <textarea id='edit-body' value={this.state.body} onChange={this._editBody} />
               </div>
             </div>
-            <ToolSidebar user={this.article.user.username} articleId={this.articleId}
+            <ToolSidebar user={this.article.user.username} article={this.article}
               editMode={this._editMode} editState={this.state.edit} saveMode={this._saveMode} uploadMode={this._upload}/>
           </div>
         </div>
@@ -136,9 +141,10 @@ const ArticlesShow = React.createClass({
                 <h3>Posted by <span id='username'>{this.article.user.username}</span></h3>
               </div>
 
-              <ArticleAndAnnotations article={this.article} highlightState={this.state.highlight} commentState={this.state.comment} triggerCommentMode={this._triggerCommentMode} showForm={this.state.showForm} triggerShowForm={this._triggerShowForm}/>
+              <ArticleAndAnnotations article={this.article} highlightState={this.state.highlight} commentState={this.state.comment} triggerCommentMode={this._triggerCommentMode} showForm={this.state.showForm} triggerShowForm={this._triggerShowForm} allHighlightsState={this.state.all_highlights}/>
             </div>
-            <ToolSidebar user={this.article.user.username} articleId={this.articleId} editMode={this._editMode} highlightMode={this._triggerHighlightMode} commentMode={this._triggerCommentMode} commentState={this.state.comment} showForm={this.state.showForm} triggerShowForm={this._triggerShowForm}/>
+            <ToolSidebar user={this.article.user.username} article={this.article} editMode={this._editMode} highlightMode={this._triggerHighlightMode} commentMode={this._triggerCommentMode} commentState={this.state.comment} showForm={this.state.showForm} triggerShowForm={this._triggerShowForm}
+              allHighlightsMode={this._triggerAllHighlights}/>
           </div>
       </div>
     );

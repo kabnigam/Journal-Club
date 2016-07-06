@@ -16,14 +16,18 @@ class Article < ActiveRecord::Base
   foreign_key: :article_id,
   class_name: 'Comment'
 
-  has_many :ArticleGroupings,
+  has_one :ArticleGrouping,
   primary_key: :id,
   foreign_key: :article_id,
   class_name: "ArticleGroup"
 
-  has_many :groups,
-  through: :ArticleGroupings,
+  has_one :group,
+  through: :ArticleGrouping,
   source: :group
+
+  has_many :users,
+  through: :group,
+  source: :users
 
   def self.search_for(params)
     query = params[:search] + '%'

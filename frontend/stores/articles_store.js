@@ -30,6 +30,11 @@ function _addComment(comment) {
   ArticlesStore.__emitChange();
 }
 
+function _removeComment(comment) {
+  _articles[comment.article_id].comments.splice(_articles[comment.article_id].comments.indexOf(comment), 1);
+  ArticlesStore.__emitChange();
+}
+
 ArticlesStore.all = function() {
   let articles = [];
   Object.keys(_articles).forEach(id => {
@@ -51,6 +56,9 @@ ArticlesStore.__onDispatch = function(payload) {
       break;
     case CommentsConstants.COMMENT_RECEIVED:
       _addComment(payload.comment);
+      break;
+    case CommentsConstants.COMMENT_REMOVED:
+      _removeComment(payload.comment);
       break;
   }
 };

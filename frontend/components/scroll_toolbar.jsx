@@ -20,7 +20,7 @@ const ToolSidebar = React.createClass({
     }
   },
   _handleDelete: function() {
-    ArticlesActions.deleteArticle(this.props.articleId);
+    ArticlesActions.deleteArticle(this.props.article.id);
   },
   _handleEdit: function() {
     this.setState({edit: true});
@@ -42,6 +42,16 @@ const ToolSidebar = React.createClass({
     }
     this.props.highlightMode();
   },
+  _showAllHighlights: function(e) {
+    if ($(e.target).hasClass('clicked')) {
+      $(e.target).removeClass('clicked');
+    }
+    else {
+      $(e.target).addClass('clicked');
+    }
+    this.props.allHighlightsMode();
+  },
+
   _handleComment: function(e) {
     if (this.props.showForm) {
       this.props.triggerShowForm();
@@ -75,6 +85,12 @@ const ToolSidebar = React.createClass({
       commentKlass = 'highlight edit-delete comment clicked';
     }
 
+    let show_group_annotations = [];
+    if (this.props.article.users.map(user => {return user.username;}).includes(SessionStore.currentUser().username)) {
+      show_group_annotations.push(<button className='edit-delete' onClick={this._showAllHighlights}>SHOW ALL HIGHLIGHTS</button>);
+      show_group_annotations.push(<button className='edit-delete'>SHOW ALL COMMENTS</button>);
+    }
+
     return (
       <div className={`tools-sidebar ${this.state.klass}`}>
         {edit_delete}
@@ -83,6 +99,7 @@ const ToolSidebar = React.createClass({
 
           <button onClick={this._handleComment} className={commentKlass}>COMMENT</button>
         </div>
+        {show_group_annotations}
       </div>
     );
   }

@@ -2,6 +2,7 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 const HighlightsActions = require('../actions/highlights_actions');
 const HighlightsStore = require('../stores/highlights_store');
+const SessionStore = require('../stores/session_store');
 const CommentsActions = require('../actions/comments_actions');
 const CommentsForm = require('./comment');
 const ShowComment= require('./show_comment');
@@ -9,7 +10,7 @@ const ShowComment= require('./show_comment');
 
 const ArticleAndAnnotations = React.createClass({
   getInitialState: function() {
-    return {highlights: [], highlight_state: this.props.highlightState, yCoord: undefined, show_comment: false};
+    return {my_highlights: [], highlight_state: this.props.highlightState, yCoord: undefined, show_comment: false};
   },
   componentDidMount: function() {
 
@@ -26,7 +27,7 @@ const ArticleAndAnnotations = React.createClass({
   _onChange: function() {
     // this._addMouseOver();
 
-    this.setState({highlights: HighlightsStore.all()});
+    this.setState({my_highlights: HighlightsStore.find(SessionStore.currentUser().id)});
   },
   componentWillUnmount: function() {
 
@@ -96,7 +97,7 @@ const ArticleAndAnnotations = React.createClass({
   },
 
   _handleOverlap: function(start, end) {
-    let iterator = this.state.highlights.slice();
+    let iterator = this.state.my_highlights.slice();
     let created = false;
     iterator.forEach(highlight => {
       let hlStart = highlight.start_index;
@@ -126,11 +127,29 @@ const ArticleAndAnnotations = React.createClass({
     let body_els = [];
     let i = 0;
 
-    this.state.highlights.forEach(highlight => {
+    this.state.my_highlights.forEach(highlight => {
       body_els.push(body_string.slice(i, highlight.start_index));
       body_els.push(<span className='highlighted-text'>{body_string.slice(highlight.start_index, highlight.end_index)}<img className='show-trash' onClick={this._deleteHighlight.bind(this, highlight.id)} src="https://cdn3.iconfinder.com/data/icons/fillies-large/64/trashcan-512.png" /></span>);
 
       i = highlight.end_index;
+    });
+    body_els.push(body_string.slice(i));
+    return body_els;
+  },
+
+  _renderAllHighlights: function() {
+    let allHighlights = HighlightsStore.all();
+    let body_string = this.props.article.body;
+    let body_els = [];
+    let i = 0;
+
+    allHighlights.forEach(highlight => {
+      if (highlight.user_id !== SessionStore.currentUser().id) {
+        body_els.push(body_string.slice(i, highlight.start_index));
+        body_els.push(<span className='all-highlights-text'>{body_string.slice(highlight.start_index, highlight.end_index)}</span>);
+
+        i = highlight.end_index;
+      }
     });
     body_els.push(body_string.slice(i));
     return body_els;
@@ -157,6 +176,10 @@ const ArticleAndAnnotations = React.createClass({
     if (this.comment) {
       comment.push(this.comment);
     }
+    let allHighlights = [];
+    if (this.props.allHighlightsState) {
+      allHighlights = this._renderAllHighlights();
+    }
 
 
     return (
@@ -167,6 +190,9 @@ const ArticleAndAnnotations = React.createClass({
           <CommentsForm commentState={this.props.commentState} showForm={this.props.showForm} yCoord={this.state.yCoord} articleId={this.props.article.id} hide={this._hide}/>
           <div id='ghost-article' onClick={this._handleClickDelete}>
             {this.props.article.body}
+          </div>
+          <div id='ghost-all-highlights'>
+            {allHighlights}
           </div>
           <div id='article'>
             {this._createBody()}
