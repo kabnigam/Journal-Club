@@ -69,9 +69,14 @@ const ArticleAndAnnotations = React.createClass({
   },
 
   _showComment(comment) {
-    this.comment = <ShowComment comment={comment} />;
+    this.comment = <ShowComment comment={comment} hideComment={this._hideComment}/>;
     this.setState({show_comment: true});
 
+  },
+
+  _hideComment() {
+    this.comment = undefined;
+    this.setState({show_comment: false});
   },
 
   _getHighlightCoords() {

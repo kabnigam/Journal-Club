@@ -125,15 +125,17 @@ pre#article {
   display: inline-block;
   font-family: 'Pontano Sans', sans-serif;
   white-space: pre-wrap;
+  width: 101%;
 }
 
 pre#ghost-article {
   position: absolute;
   z-index: 1;
-  color: transparent;
+  color: blue;
   display: inline-block;
   font-family: 'Pontano Sans', sans-serif;
   white-space: pre-wrap;
+  /*width: 81%;*/
 }
 
 div.show-body {
