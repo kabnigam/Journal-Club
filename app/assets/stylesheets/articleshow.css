@@ -125,20 +125,12 @@ div#article-and-sidebar {
     font-family: 'Pontano Sans', sans-serif;
     white-space: pre-wrap;
     z-index: 1;
-    position: absolute;
-    width: 80%;
+  
 }
 
-<<<<<<< HEAD
-pre#ghost-article {
-  position: absolute;
-  z-index: 1;
-  color: transparent;;
-  display: inline-block;
-  font-family: 'Pontano Sans', sans-serif;
-  white-space: pre-wrap;
-  /*width: 81%;*/
-=======
+
+
+
 #ghost-article {
     position: absolute;
     z-index: 2;
@@ -148,7 +140,7 @@ pre#ghost-article {
     white-space: pre-wrap;
     width: 80%;
     padding: 0 9% 0 0;
->>>>>>> fomratting_layers
+
 }
 
 div.show-body {
