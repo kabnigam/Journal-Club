@@ -69,13 +69,15 @@ const ArticleAndAnnotations = React.createClass({
     }
   },
 
-  _showComment(comment) {
-    this.comment = <ShowComment comment={comment} hideComment={this._hideComment}/>;
+  _showComments(comments, pos) {
+
+    this.comment = <ShowComment articleId={this.props.article.id} comment={comments} hideComment={this._hideComment} pos = {pos}/>;
     this.setState({show_comment: true});
 
   },
 
   _hideComment() {
+
     this.comment = undefined;
     this.setState({show_comment: false});
   },
@@ -194,7 +196,7 @@ const ArticleAndAnnotations = React.createClass({
         let y = comment.ratio * $('.show-body').outerHeight();
         // - ($('.show-body').offset().top + $('.show-body').position().top);
 
-        return <img className='comment-icon' style={{top: y}} onClick={this._showComment.bind(this, comment)} src="https://cdn4.iconfinder.com/data/icons/eldorado-basic/40/comment_chat-512.png" />;
+        return <img className='comment-icon' style={{top: y}} onClick={this._showComments.bind(this, comment)} src="https://cdn4.iconfinder.com/data/icons/eldorado-basic/40/comment_chat-512.png" />;
       }
     });
 
@@ -204,13 +206,37 @@ const ArticleAndAnnotations = React.createClass({
   },
 
   _renderAllComments: function() {
-    return this.props.article.comments.map(comment => {
+    let positionComments = {};
+    let that = this;
 
-        let y = comment.ratio * $('.show-body').outerHeight();
-        // - ($('.show-body').offset().top + $('.show-body').position().top);
+    this.props.article.comments.forEach(comment => {
+      let pushed = false;
+      let y = comment.ratio * $('.show-body').outerHeight();
+      Object.keys(positionComments).forEach(position => {
+        if ((parseFloat(position) - 25) < y && (parseFloat(position) + 25) > y) {
 
-        return <img className='comment-icon' style={{top: y}} onClick={this._showComment.bind(this, comment)} src="https://cdn4.iconfinder.com/data/icons/eldorado-basic/40/comment_chat-512.png" />;
+          positionComments[position].push(comment);
+          pushed = true;
+        }
+      });
+      if (!pushed) {
+        positionComments[y] = [comment];
+      }
     });
+
+
+    return Object.keys(positionComments).map(position => {
+    
+      return <img className='comment-icon' style={{top: position}} onClick={this._showComments.bind(this, positionComments[position], position)} src="https://cdn4.iconfinder.com/data/icons/eldorado-basic/40/comment_chat-512.png" />;
+    });
+
+    // return this.props.article.comments.map(comment => {
+    //
+    //     let y = comment.ratio * $('.show-body').outerHeight();
+    //     // - ($('.show-body').offset().top + $('.show-body').position().top);
+    //
+    //     return <img className='comment-icon' style={{top: y}} onClick={this._showComment.bind(this, comment)} src="https://cdn4.iconfinder.com/data/icons/eldorado-basic/40/comment_chat-512.png" />;
+    // });
   },
 
   _hide: function() {
@@ -219,9 +245,11 @@ const ArticleAndAnnotations = React.createClass({
   },
 
   render: function() {
+
     this._highlightMode();
     let comment = [];
     if (this.comment) {
+
       comment.push(this.comment);
     }
     let layers = [];

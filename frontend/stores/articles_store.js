@@ -9,6 +9,10 @@ const ArticlesStore = new Store(AppDispatcher);
 
 let _articles = {};
 
+function _selectNewArticle() {
+  ArticlesStore.__emitChange();
+}
+
 function _addArticle(article) {
   _articles[article.id] = article;
   ArticlesStore.__emitChange();

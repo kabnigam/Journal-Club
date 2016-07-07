@@ -8,7 +8,7 @@ const ArticlesShow = React.createClass({
   getInitialState: function() {
     this.articleId = parseInt(this.props.params.articleId);
     this.article = ArticlesStore.find(this.articleId);
-    return {title: '', body: '', picture_url: '', edit: false, highlight: false, comment: false, showForm: false,
+    return {article: ArticlesStore.find(this.articleId), title: '', body: '', picture_url: '', edit: false, highlight: false, comment: false, showForm: false,
     all_highlights: false, all_comments: false};
   },
   componentDidMount: function() {
@@ -16,8 +16,13 @@ const ArticlesShow = React.createClass({
     ArticlesActions.fetchArticles();
     this.setState({picture_url: this.article.picture_url});
   },
+
+  componentWillReceiveProps: function(newProps) {
+    this.article = ArticlesStore.find(parseInt(newProps.params.articleId));
+    this.setState({title: this.article.title, body: this.article.body});
+  },
   _onChange: function() {
-    this.article = ArticlesStore.find(this.articleId);
+    this.article = ArticlesStore.find(parseInt(this.props.params.articleId));
     this.setState({title: this.article.title, body: this.article.body});
   },
   componentWillUnmount: function() {
@@ -92,7 +97,7 @@ _triggerAllComments: function() {
 
 
   render: function() {
-
+    
 
     if (!this.state.body) {
       return <div>loading...</div>;

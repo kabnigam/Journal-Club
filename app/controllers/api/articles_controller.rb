@@ -1,7 +1,8 @@
 
 class Api::ArticlesController < ApplicationController
   def show
-    @article = Article.find(params[:id])
+    @article = Article.includes(:comments, comments: [:user]).find_by_id(params[:id])
+    # @article = Article.find(params[:id])
   end
 
   def create
