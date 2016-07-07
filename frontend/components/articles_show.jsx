@@ -9,7 +9,7 @@ const ArticlesShow = React.createClass({
     this.articleId = parseInt(this.props.params.articleId);
     this.article = ArticlesStore.find(this.articleId);
     return {title: '', body: '', picture_url: '', edit: false, highlight: false, comment: false, showForm: false,
-    all_highlights: false};
+    all_highlights: false, all_comments: false};
   },
   componentDidMount: function() {
     this.listener = ArticlesStore.addListener(this._onChange);
@@ -57,6 +57,11 @@ const ArticlesShow = React.createClass({
   _triggerAllHighlights: function() {
     this.setState({all_highlights: !this.state.all_highlights});
   },
+
+_triggerAllComments: function() {
+  this.setState({all_comments: !this.state.all_comments});
+},
+
   _triggerCommentMode: function() {
 
     this.setState({comment: !this.state.comment});
@@ -87,6 +92,7 @@ const ArticlesShow = React.createClass({
 
 
   render: function() {
+
 
     if (!this.state.body) {
       return <div>loading...</div>;
@@ -141,10 +147,10 @@ const ArticlesShow = React.createClass({
                 <h3>Posted by <span id='username'>{this.article.user.username}</span></h3>
               </div>
 
-              <ArticleAndAnnotations article={this.article} highlightState={this.state.highlight} commentState={this.state.comment} triggerCommentMode={this._triggerCommentMode} showForm={this.state.showForm} triggerShowForm={this._triggerShowForm} allHighlightsState={this.state.all_highlights}/>
+              <ArticleAndAnnotations article={this.article} highlightState={this.state.highlight} commentState={this.state.comment} triggerCommentMode={this._triggerCommentMode} showForm={this.state.showForm} triggerShowForm={this._triggerShowForm} allHighlightsState={this.state.all_highlights} allCommentsState={this.state.all_comments}/>
             </div>
             <ToolSidebar user={this.article.user.username} article={this.article} editMode={this._editMode} highlightMode={this._triggerHighlightMode} commentMode={this._triggerCommentMode} commentState={this.state.comment} showForm={this.state.showForm} triggerShowForm={this._triggerShowForm}
-              allHighlightsMode={this._triggerAllHighlights}/>
+              allHighlightsMode={this._triggerAllHighlights} allCommentsMode={this._triggerAllComments}/>
           </div>
       </div>
     );

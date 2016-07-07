@@ -21,6 +21,7 @@ const CommentsForm = React.createClass({
   _handleSubmit: function() {
     let ratio = (this.props.yCoord)/($('.show-body').outerHeight());
     CommentsActions.createComment({body: this.state.body, article_id: this.props.articleId, ratio: ratio});
+    this.setState({body: ""});
     this.props.hide();
   },
   _stopProp: function(e) {
@@ -29,6 +30,7 @@ const CommentsForm = React.createClass({
   },
   _handleClose: function() {
     this.props.hide();
+
   },
 
   render: function() {
@@ -40,7 +42,7 @@ const CommentsForm = React.createClass({
     return (
       <div className={klass} style={{top: this.props.yCoord}}>
         <img onClick={this._handleClose} id='close-button' src='https://cdn2.iconfinder.com/data/icons/status-4/24/close-circle-128.png' />
-        <textarea className='create-comment-body' placeholder="Body" onChange={this._handleBody} ></textarea>
+        <textarea className='create-comment-body' placeholder="Body" value={this.state.body} onChange={this._handleBody}></textarea>
         <br/>
         <button className='comment-submit' onClick={this._handleSubmit}>Post</button>
       </div>

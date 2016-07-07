@@ -57,7 +57,7 @@ const ArticleAndAnnotations = React.createClass({
 
 
   _getCommentCoords(e) {
-    console.log(e);
+
 
     if (e.target.id === 'ghost-article') {
 
@@ -137,31 +137,79 @@ const ArticleAndAnnotations = React.createClass({
     return body_els;
   },
 
-  _renderAllHighlights: function() {
-    let allHighlights = HighlightsStore.all();
-    let body_string = this.props.article.body;
-    let body_els = [];
-    let i = 0;
+  // _renderAllHighlights: function() {
+  //   let allHighlights = HighlightsStore.all();
+  //   let body_string = this.props.article.body;
+  //   let body_els = [];
+  //   let i = 0;
+  //
+  //   allHighlights.forEach(highlight => {
+  //     if (highlight.user_id !== SessionStore.currentUser().id) {
+  //       body_els.push(body_string.slice(i, highlight.start_index));
+  //       body_els.push(<span className='all-highlights-text'>{body_string.slice(highlight.start_index, highlight.end_index)}</span>);
+  //
+  //       i = highlight.end_index;
+  //     }
+  //   });
+  //   body_els.push(body_string.slice(i));
+  //   return body_els;
+  // },
 
-    allHighlights.forEach(highlight => {
-      if (highlight.user_id !== SessionStore.currentUser().id) {
+
+  _renderAllHighlights: function() {
+    let allHighlights = HighlightsStore.highlightsByUser();
+    delete allHighlights[SessionStore.currentUser().id];
+    let layers = [];
+    Object.keys(allHighlights).forEach(user_id => {
+      let hue = 'rgba(' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',0.3)';
+
+      let body_string = this.props.article.body;
+      let body_els = [];
+      let i = 0;
+      let divStyle = {
+        backgroundColor: hue
+      };
+
+      allHighlights[user_id].forEach(highlight => {
         body_els.push(body_string.slice(i, highlight.start_index));
-        body_els.push(<span className='all-highlights-text'>{body_string.slice(highlight.start_index, highlight.end_index)}</span>);
+        body_els.push(<span className='all-highlights-text'
+        style={{background: `${hue}`}}>
+        {body_string.slice(highlight.start_index, highlight.end_index)}</span>);
 
         i = highlight.end_index;
-      }
+      });
+      body_els.push(body_string.slice(i));
+
+      layers.push(body_els);
     });
-    body_els.push(body_string.slice(i));
-    return body_els;
+    return layers;
   },
 
-  _renderComments: function() {
+  _renderMyComments: function() {
 
+    let comments =  this.props.article.comments.map(comment => {
+      // console.log(comment);
+      if (comment.user_id === SessionStore.currentUser().id) {
+
+        let y = comment.ratio * $('.show-body').outerHeight();
+        // - ($('.show-body').offset().top + $('.show-body').position().top);
+
+        return <img className='comment-icon' style={{top: y}} onClick={this._showComment.bind(this, comment)} src="https://cdn4.iconfinder.com/data/icons/eldorado-basic/40/comment_chat-512.png" />;
+      }
+    });
+
+    // console.log(comments);
+
+    return comments;
+  },
+
+  _renderAllComments: function() {
     return this.props.article.comments.map(comment => {
-      let y = comment.ratio * $('.show-body').outerHeight();
-      // - ($('.show-body').offset().top + $('.show-body').position().top);
 
-      return <img className='comment-icon' style={{top: y}} onClick={this._showComment.bind(this, comment)} src="https://cdn4.iconfinder.com/data/icons/eldorado-basic/40/comment_chat-512.png" />;
+        let y = comment.ratio * $('.show-body').outerHeight();
+        // - ($('.show-body').offset().top + $('.show-body').position().top);
+
+        return <img className='comment-icon' style={{top: y}} onClick={this._showComment.bind(this, comment)} src="https://cdn4.iconfinder.com/data/icons/eldorado-basic/40/comment_chat-512.png" />;
     });
   },
 
@@ -176,9 +224,20 @@ const ArticleAndAnnotations = React.createClass({
     if (this.comment) {
       comment.push(this.comment);
     }
-    let allHighlights = [];
+    let layers = [];
     if (this.props.allHighlightsState) {
-      allHighlights = this._renderAllHighlights();
+      let allHighlights = this._renderAllHighlights();
+      allHighlights.forEach(layer => {
+        layers.push(
+          <div id='ghost-all-highlights'>
+            {layer}
+          </div>
+        );
+      });
+    }
+    let allComments = [];
+    if (this.props.allCommentsState) {
+      allComments = this._renderAllComments();
     }
 
 
@@ -186,14 +245,13 @@ const ArticleAndAnnotations = React.createClass({
       <div className='ghost-article-wrap'>
 
         <div className='show-body'>
-          {this._renderComments()}
+          {this._renderMyComments()}
+          {allComments}
           <CommentsForm commentState={this.props.commentState} showForm={this.props.showForm} yCoord={this.state.yCoord} articleId={this.props.article.id} hide={this._hide}/>
           <div id='ghost-article' onClick={this._handleClickDelete}>
             {this.props.article.body}
           </div>
-          <div id='ghost-all-highlights'>
-            {allHighlights}
-          </div>
+          {layers}
           <div id='article'>
             {this._createBody()}
           </div>

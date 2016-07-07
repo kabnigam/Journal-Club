@@ -51,6 +51,15 @@ const ToolSidebar = React.createClass({
     }
     this.props.allHighlightsMode();
   },
+  _showAllComments: function(e) {
+    if ($(e.target).hasClass('clicked')) {
+      $(e.target).removeClass('clicked');
+    }
+    else {
+      $(e.target).addClass('clicked');
+    }
+    this.props.allCommentsMode();
+  },
 
   _handleComment: function(e) {
     if (this.props.showForm) {
@@ -88,7 +97,7 @@ const ToolSidebar = React.createClass({
     let show_group_annotations = [];
     if (this.props.article.users.map(user => {return user.username;}).includes(SessionStore.currentUser().username)) {
       show_group_annotations.push(<button className='edit-delete' onClick={this._showAllHighlights}>SHOW ALL HIGHLIGHTS</button>);
-      show_group_annotations.push(<button className='edit-delete'>SHOW ALL COMMENTS</button>);
+      show_group_annotations.push(<button className='edit-delete' onClick={this._showAllComments}>SHOW ALL COMMENTS</button>);
     }
 
     return (

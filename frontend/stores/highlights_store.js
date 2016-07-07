@@ -35,7 +35,8 @@ HighlightsStore.highlightsByUser = function() {
     }
   });
   Object.keys(_highlights).forEach(idx => {
-    highlightsByUser[_highlights.user_id].push(_highlights[idx]);
+    
+    highlightsByUser[_highlights[idx].user_id].push(_highlights[idx]);
   });
   return highlightsByUser;
 };
