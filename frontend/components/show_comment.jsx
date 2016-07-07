@@ -49,7 +49,7 @@ const ShowComment = React.createClass({
       return <p className='comment-block'>{comment.user_id}: {comment.body}</p>;
     });
     rendered = rendered.concat(this.state.currentReplies);
-    debugger
+    
     return (
       <div className='show-comment'>
 

@@ -187,22 +187,51 @@ const ArticleAndAnnotations = React.createClass({
     return layers;
   },
 
-  _renderMyComments: function() {
+  // _renderMyComments: function() {
+  //
+  //   let comments =  this.props.article.comments.map(comment => {
+  //     // console.log(comment);
+  //     if (comment.user_id === SessionStore.currentUser().id) {
+  //
+  //       let y = comment.ratio * $('.show-body').outerHeight();
+  //       // - ($('.show-body').offset().top + $('.show-body').position().top);
+  //
+  //       return <img className='comment-icon' style={{top: y}} onClick={this._showComments.bind(this, comment)} src="https://cdn4.iconfinder.com/data/icons/eldorado-basic/40/comment_chat-512.png" />;
+  //     }
+  //   });
+  //
+  //   // console.log(comments);
+  //
+  //   return comments;
+  // },
 
-    let comments =  this.props.article.comments.map(comment => {
-      // console.log(comment);
+  _renderMyComments: function() {
+    let positionComments = {};
+    let that = this;
+
+    this.props.article.comments.forEach(comment => {
       if (comment.user_id === SessionStore.currentUser().id) {
 
+        let pushed = false;
         let y = comment.ratio * $('.show-body').outerHeight();
-        // - ($('.show-body').offset().top + $('.show-body').position().top);
+        Object.keys(positionComments).forEach(position => {
+          if ((parseFloat(position) - 25) < y && (parseFloat(position) + 25) > y) {
 
-        return <img className='comment-icon' style={{top: y}} onClick={this._showComments.bind(this, comment)} src="https://cdn4.iconfinder.com/data/icons/eldorado-basic/40/comment_chat-512.png" />;
+            positionComments[position].push(comment);
+            pushed = true;
+          }
+        });
+        if (!pushed) {
+          positionComments[y] = [comment];
+        }
       }
     });
 
-    // console.log(comments);
 
-    return comments;
+    return Object.keys(positionComments).map(position => {
+
+      return <img className='comment-icon' style={{top: position}} onClick={this._showComments.bind(this, positionComments[position], position)} src="https://cdn4.iconfinder.com/data/icons/eldorado-basic/40/comment_chat-512.png" />;
+    });
   },
 
   _renderAllComments: function() {
@@ -226,7 +255,7 @@ const ArticleAndAnnotations = React.createClass({
 
 
     return Object.keys(positionComments).map(position => {
-    
+
       return <img className='comment-icon' style={{top: position}} onClick={this._showComments.bind(this, positionComments[position], position)} src="https://cdn4.iconfinder.com/data/icons/eldorado-basic/40/comment_chat-512.png" />;
     });
 
