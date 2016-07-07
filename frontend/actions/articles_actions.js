@@ -30,6 +30,7 @@ const ArticlesActions = {
     hashHistory.push(`/articles/${article.id}`);
   },
   receiveArticles(articles) {
+    
     AppDispatcher.dispatch({
       actionType: ArticlesConstants.RECEIVED_ARTICLES,
       articles: articles

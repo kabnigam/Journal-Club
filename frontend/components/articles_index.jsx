@@ -4,6 +4,7 @@ const ArticlesStore = require('../stores/articles_store');
 const ArticlesIndexItem = require('./articles_index_item');
 const hashHistory = require('react-router').hashHistory;
 const ArticleForm = require('./article_form');
+const Sidebar = require('./sidebar');
 
 const ArticlesIndex = React.createClass({
   getInitialState: function() {

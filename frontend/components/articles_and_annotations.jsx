@@ -84,6 +84,7 @@ const ArticleAndAnnotations = React.createClass({
 
   _getHighlightCoords() {
     let target = window.getSelection();
+
     let start = target.anchorOffset;
     let end = target.focusOffset;
     if (start !== end) {
@@ -122,6 +123,12 @@ const ArticleAndAnnotations = React.createClass({
       }
       HighlightsActions.createHighlight({start_index: start, end_index: end, article_id: this.props.article.id});
     }
+
+    if (window.getSelection) {
+        window.getSelection().removeAllRanges();
+    } else if (document.selection) {
+        document.selection.empty();
+    }
   },
 
   _createBody: function() {
@@ -159,23 +166,23 @@ const ArticleAndAnnotations = React.createClass({
 
 
   _renderAllHighlights: function() {
+    const colors = ['rgba(255,0,0,0.3)','rgba(0,255,255,0.3)','rgba(0,0,255,0.3)','rgba(0,255,0,0.3)','rgba	(255,0,255,0.3)','rgba(0,255,127,0.3)','rgba(128,0,128,0.3)','rgba(255,20,147,0.3)','rgba(255,69,0,0.3)','rgba(255,140,0,0.3)'];
     let allHighlights = HighlightsStore.highlightsByUser();
     delete allHighlights[SessionStore.currentUser().id];
     let layers = [];
     Object.keys(allHighlights).forEach(user_id => {
-      let hue = 'rgba(' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',0.3)';
+      // let hue = 'rgba(' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',0.3)';
 
       let body_string = this.props.article.body;
       let body_els = [];
       let i = 0;
-      let divStyle = {
-        backgroundColor: hue
-      };
 
+
+      let color = colors.shift();
       allHighlights[user_id].forEach(highlight => {
         body_els.push(body_string.slice(i, highlight.start_index));
         body_els.push(<span className='all-highlights-text'
-        style={{background: `${hue}`}}>
+        style={{background: `${color}`}}>
         {body_string.slice(highlight.start_index, highlight.end_index)}</span>);
 
         i = highlight.end_index;
@@ -282,7 +289,7 @@ const ArticleAndAnnotations = React.createClass({
       comment.push(this.comment);
     }
     let layers = [];
-    if (this.props.allHighlightsState) {
+    if (layers.length === 0 && this.props.allHighlightsState) {
       let allHighlights = this._renderAllHighlights();
       allHighlights.forEach(layer => {
         layers.push(

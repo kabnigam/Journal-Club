@@ -95,19 +95,23 @@ const ToolSidebar = React.createClass({
     }
 
     let show_group_annotations = [];
-    if (this.props.article.users.map(user => {return user.username;}).includes(SessionStore.currentUser().username)) {
+    if (this.props.article.users.map(user => {return user.username;}).includes(SessionStore.currentUser().username) && !this.props.editState) {
       show_group_annotations.push(<button className='edit-delete' onClick={this._showAllHighlights}>SHOW ALL HIGHLIGHTS</button>);
       show_group_annotations.push(<button className='edit-delete' onClick={this._showAllComments}>SHOW ALL COMMENTS</button>);
+    }
+
+    let highlight_comment = [];
+    if (!this.props.editState) {
+      highlight_comment.push(<button onClick={this._handleHighlight} className='highlight edit-delete'>HIGHLIGHT</button>);
+      highlight_comment.push(<button onClick={this._handleComment} className={commentKlass}>COMMENT</button>);
     }
 
     return (
       <div className={`tools-sidebar ${this.state.klass}`}>
         {edit_delete}
-        <button onClick={this._handleHighlight} className='highlight edit-delete'>HIGHLIGHT</button>
-        <div className='comment-section'>
 
-          <button onClick={this._handleComment} className={commentKlass}>COMMENT</button>
-        </div>
+        {highlight_comment}
+
         {show_group_annotations}
       </div>
     );

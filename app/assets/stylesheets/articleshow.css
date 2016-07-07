@@ -126,6 +126,7 @@ div#article-and-sidebar {
     white-space: pre-wrap;
     z-index: 1;
     padding-right: 5%;
+    line-height: 1.5em;
 }
 
 
@@ -139,6 +140,7 @@ div#article-and-sidebar {
     font-family: 'Pontano Sans', sans-serif;
     white-space: pre-wrap;
     padding-right: 5%;
+    line-height: 1.5em;
 
 }
 #ghost-all-highlights {
@@ -149,6 +151,7 @@ div#article-and-sidebar {
     font-family: 'Pontano Sans', sans-serif;
     white-space: pre-wrap;
     padding-right: 5%;
+    line-height: 1.5em;
 
 }
 
@@ -270,7 +273,7 @@ div.create-comment-form {
     width: auto;
     display: inline;
     position: absolute;
-
+    top: -3px;
     z-index: 3;
     cursor: pointer;
 }
@@ -309,4 +312,25 @@ textarea.comment-reply {
 
 p.comment-block {
   display: block;
+}
+
+.delete-icon {
+  height: 11px;
+  width: auto;
+  display: inline;
+}
+
+.delete-icon:hover {
+  cursor: pointer;
+}
+.comment-buttons {
+  padding: 0 10px;
+}
+
+.hidden-icon {
+  display: none;
+}
+
+.comment-icon:hover {
+  cursor: pointer;
 }

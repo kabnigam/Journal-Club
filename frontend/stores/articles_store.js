@@ -39,6 +39,15 @@ function _removeComment(comment) {
   ArticlesStore.__emitChange();
 }
 
+ArticlesStore.findCommentByReply = function(reply, user_id, article_id) {
+  for (var i = 0; i < _articles[article_id].comments.length; i++) {
+    let comment = _articles[article_id].comments[i];
+    if (comment.body === reply && comment.user_id === user_id) {
+      return comment;
+    }
+  }
+},
+
 ArticlesStore.all = function() {
   let articles = [];
   Object.keys(_articles).forEach(id => {

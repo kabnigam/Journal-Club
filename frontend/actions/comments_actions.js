@@ -13,6 +13,7 @@ const CommentsActions = {
   updateComment(comment) {
     CommentsApiUtil.update(comment, CommentsActions.receiveComment, error);
   },
+
   receiveComment(comment) {
     AppDispatcher.dispatch({
       actionType: CommentsConstants.COMMENT_RECEIVED,
