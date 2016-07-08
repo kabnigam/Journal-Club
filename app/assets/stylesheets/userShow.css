@@ -1,8 +1,57 @@
-
 div#users-articles {
     color: black;
-    margin: 10px;
+    margin: 0 0 0 7%;
+    width: 60%;
 }
 li {
-    color: black;
+    list-style: none;
+
+}
+
+div.user-prof > img {
+  width: 100px;
+  height: auto;
+  border-radius: 50%;
+  margin: 0 auto;
+  margin-top: 5%;
+  border: 3px solid black;
+  position: relative;
+  -webkit-filter: grayscale(1);
+  filter: grayscale(1);
+}
+
+div.user-prof > h3 {
+  color: #33cc33;
+  text-align: center;
+}
+
+div#users-articles > h2 {
+  font-family: 'Dosis', sans-serif;
+  font-weight: 600;
+}
+
+.my-groups {
+    margin: 0 10%;
+}
+
+.panels {
+  display: flex;
+}
+
+div.my-groups > h2 {
+  color: black;
+  font-family: 'Dosis', sans-serif;
+  font-weight: 600;
+}
+
+div.my-groups > ul {
+  color: black
+}
+
+.user-banner {
+  background-image: url(http://res.cloudinary.com/dzpkgj9f0/image/upload/v1467937125/book-774837_960_720_pvf6is.jpg);
+background-size: cover;
+height: 185px;
+
+background-position: 40%;
 }

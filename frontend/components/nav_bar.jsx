@@ -12,6 +12,10 @@ const NavBar = React.createClass({
     SessionActions.logout();
   },
 
+  _redirectProfile: function() {
+    hashHistory.push(`/users/${SessionStore.currentUser().id}`);
+  },
+
   render: function() {
     return (
       <div>
@@ -36,8 +40,8 @@ const NavBar = React.createClass({
                 </div>
               </button>
               <div className="dropdown-content">
-                <a href="#">PROFILE</a>
-                <a href="#">SETTINGS</a>
+                <a onClick={this._redirectProfile}>PROFILE</a>
+              
                 <a onClick={this._handleLogout}>LOGOUT</a>
               </div>
             </div>

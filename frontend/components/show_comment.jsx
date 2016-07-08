@@ -20,7 +20,7 @@ const ShowComment = React.createClass({
     CommentsActions.createComment({body: this.state.reply, article_id: this.props.articleId, ratio: this.comments[0].ratio});
     this.setState({currentReplies: this.state.currentReplies.concat([<p reply={this.state.reply} className='comment-block'>
       <img onClick={this._deleteCurrentReply.bind(this, this.state.reply)} className='delete-icon hidden-icon' src='https://cdn0.iconfinder.com/data/icons/form-elements-kit/100/minus-red-rounded-01-128.png' />
-      {SessionStore.currentUser().id}: {this.state.reply}
+      {SessionStore.currentUser().username}: {this.state.reply}
     </p>])});
     this.setState({reply: ''});
 
@@ -74,7 +74,7 @@ const ShowComment = React.createClass({
       if (this.state.editMode) {
         if (comment.user_id === SessionStore.currentUser().id) {
           return <p className='comment-block'>
-            <img onClick={this._handleDelete.bind(this, comment.id)} className='delete-icon' src='https://cdn0.iconfinder.com/data/icons/form-elements-kit/100/minus-red-rounded-01-128.png' />
+            <img onClick={this._handleDelete.bind(this, comment.id)} className='delete-icon' src='http://res.cloudinary.com/dzpkgj9f0/image/upload/v1468019786/minus-4-512_impykc.png' />
             {comment.username}: {comment.body}</p>;
         } else {
           return <p className='comment-block'>{comment.username}: {comment.body}</p>;
@@ -90,7 +90,7 @@ const ShowComment = React.createClass({
         this.state.currentReplies.map(reply => {
 
           return <p reply={reply.props.reply} className='comment-block'>
-            <img onClick={this._deleteCurrentReply.bind(this, reply.props.reply)} className='delete-icon' src='https://cdn0.iconfinder.com/data/icons/form-elements-kit/100/minus-red-rounded-01-128.png' />
+            <img onClick={this._deleteCurrentReply.bind(this, reply.props.reply)} className='delete-icon' src='http://res.cloudinary.com/dzpkgj9f0/image/upload/v1468019786/minus-4-512_impykc.png' />
             {SessionStore.currentUser().username}: {reply.props.reply}
           </p>;
         })

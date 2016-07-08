@@ -4,8 +4,11 @@ const GroupsConstants = require('../constants/groups_constants');
 const hashHistory = require('react-router').hashHistory;
 
 const GroupsActions = {
-  createGroup(group) {
-    GroupsApiUtil.create(group, this.receiveGroup, error);
+  createGroup(data) {
+    GroupsApiUtil.create(data, this.receiveGroup, error);
+  },
+  updateGroupUser(data) {
+    GroupsApiUtil.updateUser(data, this.updateGroup, error);
   },
 
   fetchGroup(id) {
@@ -26,6 +29,12 @@ const GroupsActions = {
       group: group
     });
     hashHistory.push(`/groups/${group.id}`);
+  },
+  updateGroup(group) {
+    AppDispatcher.dispatch({
+      actionType: GroupsConstants.RECEIVED_GROUP,
+      group: group
+    });
   },
   receiveGroups(groups) {
     AppDispatcher.dispatch({

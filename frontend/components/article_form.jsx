@@ -1,9 +1,10 @@
 const React = require('react');
 const ArticlesActions = require('../actions/articles_actions');
+const SessionStore = require('../stores/session_store');
 
 const ArticleForm = React.createClass({
   getInitialState: function() {
-    return {title: '', body: '', source: '', picture_url: '', clicked: false};
+    return {title: '', body: '', source: '', picture_url: '', group: '', clicked: false};
   },
   _handleTitle: function(e) {
     this.setState({title: e.target.value});
@@ -19,6 +20,9 @@ const ArticleForm = React.createClass({
   },
   _handleClose: function() {
     this.setState({clicked: false});
+  },
+  _handleGroup: function(e) {
+    this.setState({group: e.target.value});
   },
   postImage(url) {
     this.setState({picture_url: url});
@@ -40,12 +44,19 @@ const ArticleForm = React.createClass({
       title: this.state.title,
       body: this.state.body,
       source: this.state.source,
+      group_id: this.state.group,
       picture_url: this.state.picture_url
     });
     this.setState({title: '', body: '', source: '', clicked: false});
   },
   render: function() {
     if (this.state.clicked) {
+      let select_options = [<option value='No Groups Available' disabled>No Groups Available</option>];
+      if (SessionStore.currentUser().groups.length > 0) {
+        select_options = SessionStore.currentUser().groups.map(group => {
+          return <option value={group.id} onClick={this._handleGroup}>{group.name}</option>;
+        });
+      }
       return (
         <div id='create-article-form'>
           <img onClick={this._handleClose} id='close-button' src='https://cdn2.iconfinder.com/data/icons/status-4/24/close-circle-128.png' />
@@ -55,6 +66,12 @@ const ArticleForm = React.createClass({
           <br/>
           <input id='create-article-source' placeholder="Source (optional)" onChange={this._handleSource}></input>
           <br/>
+          <br />
+          <span style={{color: 'gray'}}>Group: </span>&nbsp;
+          <select>
+            {select_options}
+          </select>
+          <br />
           <button id='create-article-submit' onClick={this._handleSubmit}>Post</button>
           <button id='upload-photo' onClick={this._upload}>Upload Photo</button>
         </div>

@@ -125,5 +125,6 @@ div#site-name:hover {
   .search-index-item:hover {
     padding: 5px;
     background-color: #f1f1f1;
+    cursor: pointer;
   }
 /* Change the background color of the dropdown button when the dropdown content is shown */

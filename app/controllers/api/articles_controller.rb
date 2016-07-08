@@ -6,9 +6,10 @@ class Api::ArticlesController < ApplicationController
   end
 
   def create
-    @article = Article.new(article_params)
+    @article = Article.new(article_params.except!(:group_id))
     @article.user_id = current_user.id
     if @article.save
+      @article.create_ArticleGrouping(group_id: article_params[:group_id]) if article_params[:group_id]
       render :show
     else
       render json: @article.errors.full_messages, status: 422
@@ -42,7 +43,7 @@ class Api::ArticlesController < ApplicationController
   private
 
   def article_params
-    params.require(:article).permit(:title, :body, :source, :picture_url)
+    params.require(:article).permit(:title, :body, :source, :picture_url, :group_id)
   end
 
   def search_params

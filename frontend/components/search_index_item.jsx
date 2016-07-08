@@ -22,14 +22,20 @@ const SearchIndexItem = React.createClass({
       img =
       <img className='search-image' src="https://cdn2.iconfinder.com/data/icons/budicon-document-2/16/3-document_-_article_news_newspaper-512.png"></img>;
       this.url = `/articles/${this.props.article.id}`;
+    } else if (this.props.group) {
+      result = this.props.group.name;
+      img =
+      <img className='search-image'
+      src="http://image.flaticon.com/icons/png/512/27/27825.png"></img>;
+      this.url = `/groups/${this.props.group.id}`;
     }
-    if (result.length > 20) {
+    if (result.length > 15) {
       result = result.slice(0,15) + '...';
     }
     return (
-      <div className='search-index-item'>
+      <div onClick={this._handleClick} className='search-index-item'>
         {img}
-        <a onClick={this._handleClick} id='search-results'>{result}</a>
+        <a id='search-results'>{result}</a>
       </div>
     );
   }

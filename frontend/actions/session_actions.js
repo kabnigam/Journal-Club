@@ -45,6 +45,13 @@ const SessionActions = {
       actionType: SessionConstants.RECEIVE_USER_RESULTS,
       users: users
     });
+  },
+  deleteUser(id) {
+    debugger
+    AppDispatcher.dispatch({
+      actionType: "DELETE_USER",
+      id: id
+    });
   }
 };
 

@@ -49,6 +49,7 @@ div#article-show-user > h3 {
   text-align: center;
   position: relative;
   top: -80px;
+  color: black;
 }
 div#article-show-user > span {
   color: black;
@@ -273,7 +274,7 @@ div.create-comment-form {
     width: auto;
     display: inline;
     position: absolute;
-    top: -3px;
+
     z-index: 3;
     cursor: pointer;
 }
@@ -333,4 +334,17 @@ p.comment-block {
 
 .comment-icon:hover {
   cursor: pointer;
+}
+span#username {
+    color: #00BCD4;
+}
+span#username:hover {
+    cursor: pointer;
+}
+
+span#group-name {
+    color: #33cc33;
+}
+span#group-name:hover {
+    cursor: pointer;
 }

@@ -8,7 +8,7 @@ class Group < ActiveRecord::Base
 
   has_many :ArticleGroupings,
   primary_key: :id,
-  foreign_key: :article_id,
+  foreign_key: :group_id,
   class_name: "ArticleGroup"
 
   has_many :users,
@@ -18,4 +18,11 @@ class Group < ActiveRecord::Base
   has_many :articles,
   through: :ArticleGroupings,
   source: :article
+
+  def self.search_for(params)
+    if (params[:search].strip != '')
+      query = '%' + params[:search] + '%'
+      self.where("UPPER(name) LIKE UPPER(?)", query)
+    end
+  end
 end

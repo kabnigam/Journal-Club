@@ -1,8 +1,10 @@
 const React = require('react');
 const ArticlesActions = require('../actions/articles_actions');
 const ArticlesStore = require('../stores/articles_store');
+const GroupsStore = require('../stores/groups_store');
 const ArticleAndAnnotations = require('./articles_and_annotations');
 const ToolSidebar = require('./scroll_toolbar');
+const hashHistory = require('react-router').hashHistory;
 
 const ArticlesShow = React.createClass({
   getInitialState: function() {
@@ -13,6 +15,7 @@ const ArticlesShow = React.createClass({
   },
   componentDidMount: function() {
     this.listener = ArticlesStore.addListener(this._onChange);
+    this.groupListener = GroupsStore.addListener(this._onChange);
     ArticlesActions.fetchArticles();
     this.setState({picture_url: this.article.picture_url});
   },
@@ -22,11 +25,14 @@ const ArticlesShow = React.createClass({
     this.setState({title: this.article.title, body: this.article.body});
   },
   _onChange: function() {
+
+
     this.article = ArticlesStore.find(parseInt(this.props.params.articleId));
     this.setState({title: this.article.title, body: this.article.body});
   },
   componentWillUnmount: function() {
     this.listener.remove();
+    this.groupListener.remove();
   },
   _editMode: function() {
     this.setState({edit: true});
@@ -92,12 +98,17 @@ _triggerAllComments: function() {
     );
   },
 
+  _redirectToUser() {
+    hashHistory.push(`/users/${this.article.user.id}`);
+  },
 
-
+  _redirectToGroup() {
+    hashHistory.push(`/groups/${this.article.group.id}`);
+  },
 
 
   render: function() {
-    
+
 
     if (!this.state.body) {
       return <div>loading...</div>;
@@ -118,7 +129,7 @@ _triggerAllComments: function() {
             <div id="article-and-sidebar">
               <div id='article-show-user'>
                 <img src='http://errantscience.com/wp-content/uploads/Duck-face.jpg' />
-                <h3>Posted by <span id='username'>{this.article.user.username}</span></h3>
+                <h3>Posted by <span id='username'>{this.article.user.username}</span> in <span id='group-name'>{this.article.group.name}</span></h3>
               </div>
 
               <div id='article-edit-body'>
@@ -149,7 +160,7 @@ _triggerAllComments: function() {
             <div id="article-and-sidebar">
               <div id='article-show-user'>
                 <img src='http://errantscience.com/wp-content/uploads/Duck-face.jpg' />
-                <h3>Posted by <span id='username'>{this.article.user.username}</span></h3>
+                <h3>Posted by <span onClick={this._redirectToUser} id='username'>{this.article.user.username}</span> in <span onClick={this._redirectToGroup} id='group-name'>{this.article.group.name}</span></h3>
               </div>
 
               <ArticleAndAnnotations article={this.article} highlightState={this.state.highlight} commentState={this.state.comment} triggerCommentMode={this._triggerCommentMode} showForm={this.state.showForm} triggerShowForm={this._triggerShowForm} allHighlightsState={this.state.all_highlights} allCommentsState={this.state.all_comments}/>

@@ -4,7 +4,7 @@ const ArticlesStore = require('../stores/articles_store');
 const ArticlesIndexItem = require('./articles_index_item');
 const hashHistory = require('react-router').hashHistory;
 const ArticleForm = require('./article_form');
-const Sidebar = require('./sidebar');
+const GroupForm = require('./group_form');
 
 const ArticlesIndex = React.createClass({
   getInitialState: function() {
@@ -27,7 +27,7 @@ const ArticlesIndex = React.createClass({
       return <ArticlesIndexItem article={article}/>;
     });
     return (
-      <div>
+      <div className='whole-container'>
         <div className='overlay-index'>
 
           <div id='index-splash'>
@@ -43,8 +43,8 @@ const ArticlesIndex = React.createClass({
               {articles}
             </ul>
 
-            <div id='side-panel'></div>
           </div>
+          <GroupForm />
         </div>
       </div>
     );

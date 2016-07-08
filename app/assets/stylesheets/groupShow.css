@@ -1,0 +1,38 @@
+div.group-show > h1 {
+    color: black;
+    font-family: 'Dosis', sans-serif;
+    text-align: center;
+    margin: 5% 0;
+
+}
+
+div#group-articles {
+    color: black;
+    margin: 0 0 0 7%;
+    width: 60%;
+    font-family: 'Dosis', sans-serif;
+
+}
+
+div#group-articles > h2 {
+  font-weight: 600;
+}
+div.group-users > h2 {
+  font-weight: 600;
+}
+
+.group-users {
+    color: black;
+    font-family: 'Dosis', sans-serif;
+    margin: 0 7%;
+}
+
+img#hide-group-button {
+  height: 17px;
+  width: auto;
+  display: inline-block;
+}
+
+img#hide-group-button:hover {
+  cursor: pointer;
+}

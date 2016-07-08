@@ -22,6 +22,7 @@ li {
     padding: 10px 20px;
     border-radius: 5px;
     background-color: white;
+    width: 100%
 
 }
 
@@ -55,13 +56,19 @@ div#posted-text {
 
 div#articles {
   width: 75%;
+
 }
 
-
+div.whole-container {
+  background-image: url(http://res.cloudinary.com/dzpkgj9f0/image/upload/v1467937125/book-774837_960_720_pvf6is.jpg);
+  background-size: cover;
+  height: 400px;
+  background-position: center center;
+  /*background-attachment: fixed;*/
+}
 
 div#index-splash {
-  background-image: url(http://wallzoa.com/wp-content/uploads/2013/06/earth-space-background.jpg);
-  background-size: cover;
+
   height: 20%;
   padding-top: 8px;
   padding-left: 44px;
@@ -73,8 +80,10 @@ div#index-splash > h2 {
   margin-bottom: 5px;
   padding-bottom: 0px;
   font-family: 'Dosis', sans-serif;
+  /*font-family: 'Montserrat', sans-serif;*/
   font-weight: 300;
   text-shadow: 2px 2px;
+  margin-top: 10%
 }
 
 pre#article-body {
@@ -89,11 +98,111 @@ div#index-splash > h3 {
   margin-top: 10px;
   font-weight: 300;
   font-family: 'Dosis', sans-serif;
+  /*font-family: 'Montserrat', sans-serif;*/
 }
 
 .overlay-index {
   height: 100%;
   width: 100%;
-  background-color: rgba(255, 255, 255, 0.2);
 
+
+}
+
+.create-group-form {
+    margin: 88px 5% 0 10%;
+    border: 1px solid lightgray;
+    padding: 2%;
+    border-radius: 20px;
+    width: 200px;
+    font-family: 'Pontano Sans', sans-serif;
+    background-color: #f2f2f2;
+}
+
+.create-group-form:hover {
+  box-shadow: 2px 2px 2px gray;
+}
+
+.create-group-form > h2 {
+  text-align: center;
+  margin-top: 0;
+  font-family: 'Dosis', sans-serif;
+  font-weight: normal;
+}
+
+
+textarea#create-group-name {
+    font-size: 14px;
+    margin-bottom: 5px;
+    height: 40px;
+    border-top: 1px solid lightgray;
+    padding-left: 0;
+}
+
+.dropdown-content.group-user-search {
+    box-shadow: 5px 2px 2px gray;
+    border: 1px solid lightgray;
+    position: relative;
+    margin-top: 5px;
+    min-width: 0px;
+    left: -3px;
+}
+
+a.group-search-result {
+    margin-left: 25%;
+}
+
+label#select-users {
+  font-size: 14px;
+}
+
+img.delete-group-user {
+  height: 10px;
+  width: auto;
+  display: inline-block;
+}
+
+img.delete-group-user:hover {
+  cursor: pointer;
+}
+
+p.create-group-users {
+  margin-left: 5%;
+  display: inline-block;
+}
+
+.search-bar.group-search {
+    margin: 0 auto;
+    margin-top: 10px;
+    width: 60%;
+    background-color: white;
+}
+
+button.create-group-button {
+    margin: 0 auto;
+    text-align: center;
+    width: 159px;
+    border: 1px solid lime;
+    padding: 5px;
+    border-radius: 20px;
+}
+button.create-group-button:hover {
+  background-color: #33cc33;;
+  color: white;
+}
+
+div.sr:hover {
+  background-color: #f2f2f2;
+}
+
+
+
+div.create-group-form > div.my-groups > h2 {
+  font-weight: normal;
+  text-align: center;
+}
+
+li.group-name {
+    font-size: 14px;
+    width: 115px;
+    background-color: inherit;
 }

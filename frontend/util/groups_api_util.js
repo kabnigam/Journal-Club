@@ -1,9 +1,24 @@
 const GroupsApiUtil = {
   create(data, successCB, errorsCB) {
+
     $.ajax({
       url: 'api/groups',
       method: 'POST',
-      data: {group: data},
+      data: {group: {name: data.name, users: data.users}},
+      success(response) {
+        successCB(response);
+      },
+      errors(response) {
+        errorsCB(response);
+      }
+    });
+  },
+  updateUser(data, successCB, errorsCB) {
+
+    $.ajax({
+      url: `api/groups/${data.group_id}`,
+      method: 'PATCH',
+      data: {group: {user: data.user}},
       success(response) {
         successCB(response);
       },
@@ -31,6 +46,16 @@ const GroupsApiUtil = {
       },
       errors(response) {
         errorsCB(response);
+      }
+    });
+  },
+
+  search(params, successCB) {
+    $.ajax({
+      url: 'api/groups',
+      data: {group: {search: params}},
+      success(response) {
+        successCB(response);
       }
     });
   },

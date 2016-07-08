@@ -2,12 +2,15 @@ const React = require('react');
 const SessionStore = require('../stores/session_store');
 const ArticlesActions = require('../actions/articles_actions');
 const CommentsForm = require('./comment');
+const GroupsActions = require('../actions/groups_actions');
+const GroupsStore = require('../stores/groups_store');
 
 const ToolSidebar = React.createClass({
   getInitialState: function() {
     return {klass: 'absolute', edit: false, comment_state: false};
   },
   componentDidMount: function() {
+
     window.addEventListener('scroll', this._scrollHeight);
   },
 
@@ -69,10 +72,13 @@ const ToolSidebar = React.createClass({
     this.props.commentMode();
   },
 
-
+  _joinGroup: function() {
+    GroupsActions.updateGroupUser({user: SessionStore.currentUser().id, group_id: this.props.article.group.id});
+  },
 
   componentWillUnmount: function() {
     window.removeEventListener('scroll', this._scrollHeight);
+
   },
 
 
@@ -98,6 +104,11 @@ const ToolSidebar = React.createClass({
     if (this.props.article.users.map(user => {return user.username;}).includes(SessionStore.currentUser().username) && !this.props.editState) {
       show_group_annotations.push(<button className='edit-delete' onClick={this._showAllHighlights}>SHOW ALL HIGHLIGHTS</button>);
       show_group_annotations.push(<button className='edit-delete' onClick={this._showAllComments}>SHOW ALL COMMENTS</button>);
+    }
+
+    if (!this.props.article.users.map(user => {return user.username;}).includes(SessionStore.currentUser().username) &&
+    this.props.article.group){
+      show_group_annotations.push(<button className='edit-delete' onClick={this._joinGroup}>JOIN GROUP</button>);
     }
 
     let highlight_comment = [];

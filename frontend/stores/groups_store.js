@@ -9,6 +9,7 @@ const GroupsStore = new Store(AppDispatcher);
 let _groups = {};
 
 function _addGroup(group) {
+  
   _groups[group.id] = group;
   GroupsStore.__emitChange();
 }

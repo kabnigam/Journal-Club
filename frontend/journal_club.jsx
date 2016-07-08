@@ -13,6 +13,8 @@ const ArticlesIndex = require('./components/articles_index');
 const NavBar = require('./components/nav_bar');
 const ArticlesShow = require('./components/articles_show');
 const UserShow = require('./components/user_show');
+const GroupShow = require('./components/group_show');
+const SearchStore = require('./stores/search_store');
 
 const SessionActions = window.SessionActions = require('./actions/session_actions');
 const SessionStore = window.SessionStore = require('./stores/session_store');
@@ -66,11 +68,16 @@ const routes = (
       <Route path='/login' component={LoginForm} />
       <Route path='/signup' component={SignupForm} />
       <Route path='/articles/:articleId' component={ArticlesShow} />
-      <Route path='/users/:userId' component={UserShow} />
+      <Route path='/users/:userId' component={UserShow} onEnter={_resetSearchStore}/>
+      <Route path='/groups/:groupId' component={GroupShow} />
 
     </Route>
   </Router>
 );
+
+function _resetSearchStore() {
+  SearchStore.reset();
+}
 
 document.addEventListener('DOMContentLoaded', function(){
   if (window.currentUser) {
