@@ -118,9 +118,6 @@ div#index-splash > h3 {
 
 }
 
-.create-group-form:hover {
-  box-shadow: 20px 20px 20px -15px rgba(0, 0, 0, 0.3);
-}
 
 .create-group-form > h2 {
   text-align: center;

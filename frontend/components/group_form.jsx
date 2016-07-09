@@ -45,12 +45,13 @@ const GroupForm = React.createClass({
     if (!this.state.create) {
       return (
         <div className='create-group-form'>
+          <UserGroups />
           <div id='add-article-click' onClick={this._handleClick}>
             <img id='create-article-button' src='https://www.materialui.co/materialIcons/content/add_circle_outline_grey_192x192.png' />
             Create new group
           </div>
 
-          <UserGroups />
+
 
         </div>
       );
@@ -60,7 +61,7 @@ const GroupForm = React.createClass({
     return (
 
         <div className='create-group-form'>
-
+          <UserGroups />
           <img onClick={this._hideForm} id='hide-group-button' src='http://www.iconsdb.com/icons/preview/dim-gray/minus-5-xxl.png' />
           <h2>Create Group</h2>
           <textarea id='create-group-name' placeholder="Name" onChange={this._handleName}></textarea>
@@ -75,7 +76,7 @@ const GroupForm = React.createClass({
           </label>
           <br/>
           <button onClick={this._handleSubmit} className='create-group-button'>Create Group</button>
-          <UserGroups />
+
 
         </div>
 

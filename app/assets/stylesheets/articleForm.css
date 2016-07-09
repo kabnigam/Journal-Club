@@ -1,6 +1,12 @@
+div.create-group-form > div#add-article-click {
+  color: grey;
+  height: 50px;
+  text-align: center;
+}
 div#add-article-click {
   color: grey;
   height: 50px;
+
 }
 
 div#add-article-click:hover {
@@ -68,4 +74,7 @@ button#create-article-submit {
 button#create-article-submit:hover {
   color: white;
   background-color: #33cc33;
+}
+div#add-article-click:hover {
+    cursor: pointer;
 }
