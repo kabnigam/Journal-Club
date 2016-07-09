@@ -12,16 +12,17 @@ const UserGroups = React.createClass({
       groups = SessionStore.currentUser().groups.map(group => {
         return <li onClick={this._redirectToGroup.bind(this, group)} className='group-name'>{group.name}</li>;
       });
-      return (
-        <div className='my-groups'>
-          <h2>My Groups</h2>
-          <ul>
-            {groups}
-          </ul>
-        </div>
-      );
     }
+    return (
+      <div className='my-groups'>
+        <h2>My Groups</h2>
+        <ul>
+          {groups}
+        </ul>
+      </div>
+    );
   }
+
 });
 
 module.exports = UserGroups;
