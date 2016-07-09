@@ -118,6 +118,7 @@ div#site-name:hover {
     display: block;
     top: 140%;
     left: -10%;
+    z-index: 5;
 
 }
 
