@@ -70,11 +70,11 @@ const UserShow = React.createClass({
             <div className='panels'>
 
               <div id='users-articles'>
-                <h2>MY ARTICLES</h2>
+                <h2>ARTICLES</h2>
                 {articles}
               </div>
               <div className='my-groups'>
-                <h2>MY GROUPS</h2>
+                <h2>GROUPS</h2>
                 <ul>
                   {groups}
                 </ul>
