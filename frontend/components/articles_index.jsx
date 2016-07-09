@@ -1,6 +1,7 @@
 const React = require('react');
 const ArticlesActions = require('../actions/articles_actions');
 const ArticlesStore = require('../stores/articles_store');
+const SessionStore = require('../stores/session_store');
 const ArticlesIndexItem = require('./articles_index_item');
 const hashHistory = require('react-router').hashHistory;
 const ArticleForm = require('./article_form');
@@ -26,6 +27,10 @@ const ArticlesIndex = React.createClass({
     articles = this.state.articles.map(article => {
       return <ArticlesIndexItem article={article}/>;
     });
+    let group_form = '';
+    if (SessionStore.currentUser().username) {
+      group_form = <GroupForm />;
+    }
     return (
       <div className='whole-container'>
         <div className='overlay-index'>
@@ -44,7 +49,7 @@ const ArticlesIndex = React.createClass({
             </ul>
 
           </div>
-          <GroupForm />
+          {group_form}
         </div>
       </div>
     );

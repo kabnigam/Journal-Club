@@ -25,6 +25,9 @@ const HighlightsActions = window.HighlightsActions = require('./actions/highligh
 
 const App = React.createClass({
   getInitialState: function() {
+    if (!SessionStore.isUserLoggedIn() && this.props.location.pathname != "/signup") {
+      hashHistory.push('/login');
+    }
     return {currentUser: SessionStore.currentUser()};
   },
   componentDidMount: function() {
@@ -68,7 +71,7 @@ const routes = (
       <Route path='/login' component={LoginForm} />
       <Route path='/signup' component={SignupForm} />
       <Route path='/articles/:articleId' component={ArticlesShow} />
-      <Route path='/users/:userId' component={UserShow} onEnter={_resetSearchStore}/>
+      <Route path='/users/:userId' component={UserShow}/>
       <Route path='/groups/:groupId' component={GroupShow} />
 
     </Route>

@@ -37,7 +37,7 @@ const GroupForm = React.createClass({
 
     let users = [];
     for (var i = 0; i < this.state.users.length; i++) {
-      users.push(<img className='delete-group-user' onClick={this._deleteUser.bind(this, i)} src='https://cdn0.iconfinder.com/data/icons/form-elements-kit/100/minus-red-rounded-01-128.png' />);
+      users.push(<img className='delete-group-user' onClick={this._deleteUser.bind(this, i)} src='http://res.cloudinary.com/dzpkgj9f0/image/upload/v1468019786/minus-4-512_impykc.png' />);
       users.push(<p className='create-group-users'>{this.state.users[i].username}</p>);
       users.push(<br />);
     }

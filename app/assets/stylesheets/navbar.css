@@ -101,11 +101,24 @@ div#site-name:hover {
   font-size: 14px;
   margin-right: 40px;
 }
+.nav-search-bar {
+  border: 1px solid black;
+  padding: 2px;
+  padding-left: 10px;
+  border-radius: 20px;
+  margin: 5px;
+  height: 20px;
+  font-size: 14px;
+  margin-right: 40px;
+  position: absolute;
+  right: 10%;
+}
 
 .search-content {
     display: block;
-    right: 170px;
-    top: 40px;
+    top: 140%;
+    left: -10%;
+
 }
 
 .search-image {

@@ -108,12 +108,18 @@ _triggerAllComments: function() {
 
 
   render: function() {
+    let group = [];
 
 
     if (!this.state.body) {
       return <div>loading...</div>;
+    } else {
+      if (this.article.group) {
+        group.push(' in ');
+        group.push(<span onClick={this._redirectToGroup} id='group-name'>{this.article.group.name}</span>);
+      }
     }
-    else if (this.state.edit) {
+    if (this.state.edit) {
       return (
         <div id='article-show-container'>
           <div id='article-show-image'>
@@ -129,7 +135,9 @@ _triggerAllComments: function() {
             <div id="article-and-sidebar">
               <div id='article-show-user'>
                 <img src='http://errantscience.com/wp-content/uploads/Duck-face.jpg' />
-                <h3>Posted by <span id='username'>{this.article.user.username}</span> in <span id='group-name'>{this.article.group.name}</span></h3>
+                <h3>Posted by <span id='username'>{this.article.user.username}</span>
+                {group}
+                </h3>
               </div>
 
               <div id='article-edit-body'>
@@ -160,7 +168,9 @@ _triggerAllComments: function() {
             <div id="article-and-sidebar">
               <div id='article-show-user'>
                 <img src='http://errantscience.com/wp-content/uploads/Duck-face.jpg' />
-                <h3>Posted by <span onClick={this._redirectToUser} id='username'>{this.article.user.username}</span> in <span onClick={this._redirectToGroup} id='group-name'>{this.article.group.name}</span></h3>
+                <h3>Posted by <span onClick={this._redirectToUser} id='username'>{this.article.user.username}</span>
+                {group}
+                </h3>
               </div>
 
               <ArticleAndAnnotations article={this.article} highlightState={this.state.highlight} commentState={this.state.comment} triggerCommentMode={this._triggerCommentMode} showForm={this.state.showForm} triggerShowForm={this._triggerShowForm} allHighlightsState={this.state.all_highlights} allCommentsState={this.state.all_comments}/>

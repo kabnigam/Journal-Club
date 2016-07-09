@@ -33,7 +33,7 @@ const SearchBar = React.createClass({
   _handleSearch: function(e) {
 
     this.setState({search: e.target.value});
-    
+
     SessionActions.searchUsers(e.target.value);
     ArticlesActions.searchArticles(e.target.value);
     GroupsActions.searchGroups(e.target.value);
@@ -66,7 +66,7 @@ const SearchBar = React.createClass({
     }
 
     return (
-      <div className='search-bar'>
+      <div className='nav-search-bar'>
         <input className='search-field' value={this.state.search} onChange={this._handleSearch} placeholder='Search...' onClick={this._handleFieldClick}/>
         <div className="dropdown-content search-content" id='search-field' onClick={this._handleClick}>
 
