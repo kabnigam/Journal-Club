@@ -1,11 +1,12 @@
 const AppDispatcher = require('../dispatcher/dispatcher');
 const ArticlesApiUtil = require('../util/articles_api_util');
 const ArticlesConstants = require('../constants/articles_constants');
+const ErrorsActions = require('../actions/errors_actions');
 const hashHistory = require('react-router').hashHistory;
 
 const ArticlesActions = {
   createArticle(article) {
-    ArticlesApiUtil.create(article, this.receiveArticle, error);
+    ArticlesApiUtil.create(article, this.receiveArticle, ErrorsActions.setErrors.bind(null, 'group_form'));
   },
   updateArticle(article) {
     ArticlesApiUtil.update(article, this.receiveArticle, error);
@@ -30,7 +31,7 @@ const ArticlesActions = {
     hashHistory.push(`/articles/${article.id}`);
   },
   receiveArticles(articles) {
-    
+
     AppDispatcher.dispatch({
       actionType: ArticlesConstants.RECEIVED_ARTICLES,
       articles: articles
