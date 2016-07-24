@@ -20,12 +20,9 @@ const ArticleAndAnnotations = React.createClass({
 
   },
 
-  _addMouseOver: function() {
-    // document.querySelector('.highlighted-text').addEventListener('mouseover', this._showDeleteHighlight);
-  },
+
 
   _onChange: function() {
-    // this._addMouseOver();
 
     this.setState({my_highlights: HighlightsStore.find(SessionStore.currentUser().id)});
   },
@@ -64,7 +61,10 @@ const ArticleAndAnnotations = React.createClass({
       this.setState({yCoord: e.offsetY});
     }
     if (e.target.className === "comment-icon") {
-      this.props.triggerCommentMode();
+      if (this.props.commentState) {
+
+        this.props.triggerCommentMode();
+      }
     }
     if (!this.props.showForm && this.props.commentState && e.target.className !== "comment-icon") {
 
@@ -150,7 +150,7 @@ const ArticleAndAnnotations = React.createClass({
 
     this.state.my_highlights.forEach(highlight => {
       body_els.push(body_string.slice(i, highlight.start_index));
-      body_els.push(<span className='highlighted-text'>{body_string.slice(highlight.start_index, highlight.end_index)}<img className='show-trash' onClick={this._deleteHighlight.bind(this, highlight.id)} src="https://cdn3.iconfinder.com/data/icons/fillies-large/64/trashcan-512.png" /></span>);
+      body_els.push(<span key={highlight.id} className='highlighted-text'>{body_string.slice(highlight.start_index, highlight.end_index)}<img className='show-trash' onClick={this._deleteHighlight.bind(this, highlight.id)} src="https://cdn3.iconfinder.com/data/icons/fillies-large/64/trashcan-512.png" /></span>);
 
       i = highlight.end_index;
     });
@@ -158,23 +158,7 @@ const ArticleAndAnnotations = React.createClass({
     return body_els;
   },
 
-  // _renderAllHighlights: function() {
-  //   let allHighlights = HighlightsStore.all();
-  //   let body_string = this.props.article.body;
-  //   let body_els = [];
-  //   let i = 0;
-  //
-  //   allHighlights.forEach(highlight => {
-  //     if (highlight.user_id !== SessionStore.currentUser().id) {
-  //       body_els.push(body_string.slice(i, highlight.start_index));
-  //       body_els.push(<span className='all-highlights-text'>{body_string.slice(highlight.start_index, highlight.end_index)}</span>);
-  //
-  //       i = highlight.end_index;
-  //     }
-  //   });
-  //   body_els.push(body_string.slice(i));
-  //   return body_els;
-  // },
+
 
 
   _renderAllHighlights: function() {
@@ -183,7 +167,7 @@ const ArticleAndAnnotations = React.createClass({
     delete allHighlights[SessionStore.currentUser().id];
     let layers = [];
     Object.keys(allHighlights).forEach(user_id => {
-      // let hue = 'rgba(' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',0.3)';
+
 
       let body_string = this.props.article.body;
       let body_els = [];
@@ -206,23 +190,6 @@ const ArticleAndAnnotations = React.createClass({
     return layers;
   },
 
-  // _renderMyComments: function() {
-  //
-  //   let comments =  this.props.article.comments.map(comment => {
-  //     // console.log(comment);
-  //     if (comment.user_id === SessionStore.currentUser().id) {
-  //
-  //       let y = comment.ratio * $('.show-body').outerHeight();
-  //       // - ($('.show-body').offset().top + $('.show-body').position().top);
-  //
-  //       return <img className='comment-icon' style={{top: y}} onClick={this._showComments.bind(this, comment)} src="https://cdn4.iconfinder.com/data/icons/eldorado-basic/40/comment_chat-512.png" />;
-  //     }
-  //   });
-  //
-  //   // console.log(comments);
-  //
-  //   return comments;
-  // },
 
   _renderMyComments: function() {
     let positionComments = {};
@@ -249,7 +216,7 @@ const ArticleAndAnnotations = React.createClass({
 
     return Object.keys(positionComments).map(position => {
 
-      return <img key={`${position}${positionComments[position]}`} className='comment-icon' style={{top: `${position}px`}} onClick={this._showComments.bind(this, positionComments[position], position)} src="https://cdn4.iconfinder.com/data/icons/eldorado-basic/40/comment_chat-512.png" />;
+      return <img key={`${position}${positionComments[position]}`} className='comment-icon' style={{top: `${position}px`}} onClick={this._showComments.bind(this, positionComments[position], position)} src="http://res.cloudinary.com/dzpkgj9f0/image/upload/v1469404544/comment_chat-512_o74kt9.png" />;
     });
   },
 
@@ -278,13 +245,6 @@ const ArticleAndAnnotations = React.createClass({
       return <img key={`${position}${positionComments[position]}`} className='comment-icon' style={{top: `${position}px`}} onClick={this._showComments.bind(this, positionComments[position], position)} src="https://cdn4.iconfinder.com/data/icons/eldorado-basic/40/comment_chat-512.png" />;
     });
 
-    // return this.props.article.comments.map(comment => {
-    //
-    //     let y = comment.ratio * $('.show-body').outerHeight();
-    //     // - ($('.show-body').offset().top +`${ $('.sho}px`w-body').position().top);
-    //
-    //     return <img className='comment-icon' style={{top: y}} onClick={this._showComment.bind(this, comment)} src="https://cdn4.iconfinder.com/data/icons/eldorado-basic/40/comment_chat-512.png" />;
-    // });
   },
 
   _hide: function() {

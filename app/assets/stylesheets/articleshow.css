@@ -304,6 +304,8 @@ div.create-comment-form {
 textarea.comment-reply {
   font-size: 14px;
   height: 100px;
+  border: 1px solid lightgray;
+border-radius: 5px;
 }
 
 .ghost-article-wrap {
@@ -326,6 +328,9 @@ p.comment-block {
 }
 .comment-buttons {
   padding: 0 10px;
+  border: 1px solid black;
+    border-radius: 5px;
+    margin-right: 10px;
 }
 
 .hidden-icon {
@@ -347,4 +352,13 @@ span#group-name {
 }
 span#group-name:hover {
     cursor: pointer;
+}
+
+#close-button:hover {
+  cursor: pointer;
+}
+
+.comment-buttons:hover {
+  color: white;
+  background-color: black;
 }
