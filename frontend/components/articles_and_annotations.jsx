@@ -63,7 +63,10 @@ const ArticleAndAnnotations = React.createClass({
 
       this.setState({yCoord: e.offsetY});
     }
-    if (!this.props.showForm && this.props.commentState) {
+    if (e.target.className === "comment-icon") {
+      this.props.triggerCommentMode();
+    }
+    if (!this.props.showForm && this.props.commentState && e.target.className !== "comment-icon") {
 
       this.props.triggerShowForm();
     }
@@ -71,7 +74,7 @@ const ArticleAndAnnotations = React.createClass({
 
   _showComments(comments, pos) {
 
-    this.comment = <ShowComment articleId={this.props.article.id} comment={comments} hideComment={this._hideComment} pos = {pos}/>;
+    this.comment = <ShowComment key={`${comments[0].id}`}articleId={this.props.article.id} comment={comments} hideComment={this._hideComment} pos = {pos}/>;
     this.setState({show_comment: true});
 
   },
@@ -100,29 +103,38 @@ const ArticleAndAnnotations = React.createClass({
   },
 
   _handleOverlap: function(start, end) {
+    if (start > end) {
+      end = [start, start = end][0];
+    }
     let iterator = this.state.my_highlights.slice();
     let created = false;
     iterator.forEach(highlight => {
       let hlStart = highlight.start_index;
       let hlEnd = highlight.end_index;
       if (start < hlStart && end < hlEnd && end > hlStart) {
-        created = true;
+        // created = true;
+
         HighlightsActions.deleteHighlight(highlight.id);
-        HighlightsActions.createHighlight({start_index: start, end_index: hlEnd, article_id: this.props.article.id});
+        // HighlightsActions.createHighlight({start_index: end, end_index: hlEnd, article_id: this.props.article.id});
+        end = hlStart;
       } else if (start > hlStart && start < hlEnd && end > hlEnd) {
-        created = true;
+
+        // created = true;
         HighlightsActions.deleteHighlight(highlight.id);
-        HighlightsActions.createHighlight({start_index: hlStart, end_index: end, article_id: this.props.article.id});
+        // HighlightsActions.createHighlight({start_index: hlStart, end_index: start, article_id: this.props.article.id});
+        start = hlEnd;
       } else if (start < hlStart && end > hlEnd) {
+        HighlightsActions.deleteHighlight(highlight.id);
+      } else if (start > hlStart && end < hlEnd) {
+        HighlightsActions.deleteHighlight(highlight.id);
+      } else if (start == hlStart || end == hlEnd) {
         HighlightsActions.deleteHighlight(highlight.id);
       }
     });
-    if (!created) {
-      if (start > end) {
-        end = [start, start = end][0];
-      }
-      HighlightsActions.createHighlight({start_index: start, end_index: end, article_id: this.props.article.id});
-    }
+
+
+    HighlightsActions.createHighlight({start_index: start, end_index: end, article_id: this.props.article.id});
+
 
     if (window.getSelection) {
         window.getSelection().removeAllRanges();
@@ -237,7 +249,7 @@ const ArticleAndAnnotations = React.createClass({
 
     return Object.keys(positionComments).map(position => {
 
-      return <img className='comment-icon' style={{top: position}} onClick={this._showComments.bind(this, positionComments[position], position)} src="https://cdn4.iconfinder.com/data/icons/eldorado-basic/40/comment_chat-512.png" />;
+      return <img key={`${position}${positionComments[position]}`} className='comment-icon' style={{top: `${position}px`}} onClick={this._showComments.bind(this, positionComments[position], position)} src="https://cdn4.iconfinder.com/data/icons/eldorado-basic/40/comment_chat-512.png" />;
     });
   },
 
@@ -263,13 +275,13 @@ const ArticleAndAnnotations = React.createClass({
 
     return Object.keys(positionComments).map(position => {
 
-      return <img className='comment-icon' style={{top: position}} onClick={this._showComments.bind(this, positionComments[position], position)} src="https://cdn4.iconfinder.com/data/icons/eldorado-basic/40/comment_chat-512.png" />;
+      return <img key={`${position}${positionComments[position]}`} className='comment-icon' style={{top: `${position}px`}} onClick={this._showComments.bind(this, positionComments[position], position)} src="https://cdn4.iconfinder.com/data/icons/eldorado-basic/40/comment_chat-512.png" />;
     });
 
     // return this.props.article.comments.map(comment => {
     //
     //     let y = comment.ratio * $('.show-body').outerHeight();
-    //     // - ($('.show-body').offset().top + $('.show-body').position().top);
+    //     // - ($('.show-body').offset().top +`${ $('.sho}px`w-body').position().top);
     //
     //     return <img className='comment-icon' style={{top: y}} onClick={this._showComment.bind(this, comment)} src="https://cdn4.iconfinder.com/data/icons/eldorado-basic/40/comment_chat-512.png" />;
     // });
@@ -289,14 +301,16 @@ const ArticleAndAnnotations = React.createClass({
       comment.push(this.comment);
     }
     let layers = [];
+    let i = 0;
     if (layers.length === 0 && this.props.allHighlightsState) {
       let allHighlights = this._renderAllHighlights();
       allHighlights.forEach(layer => {
         layers.push(
-          <div id='ghost-all-highlights'>
+          <div key={`${layer}${i}`} id='ghost-all-highlights'>
             {layer}
           </div>
         );
+        i++;
       });
     }
     let allComments = [];

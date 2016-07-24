@@ -31,7 +31,7 @@ const GroupShow = React.createClass({
     let articles = [];
     if (this.state.group.articles.length > 0) {
       articles = this.state.group.articles.map(article => {
-        return <ArticleIndexItem article={article} />;
+        return <ArticleIndexItem key={article.id} article={article} />;
       });
     } else {
       articles.push(<p>There are no articles associated with this group.</p>);
@@ -40,7 +40,7 @@ const GroupShow = React.createClass({
     let users = [];
     if (this.state.group.users.length > 0) {
       users = this.state.group.users.map(user => {
-        return <li onClick={this._redirectToUser.bind(this, user.user_id)}><a>{user.username}</a></li>;
+        return <li key={user.user_id} onClick={this._redirectToUser.bind(this, user.user_id)}><a>{user.username}</a></li>;
       });
     } else {
       users.push(<p>There are no users in this group.</p>);

@@ -33,6 +33,7 @@
    width: 730px;
    padding: 110px;
    font-size: 40px;
+   text-shadow: 2px 2px black;
  }
 
 input[type=text] {
@@ -42,6 +43,7 @@ input[type=text] {
     color: white;
     font-family: inherit;
     font-weight: inherit;
+    text-shadow: 2px 2px black;
 }
 input[type=password] {
     width: 65%;
@@ -50,6 +52,7 @@ input[type=password] {
     color: white;
     font-family: inherit;
     font-weight: inherit;
+    text-shadow: 2px 2px black;
 }
 
 input[type=submit] {
@@ -64,6 +67,8 @@ input[type=submit] {
   border: 5px solid white;
   border-radius: 10px;
   box-sizing: border-box;
+  text-shadow: 2px 2px black;
+    box-shadow: 2px 2px black;
 }
 
 input[type=submit]:hover {
@@ -92,6 +97,7 @@ div#login-signup-guest > button {
     color: inherit;
     font-family: inherit;
     font-weight: 600;
+    text-shadow: 2px 2px black;
 }
 div#login-signup-guest > button:hover {
   color: #66ffff;
@@ -99,7 +105,7 @@ div#login-signup-guest > button:hover {
 
  h1 {
    font-size: 120px;
-   text-shadow: 2px 2px;
+   text-shadow: 2px 2px black;
    font-weight: 300;
    margin: 0 auto;
    width: 100%;
@@ -131,4 +137,18 @@ div.errors > li {
   padding: 0;
   border-radius: 0;
   background-color: transparent;
+}
+
+#warning {
+    position: absolute;
+    top: 40px;
+    background-color: #F44336;
+    text-align: center;
+    padding: 4px;
+    border-bottom: solid 4px #000066;
+    left: 25%;
+}
+
+#warning > h4 {
+  margin: 0;
 }

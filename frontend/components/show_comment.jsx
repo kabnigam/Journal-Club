@@ -18,8 +18,8 @@ const ShowComment = React.createClass({
   },
   _handleSubmit: function() {
     CommentsActions.createComment({body: this.state.reply, article_id: this.props.articleId, ratio: this.comments[0].ratio});
-    this.setState({currentReplies: this.state.currentReplies.concat([<p reply={this.state.reply} className='comment-block'>
-      <img onClick={this._deleteCurrentReply.bind(this, this.state.reply)} className='delete-icon hidden-icon' src='https://cdn0.iconfinder.com/data/icons/form-elements-kit/100/minus-red-rounded-01-128.png' />
+    this.setState({currentReplies: this.state.currentReplies.concat([<p key={this.state.reply} reply={this.state.reply} className='comment-block'>
+      <img key={`img${this.state.reply}`} onClick={this._deleteCurrentReply.bind(this, this.state.reply)} className='delete-icon hidden-icon' src='https://cdn0.iconfinder.com/data/icons/form-elements-kit/100/minus-red-rounded-01-128.png' />
       {SessionStore.currentUser().username}: {this.state.reply}
     </p>])});
     this.setState({reply: ''});
@@ -73,14 +73,14 @@ const ShowComment = React.createClass({
       }
       if (this.state.editMode) {
         if (comment.user_id === SessionStore.currentUser().id) {
-          return <p className='comment-block'>
+          return <p key={comment.id} className='comment-block'>
             <img onClick={this._handleDelete.bind(this, comment.id)} className='delete-icon' src='http://res.cloudinary.com/dzpkgj9f0/image/upload/v1468019786/minus-4-512_impykc.png' />
             {comment.username}: {comment.body}</p>;
         } else {
-          return <p className='comment-block'>{comment.username}: {comment.body}</p>;
+          return <p key={comment.id} className='comment-block'>{comment.username}: {comment.body}</p>;
         }
       } else {
-        return <p className='comment-block'>{comment.username}: {comment.body}</p>;
+        return <p key={comment.id} className='comment-block'>{comment.username}: {comment.body}</p>;
       }
     });
 
@@ -88,8 +88,8 @@ const ShowComment = React.createClass({
 
       rendered = rendered.concat(
         this.state.currentReplies.map(reply => {
-
-          return <p reply={reply.props.reply} className='comment-block'>
+          
+          return <p key={reply.props.reply} reply={reply.props.reply} className='comment-block'>
             <img onClick={this._deleteCurrentReply.bind(this, reply.props.reply)} className='delete-icon' src='http://res.cloudinary.com/dzpkgj9f0/image/upload/v1468019786/minus-4-512_impykc.png' />
             {SessionStore.currentUser().username}: {reply.props.reply}
           </p>;
@@ -102,7 +102,7 @@ const ShowComment = React.createClass({
     let del = [];
 
     if (this.comments.map(comment => {return comment.user_id;}).includes(SessionStore.currentUser().id)) {
-      del = <button className='comment-buttons' onClick={this._handleEdit}>EDIT</button>;
+      del = <button key='editcomment' className='comment-buttons' onClick={this._handleEdit}>EDIT</button>;
     }
 
     return (

@@ -40,19 +40,21 @@ const UserShow = React.createClass({
     let groups = [];
     if (this.state.user.groups.length > 0) {
       groups = this.state.user.groups.map(group => {
-        return <li onClick={this._redirectToGroup.bind(this, group.id)}><a>{group.name}</a></li>;
+
+        return <li key={group.name} onClick={this._redirectToGroup.bind(this, group.id)}><a>{group.name}</a></li>;
       });
     } else {
-      groups.push(<p>You are currently not a member of any group.</p>);
+      groups.push(<p key='nogroups'>You are currently not a member of any group.</p>);
     }
 
     let articles = [];
     if (this.state.user.articles.length > 0) {
+      
       articles = this.state.user.articles.map(article => {
-        return <ArticleIndexItem article={article} />;
+        return <ArticleIndexItem key={article.id} article={article} />;
       });
     } else {
-      articles.push(<p>You have not posted any articles.</p>);
+      articles.push(<p key='none' >You have not posted any articles.</p>);
     }
 
     return (

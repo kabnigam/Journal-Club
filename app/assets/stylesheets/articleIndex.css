@@ -82,8 +82,9 @@ div#index-splash > h2 {
   font-family: 'Dosis', sans-serif;
   /*font-family: 'Montserrat', sans-serif;*/
   font-weight: 300;
-  text-shadow: 2px 2px;
+  text-shadow: 2px 2px black;
   margin-top: 10%
+
 }
 
 pre#article-body {
@@ -98,6 +99,7 @@ div#index-splash > h3 {
   margin-top: 10px;
   font-weight: 300;
   font-family: 'Dosis', sans-serif;
+  text-shadow: 2px 2px black;
   /*font-family: 'Montserrat', sans-serif;*/
 }
 

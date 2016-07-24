@@ -49,19 +49,23 @@ const SearchBar = React.createClass({
     let user_results = [];
     let article_results = [];
     let group_results = [];
+    let i = 0;
     if (this.state.user_results) {
       user_results = this.state.user_results.map(result => {
-        return <SearchIndexItem user={result} />;
+        i++;
+        return <SearchIndexItem key={`${i}${result.id}`} user={result} />;
       });
     }
     if (this.state.article_results) {
       article_results = this.state.article_results.map(result => {
-        return <SearchIndexItem article={result} />;
+        i++;
+        return <SearchIndexItem key={`${i}${result.id}`} article={result} />;
       });
     }
     if (this.state.group_results) {
       group_results = this.state.group_results.map(result => {
-        return <SearchIndexItem group={result} />;
+        i++;
+        return <SearchIndexItem key={`${i}${result.id}`} group={result} />;
       });
     }
 

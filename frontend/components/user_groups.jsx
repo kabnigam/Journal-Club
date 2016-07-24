@@ -10,7 +10,7 @@ const UserGroups = React.createClass({
     let groups = [];
     if (SessionStore.currentUser().groups.length > 0) {
       groups = SessionStore.currentUser().groups.map(group => {
-        return <li onClick={this._redirectToGroup.bind(this, group)} className='group-name'>{group.name}</li>;
+        return <li key={`user-${group.name}`} onClick={this._redirectToGroup.bind(this, group)} className='group-name'>{group.name}</li>;
       });
     }
     return (

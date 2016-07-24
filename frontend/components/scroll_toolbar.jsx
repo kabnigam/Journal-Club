@@ -88,12 +88,12 @@ const ToolSidebar = React.createClass({
     if (SessionStore.currentUser().username === this.props.user) {
 
       if (this.props.editState) {
-        edit_delete.push(<button onClick={this._handleSave} className='edit-delete'>SAVE</button>);
-        edit_delete.push(<button onClick={this._handleUpload} className='edit-delete'>UPLOAD IMAGE</button>);
+        edit_delete.push(<button key='save' onClick={this._handleSave} className='edit-delete'>SAVE</button>);
+        edit_delete.push(<button key='upload' onClick={this._handleUpload} className='edit-delete'>UPLOAD IMAGE</button>);
       } else {
-        edit_delete.push(<button onClick={this._handleEdit} className='edit-delete'>EDIT</button>);
+        edit_delete.push(<button key='edit' onClick={this._handleEdit} className='edit-delete'>EDIT</button>);
       }
-      edit_delete.push(<button onClick={this._handleDelete} className='edit-delete'>DELETE</button>);
+      edit_delete.push(<button key='delete' onClick={this._handleDelete} className='edit-delete'>DELETE</button>);
     }
     let commentKlass = 'highlight edit-delete comment';
     if (this.props.commentState) {
@@ -102,19 +102,19 @@ const ToolSidebar = React.createClass({
 
     let show_group_annotations = [];
     if (this.props.article.users.map(user => {return user.username;}).includes(SessionStore.currentUser().username) && !this.props.editState) {
-      show_group_annotations.push(<button className='edit-delete' onClick={this._showAllHighlights}>SHOW ALL HIGHLIGHTS</button>);
-      show_group_annotations.push(<button className='edit-delete' onClick={this._showAllComments}>SHOW ALL COMMENTS</button>);
+      show_group_annotations.push(<button key='show all highlights' className='edit-delete' onClick={this._showAllHighlights}>SHOW ALL HIGHLIGHTS</button>);
+      show_group_annotations.push(<button key='show all comments' className='edit-delete' onClick={this._showAllComments}>SHOW ALL COMMENTS</button>);
     }
 
     if (!this.props.article.users.map(user => {return user.username;}).includes(SessionStore.currentUser().username) &&
     this.props.article.group){
-      show_group_annotations.push(<button className='edit-delete' onClick={this._joinGroup}>JOIN GROUP</button>);
+      show_group_annotations.push(<button key='join group' className='edit-delete' onClick={this._joinGroup}>JOIN GROUP</button>);
     }
 
     let highlight_comment = [];
     if (!this.props.editState) {
-      highlight_comment.push(<button onClick={this._handleHighlight} className='highlight edit-delete'>HIGHLIGHT</button>);
-      highlight_comment.push(<button onClick={this._handleComment} className={commentKlass}>COMMENT</button>);
+      highlight_comment.push(<button key='highlight' onClick={this._handleHighlight} className='highlight edit-delete'>HIGHLIGHT</button>);
+      highlight_comment.push(<button key='comment' onClick={this._handleComment} className={commentKlass}>COMMENT</button>);
     }
 
     return (

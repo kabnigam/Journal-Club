@@ -25,7 +25,7 @@ const ArticlesIndex = React.createClass({
   render: function() {
     let articles = [];
     articles = this.state.articles.map(article => {
-      return <ArticlesIndexItem article={article}/>;
+      return <ArticlesIndexItem key={`articleitem${article.id}`} article={article}/>;
     });
     let group_form = '';
     if (SessionStore.currentUser().username) {

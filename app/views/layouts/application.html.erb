@@ -9,16 +9,48 @@
 
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
+  <link rel="icon"
+      type="image/png"
+      href="http://i.imgur.com/ixBgo1y.png">
 
   <script src="//widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+
   <script type="text/javascript">
     window.cloudinary_options = {
       cloud_name: "<%=ENV['CLOUD_NAME']%>",
       upload_preset: "<%=ENV['UPLOAD_PRESET']%>"
     };
   </script>
+
 </head>
 <body>
+  <div id='warning'>
+    <h4 class="red">Your Browser Is Not Supported!</h4>
+    <p>Please use <a href='http://www.apple.com/safari/'>Safari</a> or <a href='https://www.google.com/chrome/browser/desktop/'>Chrome</a> for optimal expereince. Thank You!&nbsp;&nbsp;&nbsp;<a href="#" onClick="document.getElementById('warning').style.display = 'none';"><br></br><b>Close Window</b></a></p>
+  </div>
+  <script type="text/javascript">
+
+  // Opera 8.0+
+    var isOpera = (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
+    // Firefox 1.0+
+    var isFirefox = typeof InstallTrigger !== 'undefined';
+    // At least Safari 3+: "[object HTMLElementConstructor]"
+    var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
+    // Internet Explorer 6-11
+    var isIE = /*@cc_on!@*/false || !!document.documentMode;
+    // Edge 20+
+    var isEdge = !isIE && !!window.StyleMedia;
+    // Chrome 1+
+    var isChrome = !!window.chrome && !!window.chrome.webstore;
+    // Blink engine detection
+    var isBlink = (isChrome || isOpera) && !!window.CSS;
+
+    if (isChrome || isSafari) {
+
+      $('#warning').css('display', 'none');
+    }
+
+</script>
 
 
 <%= yield %>

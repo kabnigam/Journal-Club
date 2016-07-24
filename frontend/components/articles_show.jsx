@@ -17,18 +17,18 @@ const ArticlesShow = React.createClass({
     this.listener = ArticlesStore.addListener(this._onChange);
     this.groupListener = GroupsStore.addListener(this._onChange);
     ArticlesActions.fetchArticles();
-    this.setState({picture_url: this.article.picture_url});
+    // this.setState({picture_url: this.article.picture_url});
   },
 
   componentWillReceiveProps: function(newProps) {
     this.article = ArticlesStore.find(parseInt(newProps.params.articleId));
-    this.setState({title: this.article.title, body: this.article.body});
+    this.setState({title: this.article.title, body: this.article.body, picture_url: this.article.picture_url});
   },
   _onChange: function() {
 
 
     this.article = ArticlesStore.find(parseInt(this.props.params.articleId));
-    this.setState({title: this.article.title, body: this.article.body});
+    this.setState({title: this.article.title, body: this.article.body, picture_url: this.article.picture_url});
   },
   componentWillUnmount: function() {
     this.listener.remove();
@@ -116,7 +116,7 @@ _triggerAllComments: function() {
     } else {
       if (this.article.group) {
         group.push(' in ');
-        group.push(<span onClick={this._redirectToGroup} id='group-name'>{this.article.group.name}</span>);
+        group.push(<span key={group.name} onClick={this._redirectToGroup} id='group-name'>{this.article.group.name}</span>);
       }
     }
     if (this.state.edit) {
@@ -134,7 +134,7 @@ _triggerAllComments: function() {
           <div id='article-content-container'>
             <div id="article-and-sidebar">
               <div id='article-show-user'>
-                <img src='http://errantscience.com/wp-content/uploads/Duck-face.jpg' />
+                <img src='http://res.cloudinary.com/dzpkgj9f0/image/upload/v1468814339/Duck-face_f6qn4u.jpg' />
                 <h3>Posted by <span id='username'>{this.article.user.username}</span>
                 {group}
                 </h3>
@@ -167,7 +167,7 @@ _triggerAllComments: function() {
           <div id='article-content-container'>
             <div id="article-and-sidebar">
               <div id='article-show-user'>
-                <img src='http://errantscience.com/wp-content/uploads/Duck-face.jpg' />
+                <img src='http://res.cloudinary.com/dzpkgj9f0/image/upload/v1468814339/Duck-face_f6qn4u.jpg' />
                 <h3>Posted by <span onClick={this._redirectToUser} id='username'>{this.article.user.username}</span>
                 {group}
                 </h3>

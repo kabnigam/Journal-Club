@@ -68,7 +68,7 @@ const ArticleForm = React.createClass({
       }
       return (
         <div id='create-article-form'>
-          <img onClick={this._handleClose} id='close-button' src='https://cdn2.iconfinder.com/data/icons/status-4/24/close-circle-128.png' />
+          <img onClick={this._handleClose} id='close-button' src='http://res.cloudinary.com/dzpkgj9f0/image/upload/v1468814290/close-circle-128_is3pnt.png' />
           <div className='errors'>
             {this.state.errors.map(error => {
               return <li>{error}</li>;})}
@@ -93,7 +93,7 @@ const ArticleForm = React.createClass({
     return (
 
       <div id='add-article-click' onClick={this._handleClick}>
-        <img id='create-article-button' src='https://www.materialui.co/materialIcons/content/add_circle_outline_grey_192x192.png' />
+        <img id='create-article-button' src='http://res.cloudinary.com/dzpkgj9f0/image/upload/v1468814176/add_circle_outline_grey_192x192_mkdddo.png' />
         Add article here...
       </div>
     );

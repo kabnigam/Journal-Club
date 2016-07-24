@@ -109,14 +109,15 @@ div#site-name:hover {
   margin: 5px;
   height: 20px;
   font-size: 14px;
-  margin-right: 40px;
+
   position: absolute;
-  right: 10%;
+  right: 150px;
+    top: 2px;
 }
 
 .search-content {
     display: block;
-    top: 140%;
+    top: 135%;
     left: -10%;
     z-index: 5;
 
