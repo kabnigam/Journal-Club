@@ -19,8 +19,8 @@ Journal Club is a website that facilitates a collective discussion of articles b
   * User can add and delete highlights/comments on any article. If part of the group that posted the article, those highlights can be seen by other users in the group
 * See all highlights/comments
   * If part of the group that posted the article, user can see all highlights and comments made by all other users in the groups
-  ![Annotate][gif-annotate]
   * User can also reply to comments made by other users
+  ![Annotate][gif-annotate]
 * Edit articles
   * If user posted the article, user can edit/update the article title, body and photo
   * Can only update body if no annotations have been created yet
