@@ -183,6 +183,7 @@ button.create-group-button {
     border: 1px solid lime;
     padding: 5px;
     border-radius: 20px;
+    color: lime;
 }
 button.create-group-button:hover {
   background-color: #33cc33;;
@@ -196,7 +197,7 @@ div.sr:hover {
 
 
 div.create-group-form > div.my-groups > h2 {
-  font-weight: normal;
+  font-weight: 600;
   text-align: center;
 }
 

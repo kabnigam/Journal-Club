@@ -120,6 +120,11 @@ _triggerAllComments: function() {
       }
     }
     if (this.state.edit) {
+      let disabled = false;
+
+      if (this.article.highlights.length > 0) {
+        disabled = true;
+      }
       return (
         <div id='article-show-container'>
           <div id='article-show-image'>
@@ -142,7 +147,7 @@ _triggerAllComments: function() {
 
               <div id='article-edit-body'>
 
-                <textarea id='edit-body' value={this.state.body} onChange={this._editBody} />
+                <textarea id='edit-body' value={this.state.body} onChange={this._editBody} disabled={disabled}/>
               </div>
             </div>
             <ToolSidebar user={this.article.user.username} article={this.article}

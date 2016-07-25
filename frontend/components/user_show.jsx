@@ -49,7 +49,7 @@ const UserShow = React.createClass({
 
     let articles = [];
     if (this.state.user.articles.length > 0) {
-      
+
       articles = this.state.user.articles.map(article => {
         return <ArticleIndexItem key={article.id} article={article} />;
       });
@@ -76,7 +76,7 @@ const UserShow = React.createClass({
                 {articles}
               </div>
               <div className='my-groups'>
-                <h2>GROUPS</h2>
+                <h2>CLUBS</h2>
                 <ul>
                   {groups}
                 </ul>

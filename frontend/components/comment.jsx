@@ -44,7 +44,7 @@ const CommentsForm = React.createClass({
         <img onClick={this._handleClose} id='close-button' src='https://cdn2.iconfinder.com/data/icons/status-4/24/close-circle-128.png' />
         <textarea className='create-comment-body' placeholder="Body" value={this.state.body} onChange={this._handleBody}></textarea>
         <br/>
-        <button className='comment-submit' onClick={this._handleSubmit}>Post</button>
+        <button className='comment-buttons' onClick={this._handleSubmit}>Post</button>
       </div>
     );
   }

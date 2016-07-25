@@ -48,7 +48,7 @@ const GroupForm = React.createClass({
           <UserGroups />
           <div id='add-article-click' onClick={this._handleClick}>
             <img id='create-article-button' src='http://res.cloudinary.com/dzpkgj9f0/image/upload/v1468814176/add_circle_outline_grey_192x192_mkdddo.png' />
-            Create new group
+            Create New Club
           </div>
 
 
@@ -63,7 +63,7 @@ const GroupForm = React.createClass({
         <div className='create-group-form'>
           <UserGroups />
           <img onClick={this._hideForm} id='hide-group-button' src='http://res.cloudinary.com/dzpkgj9f0/image/upload/v1468814108/minus-5-xxl_jxbfzo.png' />
-          <h2>Create Group</h2>
+          <h2>Create Club</h2>
           <textarea id='create-group-name' placeholder="Name" onChange={this._handleName}></textarea>
           <br/>
           <label id='select-users'>
@@ -75,7 +75,7 @@ const GroupForm = React.createClass({
 
           </label>
           <br/>
-          <button onClick={this._handleSubmit} className='create-group-button'>Create Group</button>
+          <button onClick={this._handleSubmit} className='create-group-button'>Create Club</button>
 
 
         </div>

@@ -1,33 +1,169 @@
 # Journal Club
-[Heroku link][heroku]
 
-[heroku]: http://www.myjournal.club
-## Minimum Viable Product
-Journal Club is a web application inspired by RapGenius that will be built using Ruby on Rails and React.js. By the end of week 9, this app will, at minimum, satisfy the following criteria:
 
-- [ ]  Hosting on heroku
-- [ ] New account creation, login, and guest login/tour
-- [ ] A production README that will replace this README
-- [ ] Journal Articles
-    - [ ] Smooth, bug-free navigation
-  - [ ] Adequate seed data to demonstrate the site's features
-  - [ ] Adequate CSS styling (using PDF reader plugin)
-- [ ] Highlights
-    - [ ] Smooth, bug-free navigation
-  - [ ] Adequate seed data to demonstrate the site's features
-  - [ ] Adequate CSS styling
-- [ ] Comments
-    - [ ] Smooth, bug-free navigation
-  - [ ] Adequate seed data to demonstrate the site's features
-  - [ ] Adequate CSS styling
-- [ ] Journal Clubs/Groups
-    - [ ] Smooth, bug-free navigation
-  - [ ] Adequate seed data to demonstrate the site's features
-  - [ ] Adequate CSS styling
+
+Journal Club is a website that facilitates a collective discussion of articles by allowing users to share and annotate articles together. In addition to creating their own highlights and comments, users can be part of a "Journal Club," where they can share articles as well as see all highlights and comments made by other members of the group.
+
+[Live Here][live_url]
+
+## Features
+* Authentication
+  * Session is authenticated on the backend, with session tokens being reset and reassigned upon every logout and login, respectively
+  ![Login](images/login.png)
+* Post articles
+  * Articles can be created with a title, body, and optional source, background image and/or club
+* Create clubs
+  * User can create new clubs and add as many users as they'd like using real-time user search
+  ![Create][gif_create]
+* Create highlights/comments
+  * User can add and delete highlights/comments on any article. If part of the group that posted the article, those highlights can be seen by other users in the group
+* See all highlights/comments
+  * If part of the group that posted the article, user can see all highlights and comments made by all other users in the groups
+  ![Annotate][gif-annotate]
+  * User can also reply to comments made by other users
+* Edit articles
+  * If user posted the article, user can edit/update the article title, body and photo
+  * Can only update body if no annotations have been created yet
+* Search articles, users, and groups
+  * Real-time dynamic search bar that filters results based on input
+
+
+## Languages, Frameworks and Libraries
+* Ruby on rails
+* PostgreSQL
+* React
+* Flux
+* jQuery
+* Gems
+  * jBuilder
+  * BCrypt
+
+## Code Snips
+Upon clicking the highlight button, document event listeners are added to obtain start and end points of user highlights.
+```javascript
+if (this.props.highlightState === true) {
+
+  document.getElementById('ghost-article').addEventListener("mouseup", this._getHighlightCoords);
+} else if (document.getElementById('ghost-article')) {
+  document.getElementById('ghost-article').removeEventListener("mouseup", this._getHighlightCoords);
+}
+```
+
+Highlight coordinates are obtained using event.anchorOffset and event.focusOffset.
+```javascript
+let target = window.getSelection();
+
+let start = target.anchorOffset;
+let end = target.focusOffset;
+if (start !== end) {
+
+  this._handleOverlap(start, end);
+}
+```
+
+Coordinates are then compared to all existing user highlights to check for overlap. If so, then the original highlight is deleted and the new highlight is created. Note the multiple if/else statements, which though serve no use currently, will be used to improve highlight functionality in future versions.
+```javascript
+if (start > end) {
+  end = [start, start = end][0];
+}
+let iterator = this.state.my_highlights.slice();
+let created = false;
+iterator.forEach(highlight => {
+  let hlStart = highlight.start_index;
+  let hlEnd = highlight.end_index;
+  if (start < hlStart && end < hlEnd && end > hlStart) {
+    HighlightsActions.deleteHighlight(highlight.id);
+    end = hlStart;
+  } else if (start > hlStart && start < hlEnd && end > hlEnd) {
+    HighlightsActions.deleteHighlight(highlight.id);
+    start = hlEnd;
+  } else if (start < hlStart && end > hlEnd) {
+    HighlightsActions.deleteHighlight(highlight.id);
+  } else if (start > hlStart && end < hlEnd) {
+    HighlightsActions.deleteHighlight(highlight.id);
+  } else if (start == hlStart || end == hlEnd) {
+    HighlightsActions.deleteHighlight(highlight.id);
+  }
+});
+HighlightsActions.createHighlight({start_index: start, end_index: end, article_id: this.props.article.id});
+```
+
+When creating a comment, another event listener on the document gets the current y-position of the comment and computes a ratio based on the current height of the window which is then stored in the database.
+
+```javascript
+let ratio = (this.props.yCoord)/($('.show-body').outerHeight());
+CommentsActions.createComment({body: this.state.body, article_id: this.props.articleId, ratio: ratio});
+this.setState({body: ""});
+this.props.hide();
+```
+
+Comments are then rendered on the page based on the current height of the window.This allow for comments to be rendered in the same position relative to where they were created when the window size changes.
+
+```javascript
+this.props.article.comments.forEach(comment => {
+  if (comment.user_id === SessionStore.currentUser().id) {
+    let pushed = false;
+    let y = comment.ratio * $('.show-body').outerHeight();
+    Object.keys(positionComments).forEach(position => {
+      if ((parseFloat(position) - 25) < y && (parseFloat(position) + 25) > y) {
+        positionComments[position].push(comment);
+        pushed = true;
+      }
+    });
+    if (!pushed) {
+      positionComments[y] = [comment];
+    }
+  }
+```
+
+When rendering all highlights, multiple different layers are created for each user that are then placed behind the current layer.
+```javascript
+let allHighlights = HighlightsStore.highlightsByUser();
+delete allHighlights[SessionStore.currentUser().id];
+let layers = [];
+Object.keys(allHighlights).forEach(user_id => {
+  let body_string = this.props.article.body;
+  let body_els = [];
+  let i = 0;
+  let color = colors.shift();
+  allHighlights[user_id].forEach(highlight => {
+    body_els.push(body_string.slice(i, highlight.start_index));
+    body_els.push(<span className='all-highlights-text'
+    style={{background: `${color}`}}>
+    {body_string.slice(highlight.start_index, highlight.end_index)}</span>);
+    i = highlight.end_index;
+  });
+  body_els.push(body_string.slice(i));
+  layers.push(body_els);
+});
+return layers;
+},
+```
+
+A transparent "ghost layer" was utilized so that the indices of text that the user is selecting when highlighting do not change as span tags are added. The article component listens to the highlights store such that every highlight triggers a re-rendering of the article component.
+
+```javascript
+<div className='ghost-article-wrap'>
+
+  <div className='show-body'>
+    {this._renderMyComments()}
+    {allComments}
+    <CommentsForm commentState={this.props.commentState} showForm={this.props.showForm} yCoord={this.state.yCoord} articleId={this.props.article.id} hide={this._hide}/>
+    <div id='ghost-article' onClick={this._handleClickDelete}>
+      {this.props.article.body}
+    </div>
+    {layers}
+    <div id='article'>
+      {this._createBody()}
+    </div>
+    {comment}
+  </div>
+</div>
+```
+
+
 
 ## Design Docs
-* [View Wireframes][views]
-* [React Components][components]
 * [Flux Cycles][flux-cycles]
 * [API endpoints][api-endpoints]
 * [DB schema][schema]
@@ -38,94 +174,12 @@ Journal Club is a web application inspired by RapGenius that will be built using
 [api-endpoints]: docs/api-endpoints.md
 [schema]: docs/schema.md
 
-## Implementation Timeline
-
-### Phase 1: Backend setup and Front End User Authentication (1 day, W1 Tu 6pm)
-
-**Objective:** Functioning rails project with Authentication
-
-- [ ] create new project
-- [ ] create `User` model
-- [ ] authentication
-- [ ] user signup/signin pages
-- [ ] blank landing page after signin
-
-### Phase 2: Articles Model, API, and basic APIUtil (1 day, W1 Wed 6pm)
-
-**Objective:** Articles can be added and destroyed through
-the API.
-
-- [ ] create `Article` model
-- [ ] seed the database with a small amount of test data
-- [ ] CRUD API for Article (`ArticleController`)
-- [ ] setup Webpack & Flux scaffold
-- [ ] setup `APIUtil` to interact with the API
-- [ ] test out API interaction in the console.
-
-### Phase 3: Flux Architecture and Router (1 day, W1 Th 6pm)
-
-**Objective:** Articles can be added and destroyed with the
-user interface.
-
-- [ ] setup the flux loop with skeleton files
-- [ ] setup React Router
-- implement each note component, building out the flux loop as needed.
-  - [ ] `ArticleIndex`
-  - [ ] `ArticleIndexItem`
-  - [ ] `ArticleForm`
-
-### Phase 4: Start Styling (1 day, W1 Fri 6pm)
-
-**Objective:** Existing pages (including signup/signin) will look good.
-
-- [ ] create a basic style guide
-- [ ] position elements on the page
-- [ ] add basic colors & styles
-
-### Phase 5: Groups (1 day, W2 Mon 6pm)
-
-**Objective:** Articles belong to Groups, and can be viewed in group.
-
-- [ ] create `Group` model
-- build out API, Flux loop, and components for:
-- - [ ] jBuilder views for groups
-  - [ ] Group CRUD
-  - [ ] adding article requires a group
-  - [ ] viewing articles by group
-- Use CSS to style new views
 
 
-### Phase 6: Highlights and Comments (1.5 days, W2 Wed 12pm)
 
-**Objective:** Highlights and comments can be added to articles. Multple users can share a single highlight
 
-- [ ] create `Highlight and comment` models and join table
-- build out API, Flux loop, and components for:
-  - [ ] fetching highlights and comments for articles
-  - [ ] adding highlights and comments to articles
-- [ ] Style new elements
 
-### Phase 7: Search (.5 days, W2 Wed 6pm)
 
-**Objective:** create dynamic search
-
-- [ ] create search model
-- build out API, Flux loop, and components for:
-  - [ ] fetching search results
-  - [ ] dynamically filtering search results
-- [ ] Style new elements
-
-### Phase 8: Styling Cleanup and Seeding (2 days, W2 Fri 6pm)
-
-**objective:** Make the site feel more cohesive and awesome.
-
-- [ ] Get feedback on my UI from others
-- [ ] Refactor HTML classes & CSS rules
-- [ ] Add modals, transitions, and other styling flourishes.
-
-### Bonus Features (TBD)
-- [ ] User profile page
-- [ ] hide/show other comments and highlights
-- [ ] trending articles home page
- - [ ] questions
-  - [ ] replies
+[live_url]: <http://myjournal.club>
+[gif_create]: <http://g.recordit.co/9aEOVIECRI.gif>
+[gif-annotate]: <http://g.recordit.co/Wfgc7wxUNz.gif>

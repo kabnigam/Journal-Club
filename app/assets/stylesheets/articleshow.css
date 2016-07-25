@@ -19,6 +19,7 @@ div#article-show-title > h1 {
   text-align: center;
   position: relative;
   top: 100px;
+  text-shadow: 2px 2px white;
 }
 
 div#article-content-container {

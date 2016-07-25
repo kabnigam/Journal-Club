@@ -4,52 +4,60 @@
 column name | data type | details
 ------------|-----------|-----------------------
 id          | integer   | not null, primary key
-article       | string?   | ? references url or location of upload
-group_id | integer   | not null, foreign key (references group), indexed
+user_id          | integer   | not null, foreign_key
+title       | string   | not null
+body       | string   | not null
+picture_url       | string   |
+
 
 ## Groups
 column name | data type | details
 ------------|-----------|-----------------------
 id          | integer   | not null, primary key
 name        | string    | not null
-description | string    |
 
-## users
+
+## Users
 column name | data type | details
 ------------|-----------|-----------------------
 id          | integer   | not null, primary key
-name        | string    | not null
+email        | string    | not null
+username        | string    | not null
 password_digest        | string    | not null
 session_token        | string    | not null
-interests   | text      |
-description | text      |
 
 
-## user-group join table
+
+## User-Group Join Table 
 column name | data type | details
 ------------|-----------|-----------------------
 id          | integer   | not null, primary key
 user_id     | integer   | not null, foreign key
 group_id    | integer   | not null, foreign key
 
-## highlights
+## Article-Group Join Table
+column name | data type | details
+------------|-----------|-----------------------
+id          | integer   | not null, primary key
+article_id     | integer   | not null, foreign key
+group_id    | integer   | not null, foreign key
+
+## Highlights
 column name | data type | details
 ------------|-----------|-----------------------
 id          | integer   | not null, primary key
 article_id   | integer   | not null, foreign key
-article_location      | ?   | not null
+user_id   | integer   | not null, foreign key
+start_idx   | integer   | not null
+end_idx   | integer   | not null
 
-## highlight-user join table
-column name | data type | details
-------------|-----------|-----------------------
-id          | integer   | not null, primary key
-highlight_id   | integer   | not null, foreign key
-user_id      | integer   | not null, foreign key
 
-## comments
+
+## Comments
 column name     | data type | details
 ----------------|-----------|-----------------------
 id              | integer   | not null, primary key
 user_id        | integer    | not null, indexed
-content | string    | not null
-article_location   | ?    | not null
+article_id        | integer    | not null, indexed
+body | text    | not null
+ratio  | float    | not null

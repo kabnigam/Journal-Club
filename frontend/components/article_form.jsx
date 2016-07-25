@@ -27,7 +27,7 @@ const ArticleForm = React.createClass({
     this.setState({clicked: false});
   },
   _handleGroup: function(e) {
-    debugger
+    
     this.setState({group: e.target.value});
   },
   postImage(url) {
@@ -60,7 +60,7 @@ const ArticleForm = React.createClass({
   render: function() {
 
     if (this.state.clicked) {
-      let select_options = [<option>No Group Selected</option>];
+      let select_options = [<option>No Club Selected</option>];
       if (SessionStore.currentUser().groups.length > 0) {
         SessionStore.currentUser().groups.forEach(group => {
           select_options.push(<option value={group.id} >{group.name}</option>);
@@ -80,7 +80,7 @@ const ArticleForm = React.createClass({
           <input id='create-article-source' placeholder="Source (optional)" onChange={this._handleSource}></input>
           <br/>
           <br />
-          <span style={{color: 'gray'}}>Group: </span>&nbsp;
+          <span style={{color: 'gray'}}>Club: </span>&nbsp;
           <select onChange={this._handleGroup}>
             {select_options}
           </select>

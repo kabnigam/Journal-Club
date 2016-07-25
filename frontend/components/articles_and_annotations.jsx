@@ -112,16 +112,10 @@ const ArticleAndAnnotations = React.createClass({
       let hlStart = highlight.start_index;
       let hlEnd = highlight.end_index;
       if (start < hlStart && end < hlEnd && end > hlStart) {
-        // created = true;
-
         HighlightsActions.deleteHighlight(highlight.id);
-        // HighlightsActions.createHighlight({start_index: end, end_index: hlEnd, article_id: this.props.article.id});
         end = hlStart;
       } else if (start > hlStart && start < hlEnd && end > hlEnd) {
-
-        // created = true;
         HighlightsActions.deleteHighlight(highlight.id);
-        // HighlightsActions.createHighlight({start_index: hlStart, end_index: start, article_id: this.props.article.id});
         start = hlEnd;
       } else if (start < hlStart && end > hlEnd) {
         HighlightsActions.deleteHighlight(highlight.id);
@@ -131,8 +125,6 @@ const ArticleAndAnnotations = React.createClass({
         HighlightsActions.deleteHighlight(highlight.id);
       }
     });
-
-
     HighlightsActions.createHighlight({start_index: start, end_index: end, article_id: this.props.article.id});
 
 

@@ -15,7 +15,7 @@ const UserGroups = React.createClass({
     }
     return (
       <div className='my-groups'>
-        <h2>My Groups</h2>
+        <h2>My Clubs</h2>
         <ul>
           {groups}
         </ul>
