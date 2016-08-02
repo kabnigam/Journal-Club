@@ -27,7 +27,7 @@ const ArticleForm = React.createClass({
     this.setState({clicked: false});
   },
   _handleGroup: function(e) {
-    
+
     this.setState({group: e.target.value});
   },
   postImage(url) {
@@ -60,10 +60,10 @@ const ArticleForm = React.createClass({
   render: function() {
 
     if (this.state.clicked) {
-      let select_options = [<option>No Club Selected</option>];
+      let select_options = [<option key='none'>No Club Selected</option>];
       if (SessionStore.currentUser().groups.length > 0) {
         SessionStore.currentUser().groups.forEach(group => {
-          select_options.push(<option value={group.id} >{group.name}</option>);
+          select_options.push(<option key={group.name} value={group.id} >{group.name}</option>);
         });
       }
       return (
