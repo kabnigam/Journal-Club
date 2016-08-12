@@ -9,17 +9,14 @@ const ShowComment = React.createClass({
   getInitialState: function() {
     return {reply: '', currentReplies: [], editMode: false, deleted: []};
   },
-  // componentDidMount: function() {
-  //   SearchStore.addListener(this._onChange);
-  //   SessionActions.findUser(this.props.comment.user_id);
-  // },
+
   _handleReply: function(e) {
     this.setState({reply: e.target.value});
   },
   _handleSubmit: function() {
     CommentsActions.createComment({body: this.state.reply, article_id: this.props.articleId, ratio: this.comments[0].ratio});
     this.setState({currentReplies: this.state.currentReplies.concat([<p key={this.state.reply} reply={this.state.reply} className='comment-block'>
-      <img key={`img${this.state.reply}`} onClick={this._deleteCurrentReply.bind(this, this.state.reply)} className='delete-icon hidden-icon' src='https://cdn0.iconfinder.com/data/icons/form-elements-kit/100/minus-red-rounded-01-128.png' />
+      <img key={`img${this.state.reply}`} onClick={this._deleteCurrentReply.bind(this, this.state.reply)} className='delete-icon hidden-icon' src='http://res.cloudinary.com/dzpkgj9f0/image/upload/v1468019786/minus-4-512_impykc.png' />
       {SessionStore.currentUser().username}: {this.state.reply}
     </p>])});
     this.setState({reply: ''});
@@ -43,6 +40,7 @@ const ShowComment = React.createClass({
   _handleDelete: function(id) {
     CommentsActions.deleteComment(id);
     this.setState({deleted: this.state.deleted.concat([id])});
+    this._handleClose();
   },
 
   _deleteCurrentReply: function(reply) {
@@ -57,6 +55,7 @@ const ShowComment = React.createClass({
     this.setState({currentReplies: crr});
     let comment = ArticlesStore.findCommentByReply(reply, SessionStore.currentUser().id, this.props.articleId);
     CommentsActions.deleteComment(comment.id);
+
   },
 
   render: function() {
@@ -88,7 +87,7 @@ const ShowComment = React.createClass({
 
       rendered = rendered.concat(
         this.state.currentReplies.map(reply => {
-          
+
           return <p key={reply.props.reply} reply={reply.props.reply} className='comment-block'>
             <img onClick={this._deleteCurrentReply.bind(this, reply.props.reply)} className='delete-icon' src='http://res.cloudinary.com/dzpkgj9f0/image/upload/v1468019786/minus-4-512_impykc.png' />
             {SessionStore.currentUser().username}: {reply.props.reply}

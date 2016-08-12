@@ -10,17 +10,23 @@ const ShowComment= require('./show_comment');
 
 const ArticleAndAnnotations = React.createClass({
   getInitialState: function() {
-    return {my_highlights: [], highlight_state: this.props.highlightState, yCoord: undefined, show_comment: false};
+    return {my_highlights: [], window_height: '', highlight_state: this.props.highlightState, yCoord: undefined, show_comment: false};
   },
   componentDidMount: function() {
 
     this.listenerH = HighlightsStore.addListener(this._onChange);
     HighlightsActions.fetchHighlights(this.props.article.id);
-    document.querySelector('.show-body').addEventListener('click', this._getCommentCoords);
+    document.querySelector('#article-content-container').addEventListener('click', this._getCommentCoords);
+    this._handleResize();
+    window.addEventListener('resize', this._handleResize);
 
   },
 
 
+  _handleResize: function() {
+
+    this.setState({window_height: $('#article-content-container').outerHeight()});
+  },
 
   _onChange: function() {
 
@@ -29,7 +35,7 @@ const ArticleAndAnnotations = React.createClass({
   componentWillUnmount: function() {
 
     this.listenerH.remove();
-    document.querySelector('.show-body').removeEventListener('click', this._getCommentCoords);
+    document.querySelector('#article-content-container').removeEventListener('click', this._getCommentCoords);
     HighlightsStore.reset();
 
   },
@@ -191,7 +197,9 @@ const ArticleAndAnnotations = React.createClass({
       if (comment.user_id === SessionStore.currentUser().id) {
 
         let pushed = false;
-        let y = comment.ratio * $('.show-body').outerHeight();
+
+        let y = comment.ratio * this.state.window_height;
+
         Object.keys(positionComments).forEach(position => {
           if ((parseFloat(position) - 25) < y && (parseFloat(position) + 25) > y) {
 
@@ -218,7 +226,7 @@ const ArticleAndAnnotations = React.createClass({
 
     this.props.article.comments.forEach(comment => {
       let pushed = false;
-      let y = comment.ratio * $('.show-body').outerHeight();
+      let y = comment.ratio * this.state.window_height;
       Object.keys(positionComments).forEach(position => {
         if ((parseFloat(position) - 25) < y && (parseFloat(position) + 25) > y) {
 
@@ -268,6 +276,8 @@ const ArticleAndAnnotations = React.createClass({
     let allComments = [];
     if (this.props.allCommentsState) {
       allComments = this._renderAllComments();
+    } else {
+      allComments = this._renderMyComments();
     }
 
 
@@ -275,7 +285,7 @@ const ArticleAndAnnotations = React.createClass({
       <div className='ghost-article-wrap'>
 
         <div className='show-body'>
-          {this._renderMyComments()}
+
           {allComments}
           <CommentsForm commentState={this.props.commentState} showForm={this.props.showForm} yCoord={this.state.yCoord} articleId={this.props.article.id} hide={this._hide}/>
           <div id='ghost-article' onClick={this._handleClickDelete}>

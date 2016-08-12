@@ -19,7 +19,8 @@ const CommentsForm = React.createClass({
 
   },
   _handleSubmit: function() {
-    let ratio = (this.props.yCoord)/($('.show-body').outerHeight());
+
+    let ratio = (this.props.yCoord)/($('#article-content-container').outerHeight());
     CommentsActions.createComment({body: this.state.body, article_id: this.props.articleId, ratio: ratio});
     this.setState({body: ""});
     this.props.hide();
@@ -30,7 +31,6 @@ const CommentsForm = React.createClass({
   },
   _handleClose: function() {
     this.props.hide();
-
   },
 
   render: function() {
